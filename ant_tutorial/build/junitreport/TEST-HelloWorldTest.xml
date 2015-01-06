@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="1" hostname="localhost" name="HelloWorldTest" skipped="0" tests="2" time="0.414" timestamp="2015-01-06T22:33:52">
+  <properties>
+    <property name="ant.project.invoked-targets" value="junit" />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+    <property name="sun.boot.library.path" value="/home/root/jdk1.8.0_25/jre/lib/i386" />
+    <property name="java.vm.version" value="25.25-b02" />
+    <property name="ant.library.dir" value="/home/root/apache-ant-1.9.4/lib" />
+    <property name="ant.version" value="Apache Ant(TM) version 1.9.4 compiled on April 29 2014" />
+    <property name="ant.java.version" value="1.8" />
+    <property name="java.vm.vendor" value="Oracle Corporation" />
+    <property name="java.vendor.url" value="http://java.oracle.com/" />
+    <property name="path.separator" value=":" />
+    <property name="java.vm.name" value="Java HotSpot(TM) Client VM" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="user.country" value="US" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="sun.os.patch.level" value="unknown" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="user.dir" value="/home/root/git/HighFive/ant_tutorial" />
+    <property name="ant.file.HelloWorld" value="/home/root/git/HighFive/ant_tutorial/build.xml" />
+    <property name="java.runtime.version" value="1.8.0_25-b17" />
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment" />
+    <property name="basedir" value="/home/root/git/HighFive/ant_tutorial" />
+    <property name="java.endorsed.dirs" value="/home/root/jdk1.8.0_25/jre/lib/endorsed" />
+    <property name="os.arch" value="i386" />
+    <property name="ant.project.default-target" value="main" />
+    <property name="java.io.tmpdir" value="/tmp" />
+    <property name="ant.core.lib" value="/home/root/apache-ant-1.9.4/lib/ant.jar" />
+    <property name="line.separator" value="&#xa;" />
+    <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+    <property name="os.name" value="Linux" />
+    <property name="ant.home" value="/home/root/apache-ant-1.9.4" />
+    <property name="build.dir" value="build" />
+    <property name="ant.project.name" value="HelloWorld" />
+    <property name="sun.jnu.encoding" value="ANSI_X3.4-1968" />
+    <property name="java.library.path" value="/usr/java/packages/lib/i386:/lib:/usr/lib" />
+    <property name="java.class.version" value="52.0" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="lib.dir" value="lib" />
+    <property name="sun.management.compiler" value="HotSpot Client Compiler" />
+    <property name="os.version" value="3.10.17-poky-edison+" />
+    <property name="ant.file" value="/home/root/git/HighFive/ant_tutorial/build.xml" />
+    <property name="user.home" value="/home/root" />
+    <property name="user.timezone" value="Universal" />
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob" />
+    <property name="java.specification.version" value="1.8" />
+    <property name="file.encoding" value="ANSI_X3.4-1968" />
+    <property name="java.class.path" value="/home/root/git/HighFive/ant_tutorial/lib/junit-4.12.jar:/home/root/git/HighFive/ant_tutorial/build/jar/HelloWorld.jar:/home/root/apache-ant-1.9.4/lib/ant-launcher.jar:/home/root/apache-ant-1.9.4/lib/ant.jar:/home/root/apache-ant-1.9.4/lib/ant-junit.jar:/home/root/apache-ant-1.9.4/lib/ant-junit4.jar" />
+    <property name="user.name" value="root" />
+    <property name="report.dir" value="build/junitreport" />
+    <property name="java.vm.specification.version" value="1.8" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner HelloWorldTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false formatter=org.apache.tools.ant.taskdefs.optional.junit.SummaryJUnitResultFormatter showoutput=false outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/root/git/HighFive/ant_tutorial/build/junitreport/TEST-HelloWorldTest.xml crashfile=/home/root/git/HighFive/ant_tutorial/junitvmwatcher4178313625371035411.properties propsfile=/home/root/git/HighFive/ant_tutorial/junit2660710626522032797.properties" />
+    <property name="sun.arch.data.model" value="32" />
+    <property name="java.home" value="/home/root/jdk1.8.0_25/jre" />
+    <property name="java.specification.vendor" value="Oracle Corporation" />
+    <property name="user.language" value="en" />
+    <property name="classes.dir" value="build/classes" />
+    <property name="awt.toolkit" value="sun.awt.X11.XToolkit" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="java.version" value="1.8.0_25" />
+    <property name="java.ext.dirs" value="/home/root/jdk1.8.0_25/jre/lib/ext:/usr/java/packages/lib/ext" />
+    <property name="sun.boot.class.path" value="/home/root/jdk1.8.0_25/jre/lib/resources.jar:/home/root/jdk1.8.0_25/jre/lib/rt.jar:/home/root/jdk1.8.0_25/jre/lib/sunrsasign.jar:/home/root/jdk1.8.0_25/jre/lib/jsse.jar:/home/root/jdk1.8.0_25/jre/lib/jce.jar:/home/root/jdk1.8.0_25/jre/lib/charsets.jar:/home/root/jdk1.8.0_25/jre/lib/jfr.jar:/home/root/jdk1.8.0_25/jre/classes" />
+    <property name="java.vendor" value="Oracle Corporation" />
+    <property name="file.separator" value="/" />
+    <property name="src.dir" value="src" />
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="ant.file.type.HelloWorld" value="file" />
+    <property name="main-class" value="HelloWorld" />
+    <property name="ant.file.type" value="file" />
+    <property name="jar.dir" value="build/jar" />
+    <property name="sun.cpu.isalist" value="" />
+  </properties>
+  <testcase classname="HelloWorldTest" name="testWillAlwaysFail" time="0.05">
+    <failure message="An error message" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: An error message
+	at HelloWorldTest.testWillAlwaysFail(Unknown Source)
+</failure>
+  </testcase>
+  <testcase classname="HelloWorldTest" name="testNothing" time="0.02" />
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
