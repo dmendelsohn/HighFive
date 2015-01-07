@@ -1,0 +1,19 @@
+package jlibmraa;
+
+import jlibmraa.Utils;
+
+public class Gpio {
+
+    private long nativeHandle;
+
+    public Gpio(int pin, boolean owner=true, boolean raw=false){
+	nativeHandle = loadGpioNative(pin, owner, raw);
+    }
+
+    private native long loadGpioNative(int pin, boolean owner, boolean raw);
+
+    public native int dir(Dir dir);
+
+    public native int write(int value);
+
+}

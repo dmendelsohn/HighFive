@@ -1,0 +1,7 @@
+package jlibmraa;
+
+public class Utils{
+   
+    enum Mode{MODE_STRONG=0, MODE_PULLUP, MODE_PULLDOWN, MODE_HIZ};
+    enum Dir{DIR_OUT=0, DIR_IN};
+    enum Edge{EDGE_NONE=0, EDGE_BOTH, EDGE_RISING, EDGE_FALLING};

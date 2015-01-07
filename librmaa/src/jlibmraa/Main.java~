@@ -1,0 +1,10 @@
+package jlibmraa;
+
+import jlibmraa.Gpio;
+
+public class Main{
+
+    public static void main(String[] args){
+	Gpio.write(2);
+    }
+}
