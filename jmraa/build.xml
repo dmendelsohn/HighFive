@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="jmraaWrapper" basedir="." default="jar">
+
+  <property name="src.dir" value="src"/>
+  <property name="jni.dir" value="jni"/>
+  <property name="jni.include.dir" value="include"/>
+  <property name="jni.lib.name" value="jmraa"/>
+  <property name="classes.dir" value="classes"/>
+  <!-- This class contains the native calls -->
+  <property name="jni.class" value="jmraa.Gpio"/>
+  <!-- Generated JAR file name -->
+  <property name="jar.file" value="${ant.project.name}.jar"/>
+
+  <target name="clean" description="Delete generated files">
+    <delete dir="${classes.dir}"/>
+    <delete file="${jar.file}"/>
+    <exec executable="make" dir="${jni.dir}">
+      <arg line="clean"/>
+    </exec>
+  </target>
+
+  <target name="jni" description="Compiles the C++ src" depends="compile">
+    <!-- Generate the native header for the JNI class -->
+    <exec executable="javah">
+      <arg line="-d ${jni.include.dir} -classpath ${classes.dir} ${jni.class}"/>
+    </exec>
+    <!-- Build the native shared library -->
+    <exec executable="make" dir="${jni.dir}">
+      <arg line="APP=${jni.lib.name}"/>
+    </exec>
+  </target>
+
+  <target name="compile" description="Compiles the Java src">
+    <mkdir dir="${classes.dir}"/>
+    <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+  </target>
+
+  <target name="jar" description="JARs the compiled classes"
+	  depends="compile,jni">
+    <jar destfile="${jar.file}" basedir="${classes.dir}"/>
+  </target>
+
+  <target name="jmraa" description="BLINKY" depends="jar">
+    <java classname="jmraa.Main" classpath="${jar.file}" fork="true">
+      <sysproperty key="java.library.path" path="${jni.dir}"/>
+    </java>
+  </target>
+
+</project>
