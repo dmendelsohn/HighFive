@@ -4,15 +4,18 @@ import jlibmraa.Utils;
 
 public class Gpio {
 
+    static{System.loadLibrary(jlibmraa);
+
     private long nativeHandle;
 
-    public Gpio(int pin, boolean owner=true, boolean raw=false){
-	nativeHandle = loadGpioNative(pin, owner, raw);
+    public Gpio(int pin){
+	loadGpioNative(pin, true, false);
+	//System.out.println(
     }
 
-    private native long loadGpioNative(int pin, boolean owner, boolean raw);
+    private native void loadGpioNative(int pin, boolean owner, boolean raw);
 
-    public native int dir(Dir dir);
+    public native int dir(Utils.Dir dir);
 
     public native int write(int value);
 

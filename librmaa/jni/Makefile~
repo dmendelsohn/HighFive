@@ -2,11 +2,11 @@
 CPPFLAGS = -Wall -g
 
 # Include directories
-INCLUDES = -I../include -I$(JAVA_HOME)/include
+INCLUDES = -I../include -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux -I/usr/include
 
 # Which source files to compile
-SRCS = hello.cpp
-OBJS = $(SRCS:.cpp=.o)
+SRCS = gpio.cc
+OBJS = $(SRCS:.cc=.o)
 
 .PHONY: depend clean sharedlibenv
 

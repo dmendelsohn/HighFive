@@ -7,11 +7,11 @@ public class Gpio {
     private long nativeHandle;
 
     public Gpio(int pin){
-	nativeHandle = loadGpioNative(pin, true, false);
+	loadGpioNative(pin, true, false);
 	//System.out.println(
     }
 
-    private static native long loadGpioNative(int pin, boolean owner, boolean raw);
+    private native void loadGpioNative(int pin, boolean owner, boolean raw);
 
     public native int dir(Utils.Dir dir);
 

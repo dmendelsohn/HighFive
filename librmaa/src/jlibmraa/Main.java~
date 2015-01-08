@@ -1,10 +1,15 @@
 package jlibmraa;
 
-import jlibmraa.Gpio;
+import jlibmraa.*;
 
 public class Main{
 
+    static{System.loadLibrary("jlibmraa");}
+
     public static void main(String[] args){
-	Gpio.write(2);
+	System.out.println("hello");
+	Gpio pin = new Gpio(13);
+	System.out.println(pin.dir(Utils.Dir.DIR_OUT));
+	System.out.println(pin.write(1));
     }
 }

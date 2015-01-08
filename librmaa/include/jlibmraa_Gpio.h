@@ -10,10 +10,10 @@ extern "C" {
 /*
  * Class:     jlibmraa_Gpio
  * Method:    loadGpioNative
- * Signature: (IZZ)J
+ * Signature: (IZZ)V
  */
-JNIEXPORT jlong JNICALL Java_jlibmraa_Gpio_loadGpioNative
-  (JNIEnv *, jclass, jint, jboolean, jboolean);
+JNIEXPORT void JNICALL Java_jlibmraa_Gpio_loadGpioNative
+  (JNIEnv *, jobject, jint, jboolean, jboolean);
 
 /*
  * Class:     jlibmraa_Gpio
