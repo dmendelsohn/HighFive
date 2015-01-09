@@ -8,7 +8,6 @@ public class Gpio {
 
     public Gpio(int pin){
 	loadGpioNative(pin, true, false);
-	//System.out.println(
     }
 
     private native void loadGpioNative(int pin, boolean owner, boolean raw);
@@ -17,4 +16,7 @@ public class Gpio {
 
     public native int write(int value);
 
+    public native int read();
+
+    public native int getPin();
 }

@@ -1,0 +1,16 @@
+package jmraa;
+
+public class MotorController{
+
+    Gpio direction;
+    Pwm power;
+    int invertFactor;
+
+    public MotorController(int pin, I2c i2c, int index, boolean invert = false){
+	direction = new Gpio(pin);
+	power = new Pwm(i2c, index);
+	invertFactor = (invert?1:-1);
+    }
+
+    public void setSpeed(double 
+}

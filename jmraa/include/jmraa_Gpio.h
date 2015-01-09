@@ -31,6 +31,22 @@ JNIEXPORT jint JNICALL Java_jmraa_Gpio_dir
 JNIEXPORT jint JNICALL Java_jmraa_Gpio_write
   (JNIEnv *, jobject, jint);
 
+/*
+ * Class:     jmraa_Gpio
+ * Method:    read
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_jmraa_Gpio_read
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     jmraa_Gpio
+ * Method:    getPin
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_jmraa_Gpio_getPin
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif

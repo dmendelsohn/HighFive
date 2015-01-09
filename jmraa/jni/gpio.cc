@@ -16,7 +16,6 @@ JNIEXPORT void JNICALL Java_jmraa_Gpio_loadGpioNative (JNIEnv *env, jobject this
 }
 
 JNIEXPORT jint JNICALL Java_jmraa_Gpio_dir (JNIEnv *env, jobject thisObj, jobject dir){
-  printf("dir\n");
   mraa::Gpio *inst = getHandle<mraa::Gpio>(env, thisObj);  
 
   jclass enumClass = env->FindClass("jmraa/Utils$Dir");
@@ -29,12 +28,19 @@ JNIEXPORT jint JNICALL Java_jmraa_Gpio_dir (JNIEnv *env, jobject thisObj, jobjec
   }else{
     return (int)(inst->dir(mraa::DIR_IN));
   }
-  return -100;
 }
 
 JNIEXPORT jint JNICALL Java_jmraa_Gpio_write (JNIEnv *env, jobject thisObj, jint value){
-  printf("write\n");
   mraa::Gpio *inst = getHandle<mraa::Gpio>(env, thisObj);  
   return (int)(inst->write(value));
-  //return -150;
+}
+
+JNIEXPORT jint JNICALL Java_jmraa_Gpio_read (JNIEnv *env, jobject thisObj){
+  mraa::Gpio *inst = getHandle<mraa::Gpio>(env, thisObj);
+  return (int)(inst->read());
+}
+
+JNIEXPORT jint JNICALL Java_jmraa_Gpio_getPin (JNIEnv *env, jobject thisObj){
+  mraa::Gpio *inst = getHandle<mraa::Gpio>(env, thisObj);
+  return (int)(inst->getPin());
 }
