@@ -22,7 +22,7 @@ public class Pwm{
 	
 	byte[] buff = new byte[5];
 	System.out.println(i2c.address((byte)(0x40)));
-	buff[0] = (byte)((6+4*index)+1);
+	buff[0] = (byte)(6+4*index);
 	double on = 4095.0*duty;
 	short onRounded = (short) on;
 	buff[1] = (byte)(0x00);
@@ -33,7 +33,7 @@ public class Pwm{
 	System.out.println(i2c.write(buff));
     }
 
-    public void initPwm(){
+    public static void initPwm(I2c i2c){
 	byte[] buff = new byte[2];
 	
 	buff[0]=(byte)0x00;
