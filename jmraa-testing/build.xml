@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="jmraaWrapper" basedir="." default="jar">
 
-  <property name="src.dir" value="./src"/>
-  <property name="jni.dir" value="./jni"/>
+  <property name="src.dir" value="src"/>
+  <property name="jni.dir" value="jni"/>
   <property name="jni.include.dir" value="include"/>
   <property name="jni.lib.name" value="jmraa"/>
   <property name="classes.dir" value="classes"/>
@@ -24,12 +24,10 @@
     <exec executable="javah">
       <arg line="-d ${jni.include.dir} -classpath ${classes.dir} ${jni.class}"/>
     </exec>
-    <echo message="here"/>
     <!-- Build the native shared library -->
     <exec executable="make" dir="${jni.dir}">
       <arg line="APP=${jni.lib.name}"/>
     </exec>
-    <echo message="here"/>
   </target>
 
   <target name="compile" description="Compiles the Java src">
@@ -48,6 +46,4 @@
     </java>
   </target>
 
-  <target name="main" depends="clean, jni, compile,jar,jmraa"/>
-	
 </project>

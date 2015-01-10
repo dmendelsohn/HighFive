@@ -1,0 +1,30 @@
+Robot.java --> put main state-system here
+RobotConstants.java
+
+packages-
+	subsystems:
+		drive_train
+			moveStraight(double speed) -- speed from -1 to 1 -- negative = backwards
+			turnClockwise(double degrees) 
+			turnCounterClockwise(double degrees)
+			stop()
+		sensors -- incorporate these into other subsystems --> replace with vision
+			gyroscope
+			encoders
+			ultrasonic
+			infrared
+			camera (maybe kinect)
+			limit switches (maybe put limit switches into the each specific system)
+		hoppers
+			setPosition(int position) -1=left,0=center,1=right
+		conveyor_belt
+			moveBelt() -- only max speed
+			encoder
+			limit_switch 
+	commands:
+
+		use methods from each of the subsystems
+		^^figure out as you go^^
+
+
+
