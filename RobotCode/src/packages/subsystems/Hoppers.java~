@@ -1,7 +1,7 @@
 package packages.subsystems;
 //import jmraa.*
 
-public class Hoppers{
+public class Hoppers extends StateBase{
 
 	public Hoppers(){
 		System.out.println("Hello Hoppers!");

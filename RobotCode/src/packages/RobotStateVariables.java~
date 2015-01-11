@@ -1,0 +1,28 @@
+package packages;
+
+public class BitchAssClass{
+
+	boolean hasFuckedStevensMom;
+	//drive train
+	double drivetrainLeftMotorSpeed;
+	double drivetrainRightMotorSpeed;
+	double drivetrainLeftEncoder;
+	double drivetrainRightEncoder;
+	double drivetrainGyroAngle;
+	//hoppers
+	int hopperPosition;
+	boolean hopperLeftRelease;
+	boolean hopperRightRelease;
+	//conveyor belt
+	double conveyorMotorSpeed;
+	double conveyorEncoder;
+	boolean conveyorLimitSwitch;
+	//vision
+	//camera stuff
+
+	public BitchAssClass(){
+		hasFuckedStevensMom = true;
+		System.out.println("Has fucked Steven's Mom = " + hasFuckedStevensMom);
+	}
+
+}

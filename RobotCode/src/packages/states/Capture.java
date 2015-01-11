@@ -3,9 +3,10 @@ import packages.states.StateBase;
 
 public class Capture extends StateBase{
 	public Capture(){
-		drivetrain.setCounterClockwiseTurn(0.5);
+		//drivetrain.moveStraight(0.8, true);
 	}	
 	public void run(){
 		System.out.println("running");
+		//exits with 3 sec timeout
 	}
 }

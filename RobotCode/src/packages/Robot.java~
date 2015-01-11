@@ -4,21 +4,36 @@ import packages.states.StateBase;
 
 public class Robot{
 
-	public static StateBase statebase;
+	public StateBase statebase;
 	public int robot_state;
+
+	public DriveTrain drivetrain;
+	public Hoppers hopper;
+	public ConveyorBelt conveyor;
+	public Vision vision;
+
+	public RobotStateVariables robotstatevariables;
+
+	public Robot(){
+
+		drivetrain = new DriveTrain();
+		hopper = new Hoppers();
+		conveyor = new ConveyorBelt();
+		vision = new Vision();
+		
+		robotstatevariables = new RobotStateVariables(); 
+		statebase = new StateBase();
+	}
 
 	public static void main(String[] args){
 		Robot robot = new Robot();
-		statebase = new StateBase();
 
 		//implement state-system functionality here
-		robot.setState(1);
-		robot.doAction();
 
-		robot.setState(2);
-		robot.doAction();
-		robot.doAction();
-		
+		for (int i = 1; i<3; i++){
+			robot.setState(i);
+			robot.doAction();
+		}
 	}
 
         public void setState(int state){
@@ -26,20 +41,7 @@ public class Robot{
         }
 
         public void doAction(){
-	    switch(robot_state){
-		    case 1:  statebase.searchForBox();
-		             break;
-		    case 2:  System.out.println(2);
-		             break;
-		    case 3:  System.out.println(3);
-		             break;
-		    case 4:  System.out.println(4);
-		             break;
-		    case 5:  System.out.println(5);
-		             break;
-		    default: System.out.println(1);
-		             break;
-            }
+	    statebase.run(bitchassclass);
         }
 
 }

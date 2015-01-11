@@ -6,9 +6,9 @@ public class DriveTrain{
 		System.out.println("Hello DriveTrain!");
 	}
 	
-	public void moveStraight(double speed){
-		//setLeftSpeed(speed);
-		//setRightSpeed(speed);
+	public void moveStraight(double speed, boolean positive){
+		//if(positive){setLeftSpeed(speed);setRightSpeed(speed);}
+		//else{setLeftSpeed(-speed);setRightSpeed(-speed);}
 	}
 	public void setClockwiseTurn(double speed){
 		//setLeftSpeed(speed);
@@ -20,7 +20,7 @@ public class DriveTrain{
 	}
 	
 	public void stop(){
-		moveStraight(0);
+		moveStraight(0,true);
 	}
 	public double readGyroAngle(){
 		//read SPI

@@ -3,8 +3,9 @@ import packages.states.StateBase;
 
 public class BlindBoxFollow extends StateBase{
 	public BlindBoxFollow(){
-		drivetrain.setCounterClockwiseTurn(0.5);
-	}	
+		//drivetrain.moveStraight(0.8, true);
+	}
+	//public void start(){}
 	public void run(){
 		System.out.println("running");
 	}
