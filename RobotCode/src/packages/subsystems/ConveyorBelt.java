@@ -32,4 +32,15 @@ public class ConveyorBelt{
 		//	encoderMoveBelt();
 		//}
 	}
+	public boolean checkOuterFeedLimitSwitch(){
+		//feed limit switch
+		return true;
+	}
+	public void engageLock(){
+		//spear back block
+	}
+	public boolean checkInnerFeedLimitSwitch(){
+		//feed limit switch
+		return true;
+	}
 }

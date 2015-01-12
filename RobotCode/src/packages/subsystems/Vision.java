@@ -18,4 +18,6 @@ public class Vision{
 		//-1 for to left, 0 to middle, 1 to right , 2 if non-existent
 		return 0;
 	}
+	public void doNothing(){
+	}
 }

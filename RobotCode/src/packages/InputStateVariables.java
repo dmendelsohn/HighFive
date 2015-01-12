@@ -2,10 +2,13 @@ package packages;
 
 public class InputStateVariables{
 
-	public boolean seesTarget;
-	public double gyroAngle;
-	public double howCentered;
-	public double boxDistance;
+	public boolean seesTarget; //vision
+	public double gyroAngle; //drivetrain
+	public double howCentered; //vision
+	public double boxDistance; //vision
+
+	public boolean outerFeedLimitEngaged; //conveyor belt
+	public boolean innerFeedLimitEngaged; 
 	//sensing results 
 
 

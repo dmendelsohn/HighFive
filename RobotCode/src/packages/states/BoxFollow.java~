@@ -47,7 +47,7 @@ public class BoxFollow extends StateBase{
 	}
 
 	public StateBase getNext(InputStateVariables input){
-		if(input.feedLimitEngaged){
+		if(input.feedOuterLimitEngaged){
 			return new ForwardCapture();
 		}else if(System.currentTimeMillis()-stateStartTime > 1500.){
 			return new BlindBoxFollow();

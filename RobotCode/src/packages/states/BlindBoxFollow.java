@@ -22,7 +22,7 @@ public class BlindBoxFollow extends StateBase{
 	}
 
 	public StateBase getNext(InputStateVariables input){
-		if(input.feedLimitEngaged){
+		if(input.outerFeedLimitEngaged){
 			return new ForwardCapture();
 		} else if(System.currentTimeMillis()-stateStartTime > 4000.){
 			return new BoxSearch();

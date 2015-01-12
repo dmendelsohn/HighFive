@@ -24,7 +24,9 @@ public class ShakeOff extends StateBase{
 	public StateBase getNext(InputStateVariables input){
 		if(System.currentTimeMillis()-stateStartTime > 2000.){
 			return new BoxSearch();
-		} 
+		} else {
+			return this;
+		}
 	}
 }
 
