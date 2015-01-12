@@ -4,10 +4,10 @@ public class OutputStateVariables{
 
 	public boolean hasFuckedStevensMom;
 
-	public String drivetrainOutputMethod;
-	public String hopperOutputMethod;
-	public String conveyorOutputMethod;
-	public String visionOutputMethod;
+	public String drivetrainMethod;
+	public String hopperMethod;
+	public String conveyorMethod;
+	public String visionMethod;
 
 	public OutputStateVariables(){
 		hasFuckedStevensMom = true;

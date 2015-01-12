@@ -17,7 +17,7 @@ State 3: Blind Box Follow:
 	start timer
 	Head in same direction
 	if sees Box --> State 2
-	if timer > 5 sec --> State 1
+	if timer > 4 sec --> State 1
 
 State 4: Capture
 	start timer

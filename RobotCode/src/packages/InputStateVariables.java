@@ -2,10 +2,11 @@ package packages;
 
 public class InputStateVariables{
 
-	public String drivetrainInputMethod;
-	public String hopperInputMethod;
-	public String conveyorInputMethod;
-	public String visionInputMethod;
+	public boolean seesTarget;
+	public double gyroAngle;
+	public double howCentered;
+	public double boxDistance;
+	//sensing results 
 
 
 }

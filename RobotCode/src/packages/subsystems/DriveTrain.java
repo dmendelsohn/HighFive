@@ -11,6 +11,10 @@ public class DriveTrain{
 		//if(positive){setLeftSpeed(speed);setRightSpeed(speed);}
 		//else{setLeftSpeed(-speed);setRightSpeed(-speed);}
 	}
+	public void driveTank(double left_speed, double right_speed, boolean positive){
+		//if(positive){setLeftSpeed(left_speed);setRightSpeed(right_speed);}
+		//else{setLeftSpeed(-left_speed);setRightSpeed(-right_speed);}
+	}
 	public void setClockwiseTurn(double speed){
 		//setLeftSpeed(speed);
 		//setRightSpeed(-speed);
@@ -29,5 +33,13 @@ public class DriveTrain{
 	}
 	public void resetGyro(){
 		//reset gyro
+	}
+	public double compareLeftUltrasonics(){
+		//left front ultrasonic - left back ultrasonic distance
+		return 5.0;
+	}
+	public double compareRightUltrasonics(){
+		//left front ultrasonic - left back ultrasonic distance
+		return 5.0;
 	}
 }

@@ -10,4 +10,12 @@ public class Vision{
 		//return true if sees block
 		return true;
 	}
+	public double getDistance(){
+		//get distance to nearest target
+		return 5.0;
+	}
+	public double howCentered(){
+		//-1 for to left, 0 to middle, 1 to right 
+		return 0;
+	}
 }

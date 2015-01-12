@@ -6,6 +6,7 @@ public class Capture extends StateBase{
 	public OutputStateVariables output;
 
 	public Capture(){
+
 		output = new OutputStateVariables();
 
 		output.drivetrainOutputMethod = "setClockwiseTurn(.5)";
@@ -16,7 +17,7 @@ public class Capture extends StateBase{
 	}
 
 	public OutputStateVariables run(){
-		
+		return output;
 	}
 
 	public StateBase getNext(InputStateVariables input){

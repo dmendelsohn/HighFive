@@ -33,7 +33,7 @@ public class Robot{
 		for (int i = 1; i<2; i++){
 			inputstatevariables = robot.generateInputStateVariables();
 			robot.setState(inputstatevariables);
-			outputstatevariables = robot.readState();
+			outputstatevariables = robot.readState(inputstatevariables);
 			robot.processOutput(outputstatevariables);
 		}
 
@@ -43,9 +43,9 @@ public class Robot{
 	    state = state.getNext(inputstatevariables);
         }
 
-        public OutputStateVariables readState(){
+        public OutputStateVariables readState(InputStateVariables input){
 	    //use state to determine output state variables
-	    return state.run(); 
+	    return state.run(InputStateVariables input); 
         }
 		
 	public void processOutput (OutputStateVariables outputstatevariables){

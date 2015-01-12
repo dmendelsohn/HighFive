@@ -3,8 +3,6 @@ package packages.subsystems;
 
 public class DriveTrain{
 
-	//include states for drivetrain
-
 	public DriveTrain(){
 		System.out.println("Hello DriveTrain!");
 	}
@@ -31,5 +29,13 @@ public class DriveTrain{
 	}
 	public void resetGyro(){
 		//reset gyro
+	}
+	public double compareLeftUltrasonics(){
+		//left front ultrasonic - left back ultrasonic distance
+		return 5.0;
+	}
+	public double compareRightUltrasonics(){
+		//left front ultrasonic - left back ultrasonic distance
+		return 5.0;
 	}
 }

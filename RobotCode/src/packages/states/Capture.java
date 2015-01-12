@@ -6,12 +6,13 @@ public class Capture extends StateBase{
 	public OutputStateVariables output;
 
 	public Capture(){
+
 		output = new OutputStateVariables();
 
-		output.drivetrainOutputMethod = "setClockwiseTurn(.5)";
-		output.hopperOutputMethod = "setSorterPosition(0)";
-		output.conveyorOutputMethod = "moveBelt(false)";
-		output.visionOutputMethod = "senseTarget()";
+		output.drivetrainMethod = "setClockwiseTurn(.5)";
+		output.hopperMethod = "setSorterPosition(0)";
+		output.conveyorMethod = "moveBelt(false)";
+		output.visionMethod = "senseTarget()";
 		
 	}
 

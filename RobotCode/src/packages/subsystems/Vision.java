@@ -14,4 +14,8 @@ public class Vision{
 		//get distance to nearest target
 		return 5.0;
 	}
+	public double howCentered(){
+		//-1 for to left, 0 to middle, 1 to right , 2 if non-existent
+		return 0;
+	}
 }

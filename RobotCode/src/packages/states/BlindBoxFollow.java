@@ -9,22 +9,26 @@ public class BlindBoxFollow extends StateBase{
 
 		output = new OutputStateVariables();
 
-		output.drivetrainOutputMethod = "setClockwiseTurn(.5)";
-		output.hopperOutputMethod = "setSorterPosition(0)";
-		output.conveyorOutputMethod = "moveBelt(false)";
-		output.visionOutputMethod = "senseTarget()";
+		output.drivetrainMethod = "moveStraight(.8,true)";
+		output.hopperMethod = "setSorterPosition(0)";
+		output.conveyorMethod = "moveBelt(false)";
+		output.visionMethod = "senseTarget()";
 		
 	}
 
-	public OutputStateVariables run(){
+	public OutputStateVariables run(InputStateVariables input){
+		
 		return output;
 	}
 
 	public StateBase getNext(InputStateVariables input){
 		if(System.currentTimeMillis()-stateStartTime > 4000.){
 			return new BoxSearch();
-		} else{
+		} else if(input.seesTarget){
+			return new BoxFollow();
+		} else {
 			return this;
 		}
 	}
 }
+
