@@ -1,5 +1,5 @@
 package packages.states;
-import packages.states.StateBase;
+import packages.*;
 
 public class BoxSearch extends StateBase{
 

@@ -1,18 +1,16 @@
 package packages;
 import packages.subsystems.*;
-import packages.states.StateBase;
+import packages.states.*;
+import packages.*;
 
 public class Robot{
 
-	public StateBase statebase;
-	public int robot_state;
+	public StateBase state;
 
 	public DriveTrain drivetrain;
 	public Hoppers hopper;
 	public ConveyorBelt conveyor;
 	public Vision vision;
-
-	public RobotStateVariables robotstatevariables;
 
 	public Robot(){
 
@@ -20,29 +18,39 @@ public class Robot{
 		hopper = new Hoppers();
 		conveyor = new ConveyorBelt();
 		vision = new Vision();
-		
-		robotstatevariables = new RobotStateVariables(); 
+
 	}
 
 	public static void main(String[] args){
 		Robot robot = new Robot();
 
 		//implement state-system functionality here
+		InputStateVariables inputstatevariables;
+		OutputStateVariables outputstatevariables;
 
 		for (int i = 1; i<2; i++){
-			robot.setState(i);
-			robot.doAction();
+			inputstatevariables = robot.generateInputStateVariables();
+			robot.setState(inputstatevariables);
+			outputstatevariables = robot.readState();
+			robot.processOutput(outputstatevariables);
 		}
 	}
 
-        public void setState(int state){
-	    robot_state = state;
+        public void setState(InputStateVariables inputstatevariables){
+	    state = state.getNext(inputstatevariables);
         }
 
-        public void doAction(){
-	    statebase = new StateBase(robotstatevariables);
-	    statebase.run(robotstatevariables, robot_state);
-            //will now use robotstatevariables to move 
+        public OutputStateVariables readState(){
+	    return state.run();
+	
+            //will now use OutputStateVariables to move 
         }
+		
+	public void processOutput (OutputStateVariables outputstatevariables){
+		
+	}
 
+	public InputStateVariables generateInputStateVariables(){
+		return new InputStateVariables();
+	}
 }
