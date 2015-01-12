@@ -22,7 +22,6 @@ public class Robot{
 		vision = new Vision();
 		
 		robotstatevariables = new RobotStateVariables(); 
-		statebase = new StateBase();
 	}
 
 	public static void main(String[] args){
@@ -30,7 +29,7 @@ public class Robot{
 
 		//implement state-system functionality here
 
-		for (int i = 1; i<3; i++){
+		for (int i = 1; i<2; i++){
 			robot.setState(i);
 			robot.doAction();
 		}
@@ -41,7 +40,9 @@ public class Robot{
         }
 
         public void doAction(){
-	    statebase.run(robotstatevariables);
+	    statebase = new StateBase(robotstatevariables, robot_state);
+	    statebase.run();
+            //will now use robotstatevariables to move 
         }
 
 }

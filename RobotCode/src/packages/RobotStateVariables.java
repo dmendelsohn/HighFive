@@ -2,21 +2,21 @@ package packages;
 
 public class RobotStateVariables{
 
-	boolean hasFuckedStevensMom;
+	public boolean hasFuckedStevensMom = true;
 	//drive train
-	double drivetrainLeftMotorSpeed;
-	double drivetrainRightMotorSpeed;
-	double drivetrainLeftEncoder;
-	double drivetrainRightEncoder;
-	double drivetrainGyroAngle;
+	public double drivetrainLeftMotorSpeed;
+	public double drivetrainRightMotorSpeed;
+	public double drivetrainLeftEncoder;
+	public double drivetrainRightEncoder;
+	public double drivetrainGyroAngle;
 	//hoppers
-	int hopperPosition;
-	boolean hopperLeftRelease;
-	boolean hopperRightRelease;
+	public int hopperPosition;
+	public boolean hopperLeftRelease;
+	public boolean hopperRightRelease;
 	//conveyor belt
-	double conveyorMotorSpeed;
-	double conveyorEncoder;
-	boolean conveyorLimitSwitch;
+	public double conveyorMotorSpeed;
+	public double conveyorEncoder;
+	public boolean conveyorLimitSwitch;
 	//vision
 	//camera stuff
 

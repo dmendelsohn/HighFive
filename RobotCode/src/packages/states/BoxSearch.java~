@@ -2,11 +2,14 @@ package packages.states;
 import packages.states.StateBase;
 
 public class BoxSearch extends StateBase{
-	public BoxSearch(){
-		drivetrain.setCounterClockwiseTurn(0.5);
-	}	
-	public void run(){
-		System.out.println("running");
+
+	public BoxSearch(RobotStateVariables robotstatevariables, int robot_state){
+		super(robotstatevariables, robot_state);
+	}
+	
+	public void set_variables(){
+		//System.out.println(super.robotstatevariables.drivetrainLeftMotorSpeed);
+		System.out.println("box search");
 		//exit if sees box or if gyro>360
 	}
 }
