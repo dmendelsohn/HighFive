@@ -8,4 +8,5 @@ public class InputStateVariables{
 	public double conveyorEncoder;
 	public boolean conveyorLimitSwitch;
 
+
 }

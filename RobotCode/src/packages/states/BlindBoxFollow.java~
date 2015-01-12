@@ -2,12 +2,29 @@ package packages.states;
 import packages.*;
 
 public class BlindBoxFollow extends StateBase{
+	
+	public OutputStateVariables output;
 
-	public BlindBoxFollow(RobotStateVariables robotstatevariables, int robot_state){
-		super(robotstatevariables, robot_state);
+	public BlindBoxFollow(){
+
+		output = new OutputStateVariables();
+
+		output.drivetrainOutputMethod = "setClockwiseTurn(.5)";
+		output.hopperOutputMethod = "setSorterPosition(0)";
+		output.conveyorOutputMethod = "moveBelt(false)";
+		output.visionOutputMethod = "senseTarget()";
+		
 	}
 
-	public void set_variables(){
-		System.out.println("blind box follow");
+	public OutputStateVariables run(){
+		
+	}
+
+	public StateBase getNext(InputStateVariables input){
+		if(System.currentTimeMillis()-stateStartTime > 4000.){
+			return new BoxSearch();
+		} else{
+			return this;
+		}
 	}
 }

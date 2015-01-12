@@ -33,11 +33,11 @@ State 5: Bounce
 	if ultrasound_distance<2: 
 		turn 120 degrees
 
-public void searchForBox()
-public void followBox()
-public void followBoxBlindly()
-public void captureBox()
-public void bounceOffWalls()
+searchForBox()
+followBox()
+followBoxBlindly()
+captureBox()
+bounceOffWalls()
 
 
 

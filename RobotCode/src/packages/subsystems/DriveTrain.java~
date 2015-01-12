@@ -1,7 +1,10 @@
 package packages.subsystems;
 //import jmraa.*;
 
-public class DriveTrain extend StateBase{
+public class DriveTrain{
+
+	//include states for drivetrain
+
 	public DriveTrain(){
 		System.out.println("Hello DriveTrain!");
 	}

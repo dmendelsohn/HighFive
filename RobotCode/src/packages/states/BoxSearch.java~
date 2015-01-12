@@ -3,13 +3,27 @@ import packages.*;
 
 public class BoxSearch extends StateBase{
 
-	public BoxSearch(RobotStateVariables robotstatevariables, int robot_state){
-		super(robotstatevariables, robot_state);
+	public OutputStateVariables output;
+
+	public BoxSearch(){
+		output = new OutputStateVariables();
+
+		output.drivetrainOutputMethod = "setClockwiseTurn(.5)";
+		output.hopperOutputMethod = "setSorterPosition(0)";
+		output.conveyorOutputMethod = "moveBelt(false)";
+		output.visionOutputMethod = "senseTarget()";
+		
 	}
-	
-	public void set_variables(){
-		//System.out.println(super.robotstatevariables.drivetrainLeftMotorSpeed);
-		System.out.println("box search");
-		//exit if sees box or if gyro>360
+
+	public OutputStateVariables run(){
+		
+	}
+
+	public StateBase getNext(InputStateVariables input){
+		if(System.currentTimeMillis()-stateStartTime > 5000. ){
+			return new BoxFollow();
+		} else{
+			return this;
+		}
 	}
 }

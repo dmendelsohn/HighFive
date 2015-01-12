@@ -1,24 +1,15 @@
 package packages;
 
-public class RobotStateVariables{
+public class OutputStateVariables{
 
-	public boolean hasFuckedStevensMom = true;
-	//drive train
-	public double drivetrainLeftMotorSpeed;
-	public double drivetrainRightMotorSpeed;
+	public boolean hasFuckedStevensMom;
 
-	//hoppers
-	public int hopperPosition;
-	public boolean hopperLeftRelease;
-	public boolean hopperRightRelease;
-	//conveyor belt
-	public double conveyorMotorSpeed;
+	public String drivetrainMethod;
+	public String hopperMethod;
+	public String conveyorMethod;
+	public String visionMethod;
 
-
-	//vision
-	//camera stuff
-
-	public RobotStateVariables(){
+	public OutputStateVariables(){
 		hasFuckedStevensMom = true;
 		System.out.println("Has fucked Steven's Mom = " + hasFuckedStevensMom);
 	}

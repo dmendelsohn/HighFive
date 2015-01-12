@@ -2,21 +2,12 @@ package packages;
 
 public class OutputStateVariables{
 
-	public boolean hasFuckedStevensMom = true;
-	//drive train
-	public double drivetrainLeftMotorSpeed;
-	public double drivetrainRightMotorSpeed;
+	public boolean hasFuckedStevensMom;
 
-	//hoppers
-	public int hopperPosition;
-	public boolean hopperLeftRelease;
-	public boolean hopperRightRelease;
-	//conveyor belt
-	public double conveyorMotorSpeed;
-
-
-	//vision
-	//camera stuff
+	public String drivetrainOutputMethod;
+	public String hopperOutputMethod;
+	public String conveyorOutputMethod;
+	public String visionOutputMethod;
 
 	public OutputStateVariables(){
 		hasFuckedStevensMom = true;

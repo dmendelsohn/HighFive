@@ -36,6 +36,7 @@ public class Robot{
 			outputstatevariables = robot.readState();
 			robot.processOutput(outputstatevariables);
 		}
+
 	}
 
         public void setState(InputStateVariables inputstatevariables){
@@ -43,9 +44,8 @@ public class Robot{
         }
 
         public OutputStateVariables readState(){
-	    return state.run();
-	
-            //will now use OutputStateVariables to move 
+	    //use state to determine output state variables
+	    return state.run(); 
         }
 		
 	public void processOutput (OutputStateVariables outputstatevariables){
@@ -53,6 +53,7 @@ public class Robot{
 	}
 
 	public InputStateVariables generateInputStateVariables(){
+		//get these from robot
 		return new InputStateVariables();
 	}
 }
