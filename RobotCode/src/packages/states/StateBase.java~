@@ -9,7 +9,7 @@ public class StateBase{
 		stateStartTime = System.currentTimeMillis();
 	}
 
-	public OutputStateVariables run(){
+	public OutputStateVariables run(InputStateVariables input){
 		//this gets over-written by which ever state is being called
 		return new OutputStateVariables();
 	}

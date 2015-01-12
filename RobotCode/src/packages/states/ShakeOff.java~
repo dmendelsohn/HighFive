@@ -1,11 +1,11 @@
 package packages.states;
 import packages.*;
 
-public class BlindBoxFollow extends StateBase{
+public class ShakeOff extends StateBase{
 	
 	public OutputStateVariables output;
 
-	public BlindBoxFollow(){
+	public ShakeOff(){
 
 		output = new OutputStateVariables();
 
@@ -22,15 +22,9 @@ public class BlindBoxFollow extends StateBase{
 	}
 
 	public StateBase getNext(InputStateVariables input){
-		if(input.feedLimitEngaged){
-			return new ForwardCapture();
-		} else if(System.currentTimeMillis()-stateStartTime > 4000.){
+		if(System.currentTimeMillis()-stateStartTime > 2000.){
 			return new BoxSearch();
-		} else if(input.seesTarget){
-			return new BoxFollow();
-		} else {
-			return this;
-		}
+		} 
 	}
 }
 

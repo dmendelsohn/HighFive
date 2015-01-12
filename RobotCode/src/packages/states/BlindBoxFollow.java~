@@ -11,7 +11,7 @@ public class BlindBoxFollow extends StateBase{
 
 		output.drivetrainMethod = "moveStraight(.8,true)";
 		output.hopperMethod = "setSorterPosition(0)";
-		output.conveyorMethod = "moveBelt(false)";
+		output.conveyorMethod = "checkFeedLimitSwitch()";
 		output.visionMethod = "senseTarget()";
 		
 	}
@@ -22,7 +22,9 @@ public class BlindBoxFollow extends StateBase{
 	}
 
 	public StateBase getNext(InputStateVariables input){
-		if(System.currentTimeMillis()-stateStartTime > 4000.){
+		if(input.feedLimitEngaged){
+			return new ForwardCapture();
+		} else if(System.currentTimeMillis()-stateStartTime > 4000.){
 			return new BoxSearch();
 		} else if(input.seesTarget){
 			return new BoxFollow();
@@ -31,4 +33,4 @@ public class BlindBoxFollow extends StateBase{
 		}
 	}
 }
-}
+

@@ -9,19 +9,20 @@ public class Capture extends StateBase{
 
 		output = new OutputStateVariables();
 
-		output.drivetrainOutputMethod = "setClockwiseTurn(.5)";
-		output.hopperOutputMethod = "setSorterPosition(0)";
-		output.conveyorOutputMethod = "moveBelt(false)";
-		output.visionOutputMethod = "senseTarget()";
+		output.drivetrainMethod = "moveStraight(.3,true)";
+		output.hopperMethod = "setSorterPosition(0)";
+		output.conveyorMethod = "engageLock()";
+		output.visionMethod = "senseTarget()";
 		
 	}
 
-	public OutputStateVariables run(){
+	public OutputStateVariables run(InputStateVariables input){
+		
 		return output;
 	}
 
 	public StateBase getNext(InputStateVariables input){
-		if(System.currentTimeMillis()-stateStartTime > 4000.){
+		if(System.currentTimeMillis()-stateStartTime > 500.){
 			return new BoxSearch();
 		} else{
 			return this;
