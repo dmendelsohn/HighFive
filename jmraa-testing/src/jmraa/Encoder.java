@@ -1,10 +1,11 @@
 package jmraa;
 
-public class Encoder{
+public class Encoder extends Thread{
 
     private Gpio a, b;
     private int phase;
     private int count;
+    private boolean isRunning;
 
     public Encoder(int pinA, int pinB){
 	a = new Gpio(pinA);
@@ -12,6 +13,7 @@ public class Encoder{
 	b = new Gpio(pinB);
 	b.dir(Utils.Dir.DIR_IN);
 	count = 0;
+	isRunning = true;
     }
 
     private int getPhase(){
@@ -31,13 +33,24 @@ public class Encoder{
 	    count++;
 	} else if(delta==-1||delta==3){
 	    count--;
-	} else{
+	} else if(delta !=0){
 	    //Fuckin weird
 	    System.out.println("weird encoder phase change from " + (phase-delta) + " to " + phase);
 	}
     }
+    
+    public int getCount(){
+	return count;
+    }
 
-	public int getCount(){
-	    return count;
+    public void run(){
+	while(isRunning){
+	    update();
+	    Utils.usleep(10);
 	}
     }
+
+    public void delete(){
+	isRunning=false;
+    }
+}

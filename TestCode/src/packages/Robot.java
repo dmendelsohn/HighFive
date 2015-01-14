@@ -21,7 +21,7 @@ public class Robot{
 
 	Robot robot = new Robot();
 
-	robot.drivetrain.moveStraight(.5, true);
+	robot.drivetrain.moveStraight(0, true);
 
     }
 

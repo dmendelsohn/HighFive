@@ -16,8 +16,8 @@ public class DriveTrain{
 		
 	i2c = new I2c(6);
 	Pwm.initPwm(i2c);
-	left_motor = new MotorController(0, i2c, 0, false);
-	right_motor = new MotorController(2, i2c, 2, true);
+	left_motor = new MotorController(0, i2c, 3, false);
+	right_motor = new MotorController(3, i2c, 4, true);
     }
     //public void pidDriveStraight(double speed){
     //	
