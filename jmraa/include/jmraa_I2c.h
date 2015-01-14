@@ -17,7 +17,6 @@ JNIEXPORT void JNICALL Java_jmraa_I2c_loadI2cNative
 
 /*
  * Class:     jmraa_I2c
-<<<<<<< HEAD
  * Method:    destroyI2cNative
  * Signature: ()V
  */
@@ -26,8 +25,6 @@ JNIEXPORT void JNICALL Java_jmraa_I2c_destroyI2cNative
 
 /*
  * Class:     jmraa_I2c
-=======
->>>>>>> 4f6aa6d54f0a3d0684cbbe49eae5e2197d76b3a2
  * Method:    address
  * Signature: (B)I
  */

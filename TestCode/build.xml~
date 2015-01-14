@@ -42,6 +42,6 @@
     <target name="main" depends="clean,run,ant-jmraa"/>
     -->
 
-    <target name="main" depends="clean,run">
+    <target name="main" depends="clean,run"/>
 
 </project>

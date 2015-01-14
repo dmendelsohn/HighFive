@@ -5,7 +5,8 @@
     <property name="build.dir"   value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="jar.dir"     value="${build.dir}/jar"/>
-
+    
+    <property name="jmraa.dir"   value="../jmraa"/>
     <property name="main-class"  value="packages.Robot"/>
 
 
@@ -27,21 +28,22 @@
             </manifest>
         </jar>
     </target>
-
+	
     <target name="run" depends="jar">
         <java jar="${jar.dir}/HelloWorld.jar" fork="true"/>
     </target>
 
     <target name="clean-build" depends="clean,jar"/>
    
-    <!--  
+      
     <target name="ant-jmraa"/>
 	<ant antfile="../jmraa/build.xml"/>
     </target>
   
     <target name="main" depends="clean,run,ant-jmraa"/>
-    -->
-
+    
+    <!--
     <target name="main" depends="clean,run"/>
+    -->
 
 </project>
