@@ -1,0 +1,14 @@
+package jmraa;
+
+public class Encoder{
+
+    private Gpio a, b;
+    private int count;
+
+    public Encoder(int pinA, int pinB){
+	a = new Gpio(pinA);
+	b = new Gpio(pinB);
+	count = 0;
+    }
+
+    

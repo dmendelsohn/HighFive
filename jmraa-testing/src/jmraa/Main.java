@@ -65,13 +65,24 @@ public class Main{
 	I2c i2c = new I2c(6);
 	Pwm.initPwm(i2c);
 
-	MotorController mc1 = new MotorController(13, i2c, 3, true);
-	MotorController mc2 = new MotorController(5, i2c, 4, true);
-	mc1.setSpeed(.2);
-	mc2.setSpeed(.2);
-	Utils.delay(5000);
-	mc1.setSpeed(0);
-	mc2.setSpeed(0);
+	MotorController mcR = new MotorController(4, i2c, 4, true);
+	MotorController mcL = new MotorController(5, i2c, 3, false);
+
+	Runtime.getRuntime().addShutdownHook(new Thread() {
+		public void run() {
+		    mcR.setSpeed(0);
+		    mcL.setSpeed(0);
+		}
+	    });
+	Ultrasonic ultra = new Ultrasonic(2,3);
+	long start = System.currentTimeMillis();
+	mcL.setSpeed(.2);
+	while(System.currentTimeMillis()-start < 30000){
+	    mcR.setSpeed(.2+(Ultrasonic.asMeters(ultra.ping())-.2)*1.3);
+	    Utils.delay(60);
+	}
+	mcR.setSpeed(0);
+	mcL.setSpeed(0);
 
 	/*Pwm pwm = new Pwm(i2c, 0);
 	setServoPosition(pwm, .5);

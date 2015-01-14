@@ -17,7 +17,7 @@
 
     <target name="compile">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpath="${jmraa.dir}/jmraa.jar/>
     </target>
 
     <target name="jar" depends="compile">
