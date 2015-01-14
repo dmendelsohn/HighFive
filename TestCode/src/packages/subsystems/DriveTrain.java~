@@ -25,7 +25,7 @@ public class DriveTrain{
 		right_motor.setSpeed(speed);
 	}
 	public void moveStraight(double speed, boolean positive){
-		if(positive){
+		if(positive==true){
 			setLeftDriveMotor(speed);
 			setRightDriveMotor(speed);
 		} else {
