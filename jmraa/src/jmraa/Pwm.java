@@ -42,7 +42,7 @@ public class Pwm{
 	
 	System.out.println("init stuff");
 	System.out.println(i2c.write(buff));
-	Utils.delay(1000);
+	Utils.msleep(1000);
 	
 	System.out.println("write more init stuff");
 	buff[0] = (byte)(0xFE);
