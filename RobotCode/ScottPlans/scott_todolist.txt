@@ -1,0 +1,13 @@
+next directions
+
+interface with robot --> read sensors
+
+Flush out setState -- > state.getNext from input
+determine output state vars from state.run()
+
+develop processOutput --> make robot move solely based on outputstatevariables
+
+
+box search
+blind box
+box follow
