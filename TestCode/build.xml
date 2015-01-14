@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <project name="HelloWorld" basedir="." default="main">
 
     <property name="src.dir"     value="src"/>
@@ -17,7 +18,7 @@
 
     <target name="compile">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpath="../jmraa/jmraa.jar"/>
     </target>
 
     <target name="jar" depends="compile">
@@ -34,16 +35,7 @@
     </target>
 
     <target name="clean-build" depends="clean,jar"/>
-   
-      
-    <target name="ant-jmraa"/>
-	<ant antfile="../jmraa/build.xml"/>
-    </target>
-  
-    <target name="main" depends="clean,run,ant-jmraa"/>
     
-    <!--
     <target name="main" depends="clean,run"/>
-    -->
 
 </project>
