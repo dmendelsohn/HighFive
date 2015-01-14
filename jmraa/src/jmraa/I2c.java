@@ -27,5 +27,4 @@ public class I2c {
     public void delete(){
 	destroyI2cNative();
     }
-
 }
