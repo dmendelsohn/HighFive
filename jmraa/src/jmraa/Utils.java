@@ -7,7 +7,7 @@ public class Utils{
     public static enum Edge{EDGE_NONE, EDGE_BOTH, EDGE_RISING, EDGE_FALLING};
     public static enum I2cMode{STD, FAST, HIGH};
 
-    public static void delay(long ms){
+    public static void msleep(long ms){
 	
 	try{
 	    Thread.sleep(ms);
@@ -15,4 +15,6 @@ public class Utils{
 	    //IDC
 	}
     }
+
+    public static native int usleep(int us);
 }

@@ -1,0 +1,10 @@
+package jmraa;
+
+public class Ultrasonic{
+
+    private Gpio trig;
+    private Gpio echo;
+
+    public Ultrasonic(int trigPin, int echoPin){
+	trig = new Gpio(trigPin);
+	echo = new Gpio(echoPin);
