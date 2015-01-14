@@ -13,7 +13,7 @@ public class Main{
     public static void main(String[] args){
 	System.out.println("hello");
 
-	Gpio chipSelect = new Gpio(10);
+	/*Gpio chipSelect = new Gpio(10);
 	chipSelect.dir(Utils.Dir.DIR_OUT);
 	chipSelect.write(1);
 
@@ -43,36 +43,39 @@ public class Main{
 		responseVal = (responseVal<<8) | ((byte)response[1] & 0xFF);
 		responseVal = (responseVal<<8) | ((byte)response[0] & 0xFF);
 		short reading = (short)((responseVal >> 10) & 0xffff);
-	        System.out.println("reading: " + reading);*/
+	        System.out.println("reading: " + reading);
 	    }else{
 		System.out.println("no response");
 	    }
-	    Utils.msleep(10);
-	}
+	    Utils.delay(10);
+	}*/
 	/*Ultrasonic ultrasonic = new Ultrasonic(9, 8);
 	while(true){
 	    long ns = ultrasonic.ping();
 	    System.out.println("ping duration = " + ns + "ns");
 	    System.out.println("approx dist = " + Ultrasonic.asMeters(ns) + "m");
-	    Utils.msleep(100);
+	    Utils.delay(100);
 	    }*/
 	/*Aio aio = new Aio(0);
 	for(int i = 0; i < 100; i++){
 	    System.out.println(aio.read());
-	    Utils.msleep(10);
+	    Utils.delay(10);
 	    }*/
 
-	//I2c i2c = new I2c(6);
-	//Pwm.initPwm(i2c);
+	I2c i2c = new I2c(6);
+	Pwm.initPwm(i2c);
 
-	/*MotorController mc = new MotorController(13, i2c, 3, true);
-	mc.setSpeed(.9);
-	Utils.msleep(5000);
-	mc.setSpeed(0);*/
+	MotorController mc1 = new MotorController(13, i2c, 3, true);
+	MotorController mc2 = new MotorController(5, i2c, 4, true);
+	mc1.setSpeed(.2);
+	mc2.setSpeed(.2);
+	Utils.delay(5000);
+	mc1.setSpeed(0);
+	mc2.setSpeed(0);
 
 	/*Pwm pwm = new Pwm(i2c, 0);
 	setServoPosition(pwm, .5);
-	Utils.msleep(5000);
+	Utils.delay(5000);
 	setServoPosition(pwm, .95);*/
 
 	/*Gpio pin1 = new Gpio(13);

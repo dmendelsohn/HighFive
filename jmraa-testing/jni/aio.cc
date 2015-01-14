@@ -8,7 +8,7 @@
 #include "mraa.hpp"
 
 #include "handle.h"
-#include "jmraa_Gpio.h"
+#include "jmraa_Aio.h"
 
 JNIEXPORT void JNICALL Java_jmraa_Aio_loadAioNative (JNIEnv *env, jobject thisObj, jint pin){
   mraa::Aio *inst = new mraa::Aio(pin);

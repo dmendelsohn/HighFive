@@ -5,7 +5,7 @@ CPPFLAGS = -Wall -g
 INCLUDES = -I../include -I$(JAVA_HOME)/include -I$(JAVA_HOME)/include/linux -I/usr/include
 
 # Which source files to compile
-SRCS = gpio.cc i2c.cc aio.cc spi.cc utils.cc
+SRCS = gpio.cc i2c.cc aio.cc utils.cc
 OBJS = $(SRCS:.cc=.o)
 
 .PHONY: depend clean sharedlibenv

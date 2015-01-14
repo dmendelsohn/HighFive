@@ -2,7 +2,7 @@ package jmraa;
 
 import jmraa.Utils;
 
-public class Gpio {
+public class Aio {
 
     private long nativeHandle;
 

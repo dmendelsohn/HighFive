@@ -8,6 +8,6 @@
 
 #include "jmraa_Utils.h"
 
-JNIEXPORT void JNICALL Java_jmraa_Utils_usleep (JNIEnv *env, jclass thisClass, jint us){
+JNIEXPORT jint JNICALL Java_jmraa_Utils_usleep (JNIEnv *env, jclass thisClass, jint us){
   return usleep(us);
 }
