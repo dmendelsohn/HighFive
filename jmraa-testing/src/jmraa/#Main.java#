@@ -18,6 +18,7 @@ public class Main{
 	    System.out.println(enc.getCount());
 	    Utils.msleep(100);
 	}
+	enc.delete();
 	/*Gpio chipSelect = new Gpio(10);
 	chipSelect.dir(Utils.Dir.DIR_OUT);
 	chipSelect.write(1);
