@@ -5,22 +5,24 @@ import jmraa.MotorController;
 import jmraa.Pwm;
 
 public class Robot{
+
+    static{System.loadLibrary("jmraa");}
 	
-	public DriveTrain drivetrain;
+    public DriveTrain drivetrain;
 
-	public Robot(){
+    public Robot(){
 
-		System.out.println("hello der");
+	System.out.println("hello der");
 
-		drivetrain = new DriveTrain();
-	}
+	drivetrain = new DriveTrain();
+    }
 
-	public static void main(String[] args){
+    public static void main(String[] args){
 
-		Robot robot = new Robot();
+	Robot robot = new Robot();
 
-		robot.drivetrain.moveStraight(.5, true);
+	robot.drivetrain.moveStraight(.5, true);
 
-	}
+    }
 
 }
