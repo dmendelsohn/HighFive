@@ -1,0 +1,28 @@
+import org.opencv.core.*;
+
+
+private static final Scalar lowerRed = new Scalar(110, 100, 10);
+
+private static final Scalar upperRed = new Scalar(130, 255, 255);
+
+private List<Mat> buffers;
+
+// input: raw frame from the camera
+
+// output: frame with only the red pixels
+
+public Mat processFrame(Mat frame) {
+
+Mat processedFrame = new Mat();
+
+Imgproc.cvtColor(frame, buffers.get(0), Imgproc.COLOR_BGR2HSV); // convert 
+
+to HSV
+
+Core.inRange(buffers.get(0), lowerRed, upperRed, processedFrame); // red 
+
+filter
+
+return processedFrame;
+
+}

@@ -15,6 +15,11 @@ JNIEXPORT void JNICALL Java_jmraa_I2c_loadI2cNative (JNIEnv *env, jobject thisOb
   setHandle(env, thisObj, inst);
 }
 
+JNIEXPORT void JNICALL Java_jmraa_I2c_destroyI2cNative (JNIEnv *env, jobject thisObj){
+  mraa::I2c *inst = getHandle<mraa::I2c>(env, thisObj);
+  delete inst;
+}
+
 JNIEXPORT jbyte JNICALL Java_jmraa_I2c_readByte (JNIEnv *env, jobject thisObj){
   mraa::I2c *inst = getHandle<mraa::I2c>(env, thisObj);  
   return (jbyte)(inst->readByte());

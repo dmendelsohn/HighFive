@@ -12,6 +12,8 @@ public class I2c {
 
     private native void loadI2cNative(int bus, boolean raw);
 
+    private native void destroyI2cNative();
+
     //    private native frequency(I2cMode mode);
 
     public native int address(byte address);
@@ -21,4 +23,8 @@ public class I2c {
     public native int writeByte(byte value);
 
     public native int write(byte[] values);
+
+    public void delete(){
+	destroyI2cNative();
+    }
 }

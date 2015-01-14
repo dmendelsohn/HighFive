@@ -15,4 +15,6 @@ public class Utils{
 	    //IDC
 	}
     }
+
+    public static native int usleep(int us);
 }

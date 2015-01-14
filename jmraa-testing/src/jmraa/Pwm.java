@@ -1,7 +1,5 @@
 package jmraa;
 
-import jmraa.*;
-
 public class Pwm{
 
     private I2c i2c;

@@ -10,8 +10,8 @@
 #include "handle.h"
 #include "jmraa_Gpio.h"
 
-JNIEXPORT void JNICALL Java_jmraa_Gpio_loadGpioNative (JNIEnv *env, jobject thisObj, jint pin, jboolean owner, jboolean raw){
-  mraa::Gpio *inst = new mraa::Gpio(pin, owner, raw);
+JNIEXPORT void JNICALL Java_jmraa_Gpio_loadGpioNative (JNIEnv *env, jobject thisObj, jint pin){
+  mraa::Gpio *inst = new mraa::Gpio(pin);
   setHandle(env, thisObj, inst);
 }
 
@@ -22,7 +22,6 @@ JNIEXPORT jint JNICALL Java_jmraa_Gpio_dir (JNIEnv *env, jobject thisObj, jobjec
   jmethodID getNameMethod = env->GetMethodID(enumClass, "name", "()Ljava/lang/String;");
   jstring value = (jstring)env->CallObjectMethod(dir, getNameMethod);
   std::string valueNative = env->GetStringUTFChars(value, 0);
-  std::cout << valueNative << "\n";
   if (valueNative.compare("DIR_OUT") == 0) {
     return (int)(inst->dir(mraa::DIR_OUT));
   }else{

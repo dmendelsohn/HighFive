@@ -1,16 +1,14 @@
 package jmraa;
 
-import jmraa.Utils;
-
 public class Gpio {
 
     private long nativeHandle;
 
     public Gpio(int pin){
-	loadGpioNative(pin, true, false);
+	loadGpioNative(pin);
     }
 
-    private native void loadGpioNative(int pin, boolean owner, boolean raw);
+    private native void loadGpioNative(int pin);
 
     public native int dir(Utils.Dir dir);
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="jmraaWrapper" basedir="." default="jar">
+<project name="jmraa" basedir="." default="jar">
 
   <property name="src.dir" value="src"/>
   <property name="jni.dir" value="jni"/>
@@ -7,7 +7,7 @@
   <property name="jni.lib.name" value="jmraa"/>
   <property name="classes.dir" value="classes"/>
   <!-- This class contains the native calls -->
-  <property name="jni.class" value="jmraa.Gpio jmraa.I2c"/>
+  <property name="jni.class" value="jmraa.Gpio jmraa.I2c jmraa.Aio jmraa.Spi jmraa.Utils"/>
   <!-- Generated JAR file name -->
   <property name="jar.file" value="${ant.project.name}.jar"/>
 
@@ -40,7 +40,7 @@
     <jar destfile="${jar.file}" basedir="${classes.dir}"/>
   </target>
 
-  <target name="jmraa" description="BLINKY" depends="jar">
+  <target name="jmraa" description="jmraa library with test" depends="jar">
     <java classname="jmraa.Main" classpath="${jar.file}" fork="true">
       <sysproperty key="java.library.path" path="${jni.dir}"/>
     </java>

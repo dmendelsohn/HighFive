@@ -12,6 +12,8 @@ public class MotorController{
 	direction = new Gpio(pin);
 	direction.dir(Utils.Dir.DIR_OUT);
 	power = new Pwm(i2c, index);
+
+	invert = invertIn;
     }
 
     public void setSpeed(double val){
