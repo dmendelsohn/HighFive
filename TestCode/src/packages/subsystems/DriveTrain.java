@@ -1,7 +1,5 @@
 package packages.subsystems;
-import jmraa.I2c;
-import jmraa.MotorController;
-import jmraa.Pwm;
+import jmraa.*;
 
 public class DriveTrain{
 
@@ -9,7 +7,13 @@ public class DriveTrain{
 
     public MotorController left_motor;
     public MotorController right_motor;
+    public Encoder left_motor_encoder;
+    public Encoder right_motor_encoder;
     public I2c i2c;
+
+    public double left_straight_speed;
+    public double right_straight_speed;
+    public double speed_adjustment = .02;
 
     public DriveTrain(){
 	System.out.println("Hello DriveTrain!");
@@ -18,10 +22,34 @@ public class DriveTrain{
 	Pwm.initPwm(i2c);
 	left_motor = new MotorController(0, i2c, 3, false);
 	right_motor = new MotorController(3, i2c, 4, true);
+	
+	left_motor_encoder = new Encoder(1,2);
+	right_motor_encoder = new Encoder(4,5);
     }
-    //public void pidDriveStraight(double speed){
-    //	
-    //}
+    public void pidDriveStraightStart(double speed){
+	left_straight_speed = speed;
+	right_straight_speed = speed;
+
+	left_motor_encoder.start();
+	right_motor_encoder.start();
+    }
+    public void pidDriveStraight(){
+    	setLeftDriveMotor(left_straight_speed);
+	setRightDriveMotor(right_straight_speed);
+
+	if(left_motor_encoder.getCount()-100>right_motor_encoder.getCount()){
+	    left_straight_speed+=speed_adjustment;
+	    right_straight_speed-=speed_adjustment;
+	} else if (right_motor_encoder.getCount()-100>left_motor_encoder.getCount()){
+	    left_straight_speed-=speed_adjustment;
+	    right_straight_speed+=speed_adjustment;
+	} else {
+	}
+    }
+    public void pidDriveStraightStop(){
+	left_motor_encoder.delete();
+	right_motor_encoder.delete();
+    }
     public void setLeftDriveMotor(double speed){
 	left_motor.setSpeed(speed);
     }

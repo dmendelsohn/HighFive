@@ -3,22 +3,23 @@ package jmraa;
 import java.util.*;
 
 public class Main{
-
+    
     static{System.loadLibrary("jmraa");}
-
+    
     public static void setServoPosition(Pwm pwm, double duty){
 	pwm.writePwm(0.15 + 0.4*duty);
     }
 
     public static void main(String[] args){
 	System.out.println("hello");
-	Encoder enc = new Encoder(5, 4);
+	/*Encoder enc = new Encoder(5, 4);
 	enc.start();
 	for(int i = 0; i < 100; i++){
 	    System.out.println(enc.getCount());
 	    Utils.msleep(100);
 	}
-	/*Gpio chipSelect = new Gpio(10);
+	enc.delete();*/
+	Gpio chipSelect = new Gpio(10);
 	chipSelect.dir(Utils.Dir.DIR_OUT);
 	chipSelect.write(1);
 
@@ -48,12 +49,12 @@ public class Main{
 		responseVal = (responseVal<<8) | ((byte)response[1] & 0xFF);
 		responseVal = (responseVal<<8) | ((byte)response[0] & 0xFF);
 		short reading = (short)((responseVal >> 10) & 0xffff);
-	        System.out.println("reading: " + reading);
+	        System.out.println("reading: " + reading);*/
 	    }else{
 		System.out.println("no response");
 	    }
 	    Utils.msleep(10);
-	}*/
+	}
 	/*Ultrasonic ultrasonic = new Ultrasonic(9, 8);
 	while(true){
 	    long ns = ultrasonic.ping();
