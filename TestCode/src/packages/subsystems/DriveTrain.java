@@ -20,12 +20,15 @@ public class DriveTrain{
     public double derivative;
     public double output;
 
+    public double outputLeftSpeed;
+    public double outputRightSpeed;
+
     public DriveTrain(){
 	System.out.println("Hello DriveTrain!");
 		
 	i2c = new I2c(6);
 	Pwm.initPwm(i2c);
-	left_motor = new MotorConltroller(0, i2c, 3, false);
+	left_motor = new MotorController(0, i2c, 3, false);
 	right_motor = new MotorController(3, i2c, 4, true);
 	
 	left_motor_encoder = new Encoder(1,2);
@@ -39,7 +42,7 @@ public class DriveTrain{
 	left_motor_encoder.start();
 	right_motor_encoder.start();
 
-	previous_error = 0;
+	previousError = 0;
 	integral = 0;
     }
     public void pidDriveStraight(double dt){
@@ -50,18 +53,20 @@ public class DriveTrain{
 	derivative = (error - previousError)/dt;
 	
 	output = .5*error+.3*integral-.5*derivative;
-    	setLeftDriveMotor(left_straight_speed);
-	setRightDriveMotor(right_straight_speed);
 
 	if(left_motor_encoder.getCount()-100>right_motor_encoder.getCount()){
-	    left_straight_speed+=speed_adjustment;
-	    right_straight_speed-=speed_adjustment;
+	    outputLeftSpeed=left_straight_speed+output;
+	    outputRightSpeed=right_straight_speed-output;
 	} else if (right_motor_encoder.getCount()-100>left_motor_encoder.getCount()){
-	    left_straight_speed-=speed_adjustment;
-	    right_straight_speed+=speed_adjustment;
+	    outputLeftSpeed=left_straight_speed-output;
+	    outputRightSpeed=right_straight_speed+output;
 	} else {
 	}
-	previous_error = error;
+
+	setLeftDriveMotor(outputLeftSpeed);
+	setRightDriveMotor(outputRightSpeed);
+
+	previousError = error;
 
     }
     public void pidDriveStraightStop(){
