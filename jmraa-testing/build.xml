@@ -46,4 +46,10 @@
     </java>
   </target>
 
+  <target name="jmraa-nobuild" description="jmraa library with test, already built">
+    <java classname="jmraa.Main" classpath="${jar.file}" fork="true">
+      <sysproperty key="java.library.path" path="${jni.dir}"/>
+    </java>
+  </target>
+
 </project>

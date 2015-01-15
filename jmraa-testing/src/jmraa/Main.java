@@ -72,8 +72,8 @@ public class Main{
 		System.out.println("no response");
 	    }
 	    Utils.msleep(10);
-	}*/
-	/*Ultrasonic ultrasonic = new Ultrasonic(8,9);
+	}
+	/*Ultrasonic ultrasonic = new Ultrasonic(9, 8);
 	while(true){
 	    long ns = ultrasonic.ping();
 	    System.out.println("ping duration = " + ns + "ns");

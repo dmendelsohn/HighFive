@@ -1,7 +1,5 @@
 package packages.subsystems;
-import jmraa.I2c;
-import jmraa.MotorController;
-import jmraa.Pwm;
+import jmraa.*;
 
 public class DriveTrain{
 
@@ -9,19 +7,72 @@ public class DriveTrain{
 
     public MotorController left_motor;
     public MotorController right_motor;
+    public Encoder left_motor_encoder;
+    public Encoder right_motor_encoder;
     public I2c i2c;
+
+    public double left_straight_speed;
+    public double right_straight_speed;
+
+    public double error;
+    public double previousError; 
+    public double integral; 
+    public double derivative;
+    public double output;
+
+    public double outputLeftSpeed;
+    public double outputRightSpeed;
 
     public DriveTrain(){
 	System.out.println("Hello DriveTrain!");
 		
 	i2c = new I2c(6);
 	Pwm.initPwm(i2c);
-	left_motor = new MotorController(0, i2c, 0, false);
-	right_motor = new MotorController(2, i2c, 2, true);
+	left_motor = new MotorController(0, i2c, 3, false);
+	right_motor = new MotorController(3, i2c, 4, true);
+	
+	left_motor_encoder = new Encoder(1,2);
+	right_motor_encoder = new Encoder(4,5);
     }
-    //public void pidDriveStraight(double speed){
-    //	
-    //}
+
+    public void pidDriveStraightStart(double speed){
+	left_straight_speed = speed;
+	right_straight_speed = speed;
+
+	left_motor_encoder.start();
+	right_motor_encoder.start();
+
+	previousError = 0;
+	integral = 0;
+    }
+    public void pidDriveStraight(double dt){
+
+	error = left_motor_encoder.getCount()-right_motor_encoder.getCount();
+
+	integral = integral + error*dt;
+	derivative = (error - previousError)/dt;
+	
+	output = .5*error+.3*integral-.5*derivative;
+
+	if(left_motor_encoder.getCount()-100>right_motor_encoder.getCount()){
+	    outputLeftSpeed=left_straight_speed+output;
+	    outputRightSpeed=right_straight_speed-output;
+	} else if (right_motor_encoder.getCount()-100>left_motor_encoder.getCount()){
+	    outputLeftSpeed=left_straight_speed-output;
+	    outputRightSpeed=right_straight_speed+output;
+	} else {
+	}
+
+	setLeftDriveMotor(outputLeftSpeed);
+	setRightDriveMotor(outputRightSpeed);
+
+	previousError = error;
+
+    }
+    public void pidDriveStraightStop(){
+	left_motor_encoder.delete();
+	right_motor_encoder.delete();
+    }
     public void setLeftDriveMotor(double speed){
 	left_motor.setSpeed(speed);
     }
