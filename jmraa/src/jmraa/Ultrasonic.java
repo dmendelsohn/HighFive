@@ -17,9 +17,13 @@ public class Ultrasonic{
 	Utils.usleep(20);
 	trig.write(0);
 	long waitStart = System.nanoTime();
-	while(echo.read()==0) if(System.nanoTime()-waitStart>15000000) return -1;
+	while(echo.read()==0){
+	    if(System.nanoTime()-waitStart>15000000) return -1;
+	}
 	long pulseStart = System.nanoTime();
-	while(echo.read()==1) if(System.nanoTime()-pulseStart>15000000) return -1;
+	while(echo.read()==1){
+	    if(System.nanoTime()-pulseStart>15000000) return -1;
+	}
 	return System.nanoTime()-pulseStart;
     }
 
