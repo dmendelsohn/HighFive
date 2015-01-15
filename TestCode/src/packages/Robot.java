@@ -1,4 +1,5 @@
 package packages;
+
 import packages.subsystems.*;
 import jmraa.*;
 
@@ -8,6 +9,8 @@ public class Robot{
 	
     public DriveTrain drivetrain;
     public long startTime;
+	
+    public double dt = 20.0;
 
     public Robot(){
 
@@ -24,7 +27,8 @@ public class Robot{
 	
 	robot.drivetrain.pidDriveStraightStart(.4);
 	while(System.currentTimeMillis()-robot.startTime<5000){
-	    robot.drivetrain.pidDriveStraight();
+	    robot.drivetrain.pidDriveStraight(dt);
+	    utils.msleep(dt);
 	}
 	robot.drivetrain.pidDriveStraightStop();
 	robot.drivetrain.moveStraight(0, true);
