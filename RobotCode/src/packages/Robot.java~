@@ -5,6 +5,8 @@ import packages.*;
 
 public class Robot{
 
+	//static{System.loadLibrary("jmraa");} 
+
 	public StateBase state;
 
 	public DriveTrain drivetrain;
@@ -12,7 +14,11 @@ public class Robot{
 	public ConveyorBelt conveyor;
 	public Vision vision;
 
+	public long startTime;
+
 	public Robot(){
+
+		startTime = System.currentTimeMillis();
 
 		state = new BoxSearch();
 
@@ -45,7 +51,7 @@ public class Robot{
 
         public OutputStateVariables readState(InputStateVariables input){
 	    //use state to determine output state variables
-	    return state.run(InputStateVariables input); 
+	    return state.run(input); 
         }
 		
 	public void processOutput (OutputStateVariables outputstatevariables){

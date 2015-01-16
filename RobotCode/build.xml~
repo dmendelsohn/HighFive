@@ -5,6 +5,7 @@
     <property name="build.dir"   value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="jar.dir"     value="${build.dir}/jar"/>
+    <property name="jmraa.dir"   value="../jmraa/"/>
 
     <property name="main-class"  value="packages.Robot"/>
 
@@ -16,7 +17,7 @@
 
     <target name="compile">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpath="${jmraa.dir}/jmraa.jar"/>
     </target>
 
     <target name="jar" depends="compile">
@@ -33,15 +34,7 @@
     </target>
 
     <target name="clean-build" depends="clean,jar"/>
-   
-    <!--  
-    <target name="ant-jmraa"/>
-	<ant antfile="../jmraa/build.xml"/>
-    </target>
-  
-    <target name="main" depends="clean,run,ant-jmraa"/>
-    -->
 
-    <target name="main" depends="clean,run">
+    <target name="main" depends="clean,run"/>
 
 </project>

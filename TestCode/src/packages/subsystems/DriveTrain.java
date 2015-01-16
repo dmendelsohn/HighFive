@@ -1,18 +1,21 @@
 package packages.subsystems;
-import jmraa.*;
+//import jmraa.*;
 
 public class DriveTrain{
 
-    static{System.loadLibrary("jmraa");}
+    //static{System.loadLibrary("jmraa");}
 
-    public MotorController left_motor;
-    public MotorController right_motor;
-    public Encoder left_motor_encoder;
-    public Encoder right_motor_encoder;
+    /*
+    public MotorController leftMotor;
+    public MotorController rightMotor;
+    public Encoder leftMotorEncoder;
+    public Encoder rightMotorEncoder;
+    public Gyro gyro;
     public I2c i2c;
+    */
 
-    public double left_straight_speed;
-    public double right_straight_speed;
+    public double leftStraightSpeed;
+    public double rightStraightSpeed;
 
     public double error;
     public double previousError; 
@@ -25,59 +28,86 @@ public class DriveTrain{
 
     public DriveTrain(){
 	System.out.println("Hello DriveTrain!");
-		
+	/*	
 	i2c = new I2c(6);
 	Pwm.initPwm(i2c);
-	left_motor = new MotorController(0, i2c, 3, false);
-	right_motor = new MotorController(3, i2c, 4, true);
+	leftMotor = new MotorController(0, i2c, 3, false);
+	rightMotor = new MotorController(3, i2c, 4, true);
 	
-	left_motor_encoder = new Encoder(1,2);
-	right_motor_encoder = new Encoder(4,5);
+	leftMotorEncoder = new Encoder(1,2,true);
+	rightMotorEncoder = new Encoder(5,4,false);
+
+	gyro = new Gyro(0, 10);
+	*/
     }
 
     public void pidDriveStraightStart(double speed){
-	left_straight_speed = speed;
-	right_straight_speed = speed;
+	leftStraightSpeed = speed;
+        rightStraightSpeed = speed;
 
-	left_motor_encoder.start();
-	right_motor_encoder.start();
+	//leftMotorEncoder.start();
+	//rightMotorEncoder.start();
+
+	//gyro.start();
+	//gyro.zero();
 
 	previousError = 0;
 	integral = 0;
     }
-    public void pidDriveStraight(double dt){
-
-	error = left_motor_encoder.getCount()-right_motor_encoder.getCount();
-
+    public void pidDriveStraightEncoder(double dt){
+	/*
+	error = leftMotorEncoder.getCount()-rightMotorEncoder.getCount();
+	
 	integral = integral + error*dt;
 	derivative = (error - previousError)/dt;
-	
-	output = .5*error+.3*integral-.5*derivative;
+	System.out.println("total encoder diff"+error);
+	System.out.println("deriv:"+derivative);
+	output = -(.1/100)*error+.0*integral-.1*derivative;
+	System.out.println("output:"+output);
 
-	if(left_motor_encoder.getCount()-100>right_motor_encoder.getCount()){
-	    outputLeftSpeed=left_straight_speed+output;
-	    outputRightSpeed=right_straight_speed-output;
-	} else if (right_motor_encoder.getCount()-100>left_motor_encoder.getCount()){
-	    outputLeftSpeed=left_straight_speed-output;
-	    outputRightSpeed=right_straight_speed+output;
-	} else {
-	}
+	outputLeftSpeed=leftStraightSpeed+output;
+	outputRightSpeed=rightStraightSpeed-output;
 
 	setLeftDriveMotor(outputLeftSpeed);
 	setRightDriveMotor(outputRightSpeed);
 
 	previousError = error;
+	*/
+
+    }
+    
+    public void pidDriveStraightGyro(double dt){
+	/*
+	error = gyro.getDegrees();
+
+	integral = integral + error*dt;
+	derivative = (error - previousError)/dt;
+	System.out.println("total angle number"+error);
+	System.out.println("deriv:"+derivative);
+	output = -(.1/20)*error+.0*integral-.0*derivative;
+	System.out.println("output:"+output);
+
+	outputLeftSpeed=leftStraightSpeed+output;
+	outputRightSpeed=rightStraightSpeed-output;
+
+	setLeftDriveMotor(outputLeftSpeed);
+	setRightDriveMotor(outputRightSpeed);
+
+	previousError = error;
+	*/
 
     }
     public void pidDriveStraightStop(){
-	left_motor_encoder.delete();
-	right_motor_encoder.delete();
+	//leftMotorEncoder.delete();
+	//rightMotorEncoder.delete();
+	
+	//gyro.delete();
     }
     public void setLeftDriveMotor(double speed){
-	left_motor.setSpeed(speed);
+	//leftMotor.setSpeed(speed);
     }
     public void setRightDriveMotor(double speed){
-	right_motor.setSpeed(speed);
+	//rightMotor.setSpeed(speed);
     }
     public void moveStraight(double speed, boolean positive){
 	if(positive==true){
@@ -103,20 +133,5 @@ public class DriveTrain{
 	
     public void stop(){
 	moveStraight(0,true);
-    }
-    public double readGyroAngle(){
-	//read SPI
-	return 10;
-    }
-    public void resetGyro(){
-	//reset gyro
-    }
-    public double compareLeftUltrasonics(){
-	//left front ultrasonic - left back ultrasonic distance
-	return 5.0;
-    }
-    public double compareRightUltrasonics(){
-	//left front ultrasonic - left back ultrasonic distance
-	return 5.0;
     }
 }

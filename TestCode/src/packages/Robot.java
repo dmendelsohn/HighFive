@@ -9,8 +9,6 @@ public class Robot{
 	
     public DriveTrain drivetrain;
     public long startTime;
-	
-    public double dt = 20.0;
 
     public Robot(){
 
@@ -25,9 +23,11 @@ public class Robot{
 
 	Robot robot = new Robot();
 	
+        long dt = 20;
 	robot.drivetrain.pidDriveStraightStart(.4);
 	while(System.currentTimeMillis()-robot.startTime<5000){
-	    robot.drivetrain.pidDriveStraight(dt);
+	    //robot.drivetrain.pidDriveStraightGyro(dt);
+	    robot.drivetrain.pidDriveStraightEncoder(dt);
 	    Utils.msleep(dt);
 	}
 	robot.drivetrain.pidDriveStraightStop();

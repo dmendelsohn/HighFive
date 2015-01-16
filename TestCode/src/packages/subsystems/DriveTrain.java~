@@ -9,6 +9,7 @@ public class DriveTrain{
     public MotorController right_motor;
     public Encoder left_motor_encoder;
     public Encoder right_motor_encoder;
+    public Gyro gyro;
     public I2c i2c;
 
     public double left_straight_speed;
@@ -20,6 +21,9 @@ public class DriveTrain{
     public double derivative;
     public double output;
 
+    public double outputLeftSpeed;
+    public double outputRightSpeed;
+
     public DriveTrain(){
 	System.out.println("Hello DriveTrain!");
 		
@@ -28,37 +32,60 @@ public class DriveTrain{
 	left_motor = new MotorController(0, i2c, 3, false);
 	right_motor = new MotorController(3, i2c, 4, true);
 	
-	left_motor_encoder = new Encoder(1,2);
-	right_motor_encoder = new Encoder(4,5);
+	left_motor_encoder = new Encoder(1,2,true);
+	right_motor_encoder = new Encoder(5,4,false);
+
+	gyro = new Gyro(0, 10);
     }
 
     public void pidDriveStraightStart(double speed){
 	left_straight_speed = speed;
-	right_straight_speed = speed;
+        right_straight_speed = speed;
 
 	left_motor_encoder.start();
 	right_motor_encoder.start();
+	//gyro.start();
+	//gyro.zero();
 
 	previousError = 0;
 	integral = 0;
     }
-    public void pidDriveStraight(double dt){
-
+    public void pidDriveStraightEncoder(double dt){
+	//System.out.println(left_motor_encoder.getCount());
+	//System.out.println(right_motor_encoder.getCount());
 	error = left_motor_encoder.getCount()-right_motor_encoder.getCount();
+	
+	integral = integral + error*dt;
+	derivative = (error - previousError)/dt;
+	System.out.println("total encoder diff"+error);
+	System.out.println("deriv:"+derivative);
+	output = -(.1/100)*error+.0*integral-.1*derivative;
+	System.out.println("output:"+output);
+
+	outputLeftSpeed=left_straight_speed+output;
+	outputRightSpeed=right_straight_speed-output;
+
+	setLeftDriveMotor(outputLeftSpeed);
+	setRightDriveMotor(outputRightSpeed);
+
+	previousError = error;
+
+
+    }
+    
+    public void pidDriveStraightGyro(double dt){
+
+	error = gyro.getDegrees();
 
 	integral = integral + error*dt;
 	derivative = (error - previousError)/dt;
-	
-	output = .5*error+.3*integral-.5*derivative;
+	System.out.println("total angle number"+error);
+	System.out.println("deriv:"+derivative);
+	output = -(.1/20)*error+.0*integral-.0*derivative;
+	System.out.println("output:"+output);
 
-	if(left_motor_encoder.getCount()-100>right_motor_encoder.getCount()){
-	    outputLeftSpeed=left_straight_speed+output;
-	    outputRightSpeed=right_straight_speed-output;
-	} else if (right_motor_encoder.getCount()-100>left_motor_encoder.getCount()){
-	    outputLeftSpeed=left_straight_speed-output;
-	    outputRightSpeed=right_straight_speed+output;
-	} else {
-	}
+	outputLeftSpeed=left_straight_speed+output;
+	outputRightSpeed=right_straight_speed-output;
 
 	setLeftDriveMotor(outputLeftSpeed);
 	setRightDriveMotor(outputRightSpeed);
@@ -67,8 +94,9 @@ public class DriveTrain{
 
     }
     public void pidDriveStraightStop(){
-	left_motor_encoder.delete();
-	right_motor_encoder.delete();
+	//left_motor_encoder.delete();
+	//right_motor_encoder.delete();
+	gyro.delete();
     }
     public void setLeftDriveMotor(double speed){
 	left_motor.setSpeed(speed);
