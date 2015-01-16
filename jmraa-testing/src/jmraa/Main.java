@@ -12,14 +12,14 @@ public class Main{
 
     public static void main(String[] args){
 	System.out.println("hello");
-	Encoder enc = new Encoder(5, 4, true);
+	/*Encoder enc = new Encoder(5, 4, true);
 	enc.start();
 	for(int i = 0; i < 100; i++){
 	    System.out.println("count: " + enc.getCount() + "   deriv: " + enc.getDerivative());
 	    Utils.msleep(100);
 	}
-	enc.delete();
-	/*Gyro gyro = new Gyro(0, 10);
+	enc.delete();*/
+	Gyro gyro = new Gyro(0, 10);
 	Runtime.getRuntime().addShutdownHook(new Thread() {
 		public void run() {
 		    gyro.delete();
@@ -27,8 +27,8 @@ public class Main{
 	    });
 	gyro.start();
 	Utils.msleep(500);
-	double total = 0;
-	int num = 1000;
+	//double total = 0;
+	/*int num = 1000;
 	for(int i = 0; i < num; i++){
 	    short reading = gyro.getReading();
 	    total += (double)reading;
@@ -36,8 +36,14 @@ public class Main{
 	    Utils.msleep(10);
 	}
 	double average = total/num;
-	System.out.println("Average: " + average);
-	gyro.delete();*/
+	System.out.println("Average: " + average);*/
+	int total;
+	for(int i = 0; i < 1000; i++){
+	    System.out.println("degrees: " + gyro.getDegrees());
+	    //System.out.println("read: " + gyro.getReading());
+	    Utils.msleep(10);
+	}
+	gyro.delete();
 	/*Gpio chipSelect = new Gpio(10);
 	chipSelect.dir(Utils.Dir.DIR_OUT);
 	chipSelect.write(1);

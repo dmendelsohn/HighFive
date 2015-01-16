@@ -26,8 +26,8 @@ public class Robot{
         long dt = 20;
 	robot.drivetrain.pidDriveStraightStart(.4);
 	while(System.currentTimeMillis()-robot.startTime<5000){
-	    //robot.drivetrain.pidDriveStraightGyro(dt);
-	    robot.drivetrain.pidDriveStraightEncoder(dt);
+	    robot.drivetrain.pidDriveStraightGyro(dt);
+	    //robot.drivetrain.pidDriveStraightEncoder(dt);
 	    Utils.msleep(dt);
 	}
 	robot.drivetrain.pidDriveStraightStop();

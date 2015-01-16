@@ -5,7 +5,7 @@ import packages.*;
 
 public class Robot{
 
-	//static{System.loadLibrary("jmraa");} 
+	static{System.loadLibrary("jmraa");} 
 
 	public StateBase state;
 

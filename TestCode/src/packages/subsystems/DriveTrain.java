@@ -1,18 +1,18 @@
 package packages.subsystems;
-//import jmraa.*;
+import jmraa.*;
 
 public class DriveTrain{
 
-    //static{System.loadLibrary("jmraa");}
+    static{System.loadLibrary("jmraa");}
 
-    /*
+    
     public MotorController leftMotor;
     public MotorController rightMotor;
     public Encoder leftMotorEncoder;
     public Encoder rightMotorEncoder;
     public Gyro gyro;
     public I2c i2c;
-    */
+    
 
     public double leftStraightSpeed;
     public double rightStraightSpeed;
@@ -28,7 +28,7 @@ public class DriveTrain{
 
     public DriveTrain(){
 	System.out.println("Hello DriveTrain!");
-	/*	
+		
 	i2c = new I2c(6);
 	Pwm.initPwm(i2c);
 	leftMotor = new MotorController(0, i2c, 3, false);
@@ -38,7 +38,7 @@ public class DriveTrain{
 	rightMotorEncoder = new Encoder(5,4,false);
 
 	gyro = new Gyro(0, 10);
-	*/
+	
     }
 
     public void pidDriveStraightStart(double speed){
@@ -48,14 +48,14 @@ public class DriveTrain{
 	//leftMotorEncoder.start();
 	//rightMotorEncoder.start();
 
-	//gyro.start();
-	//gyro.zero();
+	gyro.start();
+	gyro.zero();
 
 	previousError = 0;
 	integral = 0;
     }
     public void pidDriveStraightEncoder(double dt){
-	/*
+	
 	error = leftMotorEncoder.getCount()-rightMotorEncoder.getCount();
 	
 	integral = integral + error*dt;
@@ -72,12 +72,12 @@ public class DriveTrain{
 	setRightDriveMotor(outputRightSpeed);
 
 	previousError = error;
-	*/
+	
 
     }
     
     public void pidDriveStraightGyro(double dt){
-	/*
+	
 	error = gyro.getDegrees();
 
 	integral = integral + error*dt;
@@ -94,20 +94,20 @@ public class DriveTrain{
 	setRightDriveMotor(outputRightSpeed);
 
 	previousError = error;
-	*/
+	
 
     }
     public void pidDriveStraightStop(){
 	//leftMotorEncoder.delete();
 	//rightMotorEncoder.delete();
 	
-	//gyro.delete();
+	gyro.delete();
     }
     public void setLeftDriveMotor(double speed){
-	//leftMotor.setSpeed(speed);
+	leftMotor.setSpeed(speed);
     }
     public void setRightDriveMotor(double speed){
-	//rightMotor.setSpeed(speed);
+	rightMotor.setSpeed(speed);
     }
     public void moveStraight(double speed, boolean positive){
 	if(positive==true){

@@ -39,7 +39,7 @@ public class Encoder extends Thread{
 	    counts[0]+=(invert?-1:1);
 	} else if(delta==-1||delta==3){
 	    counts[0]+=(invert?1:-1);
-	} else if(delta !=0){
+	} else if(delta!=0){
 	    //Fuckin weird
 	    System.out.println("weird encoder phase change from " + (next-delta) + " to " + next);
 	}

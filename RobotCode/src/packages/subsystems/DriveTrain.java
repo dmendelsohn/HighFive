@@ -40,8 +40,8 @@ public class DriveTrain{
 	leftMotorEncoder = new Encoder(1,2,true);
 	rightMotorEncoder = new Encoder(5,4,false);
 
-	leftUltrasonic = new Ultrasonic();
-	rightUltrasonic = new Ultrasonic();
+	//leftUltrasonic = new Ultrasonic();
+	//rightUltrasonic = new Ultrasonic();
 
 	gyro = new Gyro(0, 10);
 	
@@ -87,9 +87,9 @@ public class DriveTrain{
 	rightSpeed = .5;
 	
 	if(left_side){
-		wallDistance = leftUtrasonic.asMeters(10);
+	    //wallDistance = leftUtrasonic.asMeters(10);
 	}else{
-		wallDistance = rightUtrasonic.asMeters(10);
+	    //wallDistance = rightUtrasonic.asMeters(10);
 	}
 	
 	previousError = 0;
@@ -144,7 +144,7 @@ public class DriveTrain{
 	
 	gyro.delete();
     }
-    public void pidGyroTurn(double degrees){
+    public void pidGyroTurn(double dt, double degrees){
 	
 	currentPosition = gyro.getDegrees();
 	error = currentPosition - degrees;
@@ -222,6 +222,6 @@ public class DriveTrain{
     }
 	
     public void stop(){
-	moveStraight(0,true);
+	moveStraightRough(0,true);
     }
 }
