@@ -145,16 +145,9 @@ public class DriveTrain{
 	System.out.println("output:"+output);
 	*/ 
 
-	if(error>5){
-	    outputLeftSpeed=leftSpeed+error/5000.;
-	    outputRightSpeed=rightSpeed-error/5000.;
-	}else if(error<-5){
-	    outputLeftSpeed=-leftSpeed-error/5000.;
-	    outputRightSpeed=rightSpeed+error/5000.;
-	}else{
-	    outputLeftSpeed = 0;
-	    outputRightSpeed = 0;
-	}
+	outputLeftSpeed=leftSpeed+error/5000.;
+	outputRightSpeed=rightSpeed-error/5000.;
+
 	System.out.println("change:"+error/5000.);
 
 	setLeftDriveMotor(outputLeftSpeed);
