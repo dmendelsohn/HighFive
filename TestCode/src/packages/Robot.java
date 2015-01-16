@@ -24,14 +24,13 @@ public class Robot{
 	Robot robot = new Robot();
 	
         long dt = 20;
-	robot.drivetrain.pidDriveStraightStart(.4);
+	robot.drivetrain.pidStart(.4,1);
 	while(System.currentTimeMillis()-robot.startTime<5000){
-	    robot.drivetrain.pidDriveStraightGyro(dt);
-	    //robot.drivetrain.pidDriveStraightEncoder(dt);
+	    robot.drivetrain.pidGyroTurn(dt,30.);
 	    Utils.msleep(dt);
 	}
-	robot.drivetrain.pidDriveStraightStop();
-	robot.drivetrain.moveStraight(0, true);
+	robot.drivetrain.pidStop();
+	robot.drivetrain.moveStraightRough(0, true);
     }
 
 }
