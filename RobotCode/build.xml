@@ -7,7 +7,7 @@
     <property name="jar.dir"     value="${build.dir}/jar"/>
     <property name="jmraa.dir"   value="../jmraa/"/>
 
-    <property name="main-class"  value="packages.Robot"/>
+    <property name="main-class"  value="robot/Robot"/>
 
 
 

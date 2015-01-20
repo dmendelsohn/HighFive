@@ -1,19 +1,20 @@
 code to do list:
 
-	interface with robot --> read sensors
-	create pid drive
+	Main objective: make test code using greater structure
+
+	end threads at end
+	make fewer pid methods
 
 	Flush out setState -- > state.getNext from input
 	determine output state vars from state.run()
 
-	develop processOutput --> make robot move solely based on outputstatevariables
+	[[develop processOutput --> make robot move solely based on outputstatevariables]]
+	^^do now^^
+
+needs:
+	fix state output method names to be in accordance with systems
 
 
-	box search
-	blind box
-	box follow
+solidify wiring numbers -- Robotmain
 
-	//do shake off
-
-
-
+ fix subsystems, then states

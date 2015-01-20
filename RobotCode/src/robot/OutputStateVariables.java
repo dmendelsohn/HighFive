@@ -1,0 +1,17 @@
+package robot;
+
+public class OutputStateVariables{
+
+	public boolean hasFuckedStevensMom;
+
+	public String drivetrainMethod;
+	public String hopperMethod;
+	public String conveyorMethod;
+	public String visionMethod;
+
+	public OutputStateVariables(){
+		hasFuckedStevensMom = true;
+		System.out.println("Has fucked Steven's Mom = " + hasFuckedStevensMom);
+	}
+
+}
