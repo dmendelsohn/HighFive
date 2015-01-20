@@ -1,16 +1,32 @@
 <project name="SimpleSample" basedir="." default="rebuild-run">
 	<property name="src.dir"		value="src"/>
-	<property name="lib.dir"		value="../../../opencv-2.4.10/build/bin"/>
+	<property name="lib.dir"		value="../opencv-2.4.10/build/bin"/>
+	<property name="opencv-lib.dir" value="../opencv-2.4.10/build/lib"/>
+
 	<path id="classpath">
 		<fileset dir="${lib.dir}" includes="**/*.jar"/>
 	</path>
 
-	<property name="build.dir"		value="build"/>
-	<property name="classes.dir"	value="${build.dir}/classes"/>
-	<property name="jar.dir"		value="${build.dir}/jar"/>
-	<property name="main-class"		value="${ant.project.name}"/>
-	<property name="processing-class"	value="ProcessImage"/>
+	<property name="build.dir"				value="build"/>
+	<property name="classes.dir"			value="${build.dir}/classes"/>
+	<property name="jar.dir"				value="${build.dir}/jar"/>
+	<property name="main-class"				value="${ant.project.name}"/>
+	<property name="filter-class"			value="FilterImage"/>
+	<property name="blob-labeling-class"	value="BlobLabeling"/> <!-- Creates a byte array with color values replaced by blob labels, + info file -->
+	<property name="blob-analysis-class"	value="BlobAnalysis"/> <!--Finds bounding box, centroid, and deletes blobs that are too small -->
+	<property name="blob-vis-class"			value="BlobVisualization"/> <!-- Turns output of previous class into human viewable jpg -->
 
+	<property name="vision-files.dir"		value="vision"/>
+	<property name="input-file"				value="${in}"/> <!-- This must be specified using -Din argument -->
+	<property name="filter-img-file"		value="${vision-files.dir}/filtered-img.jpg"/> <!-- This is the pretty picture with blobs -->
+	<property name="filter-raw-file"		value="${vision-files.dir}/filtered-raw.out"/> <!-- This holds the byte array for the raw result of the filter -->
+	<property name="filter-info-file"		value="${vision-files.dir}/filtered-info.txt"/> <!-- this gives height and width dimensions -->
+	<property name="label-raw-file"			value="${vision-files.dir}/label-raw.out"/> <!-- This replaces color values with labels, in array of shorts -->
+	<property name="label-info-file"		value="${vision-files.dir}/label-info.txt"/> <!-- This file maps label numbers to original values (color enum)  -->
+	<property name="analysis-raw-file"		value="${vision-files.dir}/analysis-raw.out"/> <!-- like label-raw.out, but without "noise" blobs -->
+	<property name="analysis-info-file"		value="${vision-files.dir}/analysis-info.txt"/> <!-- augments label-info.txt with bounding and centriods -->
+	<property name="analysis-img-file"		value="${vision-files.dir}/analysis-img.jpg"/> <!-- human viewable image with analysis results -->
+		
 	<target name="clean">
 		<delete dir="${build.dir}"/>
 	</target>
@@ -31,32 +47,55 @@
 
 	<target name="run" depends="jar">
 		<java fork="true" classname="${main-class}">
-			<sysproperty key="java.library.path" path="../../../opencv-2.4.10/build/lib"/>
+			<sysproperty key="java.library.path" path="${opencv-lib.dir}"/>
 			<classpath>
 				<path refid="classpath"/>
 				<path location="${jar.dir}/${ant.project.name}.jar"/>
 			</classpath>
 		</java>
 	</target>
-
-	<target name="run-processing" depends="jar">
-		<java fork="true" classname="${processing-class}">
-			<sysproperty key="java.library.path" path="../../../opencv-2.4.10/build/lib"/>
-			<classpath>
-				<path refid="classpath"/>
-				<path location="${jar.dir}/${ant.project.name}.jar"/>
-			</classpath>
-		</java>
-	</target>
-
 
 	<target name="run-filter" depends="jar">
-		<java fork="true" classname="ColorFilter">
-			<sysproperty key="java.library.path" path="../../../opencv-2.4.10/build/lib"/>
+		<java fork="true" classname="${filter-class}">
+			<sysproperty key="java.library.path" path="${opencv-lib.dir}"/>
 			<classpath>
 				<path refid="classpath"/>
 				<path location="${jar.dir}/${ant.project.name}.jar"/>
 			</classpath>
+			<arg value="${input-file}"/>
+			<arg value="${filter-img-file}"/>
+			<arg value="${filter-raw-file}"/>
+			<arg value="${filter-info-file}"/>
+		</java>
+	</target>
+
+	<target name="run-blob-labeling" depends="run-filter">
+		<java fork="true" classname="${blob-labeling-class}">
+			<sysproperty key="java.library.path" path="${opencv-lib.dir}"/>
+			<classpath>
+				<path refid="classpath"/>
+				<path location="${jar.dir}/${ant.project.name}.jar"/>
+			</classpath>
+			<arg value="${filter-raw-file}"/> <!-- this is the raw byte by byte input with GameColors as the pixel type -->
+			<arg value="${filter-info-file}"/> <!-- this has the height and width info that we require -->
+			<arg value="${label-raw-file}"/> <!-- this is where the int array with GameColor replaced by labels goes -->
+			<arg value="${label-info-file}"/> <!-- this is where the txt file mapping labels to game colors goes -->
+		</java>
+	</target>
+
+	<target name="run-blob-analysis" depends="run-blob-labeling">
+		<java fork="true" classname="${blob-analysis-class}">
+			<!-- <sysproperty key="java.libary.path"	path="${opencv-lib.dir}"/> -->
+			<jvmarg value="-Djava.library.path=${opencv-lib.dir}"/>
+			<classpath>
+				<path refid="classpath"/>
+				<path location="${jar.dir}/${ant.project.name}.jar"/>
+			</classpath>
+			<arg value="${label-raw-file}"/>	<!-- This is where the label int array comes from -->
+			<arg value="${label-info-file}"/>	<!-- This gives us image dimensions and label->color mappings -->
+			<arg value="${analysis-raw-file}"/>	<!-- This is label-raw-file, cleaned of blobs we don't want -->
+			<arg value="${analysis-img-file}"/>	<!-- human viewable output of the analysis -->
+			<arg value="${analysis-info-file}"/>	<!-- This should have dimenions, label->color mapping, and ALSO new info about blob sizes and centroids and stuff -->
 		</java>
 	</target>
 
