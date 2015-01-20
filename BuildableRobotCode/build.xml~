@@ -5,8 +5,9 @@
     <property name="build.dir"   value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="jar.dir"     value="${build.dir}/jar"/>
+    <property name="jmraa.dir"   value="../jmraa/"/>
 
-    <property name="main-class"  value="packages.Robot"/>
+    <property name="main-class"  value="robot/Robot.java"/>
 
 
 
@@ -16,7 +17,7 @@
 
     <target name="compile">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpath="${jmraa.dir}/jmraa.jar"/> 
     </target>
 
     <target name="jar" depends="compile">
@@ -24,24 +25,19 @@
         <jar destfile="${jar.dir}/HelloWorld.jar" basedir="${classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main-class}"/>
+                <attribute name="Class-Path" value="../../../jmraa/jmraa.jar"/>
             </manifest>
         </jar>
     </target>
 
     <target name="run" depends="jar">
-        <java jar="${jar.dir}/HelloWorld.jar" fork="true"/>
+        <java jar="${jar.dir}/HelloWorld.jar" fork="true">
+           <sysproperty key="java.library.path" path="${jmraa.dir}/jni/"/>
+	</java>
     </target>
 
     <target name="clean-build" depends="clean,jar"/>
-   
-    <!--  
-    <target name="ant-jmraa"/>
-	<ant antfile="../jmraa/build.xml"/>
-    </target>
-  
-    <target name="main" depends="clean,run,ant-jmraa"/>
-    -->
 
-    <target name="main" depends="clean,run">
+    <target name="main" depends="clean,run"/>
 
 </project>
