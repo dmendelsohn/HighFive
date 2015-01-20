@@ -21,9 +21,9 @@ public class ShakeOff extends StateBase{
 
 	public OutputStateVariables run(InputStateVariables input){
 		if(counter%100<50){
-			moveStraight(.8, false);
+			output.drivetrainMethod = "moveStraight(0.8,true)";
 		}else{
-			moveStraight(.8, true);
+			output.drivetrainMethod = "moveStraight(0.8,false)";
 		}
 		counter++;
 		return output;

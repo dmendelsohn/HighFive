@@ -5,6 +5,8 @@ import packages.*;
 
 public class Robot{
 
+	static{System.loadLibrary("jmraa");} 
+
 	public StateBase state;
 
 	public DriveTrain drivetrain;
@@ -12,7 +14,11 @@ public class Robot{
 	public ConveyorBelt conveyor;
 	public Vision vision;
 
+	public long startTime;
+
 	public Robot(){
+
+		startTime = System.currentTimeMillis();
 
 		state = new BoxSearch();
 

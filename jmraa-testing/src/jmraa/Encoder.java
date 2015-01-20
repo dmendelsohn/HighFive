@@ -1,56 +1,22 @@
 package jmraa;
 
-public class Encoder extends Thread{
+public class Encoder{
 
-    private Gpio a, b;
-    private int phase;
-    private int count;
-    private boolean isRunning;
+    private long nativeHandle;
+    private boolean invert;
 
-    public Encoder(int pinA, int pinB){
-	a = new Gpio(pinA);
-	a.dir(Utils.Dir.DIR_IN);
-	b = new Gpio(pinB);
-	b.dir(Utils.Dir.DIR_IN);
-	count = 0;
-	isRunning = true;
+    public Encoder(int pinA, int pinB, boolean invertIn){
+	loadEncoderNative(pinA, pinB);
+	invert = invertIn;
     }
 
-    private int getPhase(){
-	int aVal = a.read();
-	int bVal = b.read();
-	if(aVal==0 && bVal==0) return 0;
-	else if(aVal==1 && bVal==0) return 1;
-	else if(aVal==1 && bVal==1) return 2;
-	else if(aVal==0 && bVal==1) return 3;
-	return -1;
-    }
+    private native void loadEncoderNative(int pinA, int pinB);
 
-    private void update(){
-	int delta = getPhase() - phase;
-	phase = getPhase();
-	if(delta==1||delta==-3){
-	    count++;
-	} else if(delta==-1||delta==3){
-	    count--;
-	} else if(delta !=0){
-	    //Fuckin weird
-	    System.out.println("weird encoder phase change from " + (phase-delta) + " to " + phase);
-	}
-    }
-    
     public int getCount(){
-	return count;
+	return getCountNative()*(invert?-1:1);
     }
 
-    public void run(){
-	while(isRunning){
-	    update();
-	    Utils.usleep(10);
-	}
-    }
+    private native int getCountNative();
 
-    public void delete(){
-	isRunning=false;
-    }
+    public native int getDerivative();
 }

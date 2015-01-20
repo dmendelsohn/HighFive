@@ -1,24 +1,36 @@
 package packages;
+
 import packages.subsystems.*;
 import jmraa.*;
 
 public class Robot{
+
+    static{System.loadLibrary("jmraa");}
 	
-	public DriveTrain;
+    public DriveTrain drivetrain;
+    public long startTime;
 
-	public Robot(){
+    public Robot(){
 
-		System.out.println("hello der");
+	startTime = System.currentTimeMillis();
 
-		drivetrain = new DriveTrain();
+	System.out.println("hello der");
+
+	drivetrain = new DriveTrain();
+    }
+
+    public static void main(String[] args){
+
+	Robot robot = new Robot();
+	
+        long dt = 20;
+	robot.drivetrain.pidDriveStraightStart(.4);
+	while(System.currentTimeMillis()-robot.startTime<5000){
+	    robot.drivetrain.pidDriveStraightGyroRates(dt);
+	    Utils.msleep(dt);
 	}
-
-	public static void main(String[] args){
-
-		Robot robot = new Robot();
-
-		robot.drivetrain.moveStraight(.5, true);
-
-	}
+	robot.drivetrain.pidDriveStraightStop();
+	robot.drivetrain.moveStraight(0, true);
+    }
 
 }

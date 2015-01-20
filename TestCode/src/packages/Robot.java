@@ -1,4 +1,5 @@
 package packages;
+
 import packages.subsystems.*;
 import jmraa.*;
 
@@ -22,12 +23,14 @@ public class Robot{
 
 	Robot robot = new Robot();
 	
-	robot.drivetrain.pidDriveStraightStart(.4);
+        long dt = 20;
+	robot.drivetrain.pidStart(.4,1);
 	while(System.currentTimeMillis()-robot.startTime<5000){
-	    robot.drivetrain.pidDriveStraight();
+	    robot.drivetrain.pidGyroTurn(dt,30.);
+	    Utils.msleep(dt);
 	}
-	robot.drivetrain.pidDriveStraightStop();
-	robot.drivetrain.moveStraight(0, true);
+	robot.drivetrain.pidStop();
+	robot.drivetrain.moveStraightRough(0, true);
     }
 
 }
