@@ -8,6 +8,7 @@ public class InstantiatedSystems{
 	public Hoppers hopper;
 	public ConveyorBelt conveyor;
 	public Vision vision;
+
         /*
 	public Encoder leftMotorEncoder;
         public Encoder rightMotorEncoder;
@@ -20,6 +21,7 @@ public class InstantiatedSystems{
 	public Gyro gyro;
 	public I2c i2c;
         */
+
 	public InstantiatedSystems(){
 
 		drivetrain = new DriveTrain();

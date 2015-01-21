@@ -10,7 +10,8 @@ public class WallFollow extends StateBase{
 		super();
 
 		output = new OutputStateVariables();
-
+		//make it drive forward or something like drive slowly medium quickly
+		//don't pass parameters you don't need to pass here
 		output.drivetrainMethod = "pidDrive";
 		output.drivetrainMethodVals.add(2.0);
 		output.drivetrainMethodVals.add(0.7);

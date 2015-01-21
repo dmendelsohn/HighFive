@@ -46,15 +46,18 @@ public class DriveTrain{
 	gyro = new Gyro(0, 10);
 	
     }
-    //could maybe merge some of these methods
-    public void pidDriveStraightStart(double speed, boolean forward){
-	if(forward){
+    
+    public void pidStart(double speed, int direction){
+	if(direction == 0){
 		leftSpeed = speed;
         	rightSpeed = speed;
-	}else{
+	}else if(direction==-1){
 		leftSpeed = -speed;
-		rightSpeed = -speed;	
-	}	
+		rightSpeed = speed;	
+	}else{
+	        leftSpeed = speed;
+	        rightSpeed = -speed;
+	}
 
 	//leftMotorEncoder.start();
 	//rightMotorEncoder.start();
@@ -138,7 +141,7 @@ public class DriveTrain{
 	
 
     }
-    public void pidDriveStraightStop(){
+    public void pidStop(){
 	//leftMotorEncoder.delete();
 	//rightMotorEncoder.delete();
 	

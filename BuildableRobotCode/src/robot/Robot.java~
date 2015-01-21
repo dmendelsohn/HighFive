@@ -39,7 +39,7 @@ public class Robot{
 			input = robot.generateInputStateVariables(systems);
 			robot.setState(input);
 			output = robot.readState(input);
-			robot.processOutput(output, system);
+			robot.processOutput(output, systems);
 			//Utils.msleep(10);
 			try{
 				Thread.sleep(10);

@@ -19,7 +19,6 @@ public class Robot{
 		 
 		state = new BoxSearch();
 		
-
 	}
 
 	public static void main(String[] args){
