@@ -9,29 +9,25 @@ public class ShakeOff extends StateBase{
 	public boolean flag;
 
 	public ShakeOff(){
+		super();
 
 		output = new OutputStateVariables();
 
-		output.drivetrainMethod = "moveStraight(.8,false)";
-		output.hopperMethod = "setSorterPosition(0)";
-		output.conveyorMethod = "checkFeedLimitSwitch()";
-		output.visionMethod = "doNothing()";
-		
-		counter = 0;
+		output.drivetrainMethod = "moveStraightRough";
+		output.drivetrainSpeed = -0.2;
+
+		output.hopperMethod = "doNothing";
+		output.conveyorMethod = "doNothing";
+		output.visionMethod = "doNothing";
 	}
 
 	public OutputStateVariables run(InputStateVariables input){
-		if(counter%100<50){
-			output.drivetrainMethod = "moveStraight(0.8,true)";
-		}else{
-			output.drivetrainMethod = "moveStraight(0.8,false)";
-		}
-		counter++;
+		System.out.println("ShakeOff");
 		return output;
 	}
 
 	public StateBase getNext(InputStateVariables input){
-		if(System.currentTimeMillis()-stateStartTime > 2000.){
+		if(System.currentTimeMillis()-stateStartTime > 1000.){
 			return new BoxSearch();
 		} else {
 			return this;

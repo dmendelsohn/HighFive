@@ -5,27 +5,41 @@ import robot.*;
 public class BoxSearch extends StateBase{
 
 	public OutputStateVariables output;
+	public InputStateVariables input;
 
 	public BoxSearch(){
+		super();
 
 		output = new OutputStateVariables();
 
-		output.drivetrainMethod = "setClockwiseTurn(.5)";
-		output.hopperMethod = "setSorterPosition(0)";
-		output.conveyorMethod = "moveBelt(false)";
-		output.visionMethod = "senseTarget()";
+		output.drivetrainMethod = "pidDrive";
+		output.drivetrainPIDType = "Gyroscope";
+		output.drivetrainSpeed = 0.5;
+
+		output.hopperMethod = "doNothing";
+
+		output.conveyorMethod = "doNothing";
+
+		output.visionMethod = "senseTarget";
+
+		stateStartTime = System.currentTimeMillis();
 		
 	}
 
 	public OutputStateVariables run(InputStateVariables input){
+		System.out.println("BoxSearch");
 		return output;
 	}
 
 	public StateBase getNext(InputStateVariables input){
-		if(System.currentTimeMillis()-stateStartTime > 5000. ){
+		if(false){
 			return new BoxFollow();
+		//if(input.seesTarget){
+		//	return new BoxFollow();
+		}else if(System.currentTimeMillis()-stateStartTime > 3000.){
+			return new WallFollow();
 		}else if(input.gyroAngle > 360.0){
-			return new WallSearch();
+			return new WallFollow();
 		} else {
 			return this;
 		}

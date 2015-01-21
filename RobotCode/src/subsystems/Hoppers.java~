@@ -1,7 +1,12 @@
-package packages.subsystems;
+package subsystems;
 //import jmraa.*
 
 public class Hoppers{
+	
+	//public ServoClass hopperServo;
+
+	//public ServoClass leftReleaseServo;
+	//public ServoClass rightReleaseServo;
 
 	public Hoppers(){
 		System.out.println("Hello Hoppers!");
@@ -9,18 +14,17 @@ public class Hoppers{
 	
 	public void setSorterPosition(int position){
 		//-1=left,0=center,1=right
-		//jmraa.setPosition(position)
+		//hopperServo.setPosition(position)
 	} 
-	public void setLockerPosition(int position){
-		//-1=left,0=center,1=right
-		//jmraa.setPosition(position)
-	} 
+
 	public void openLeftHatch(boolean release){
-		//if (release == true) {setPosition(1) for bottom and top left}
-		//else {setPosition(0) for bottom and top left}
+		//if (release == true) {leftReleaseServo.setSorterPosition(1);}//also for back if exists
+		//else {leftReleaseServo.setSorterPosition(0);}
 	}
 	public void openRightHatch(boolean release){
-		//if (release == true) {setPosition(1) for bottom and top right}
-		//else {setPosition(0) for bottom and top right}
+		//if (release == true) {rightReleaseServo.setSorterPosition(1)}
+		//else {rightReleaseServo.setSorterPosition(0)}
+	}
+	public void doNothing(){
 	}
 }

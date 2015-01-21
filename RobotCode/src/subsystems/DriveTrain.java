@@ -1,27 +1,23 @@
 package subsystems;
+import robot.*;
 import jmraa.*;
 
 public class DriveTrain{
-
+    
     static{System.loadLibrary("jmraa");}
 
     public MotorController leftMotor;
     public MotorController rightMotor;
-    public Encoder leftMotorEncoder;
-    public Encoder rightMotorEncoder;
-    public Ultrasonic leftUltrasonic;
-    public Ultrasonic rightUltrasonic;
-    public Gyro gyro;
-    public I2c i2c;
 
     public double leftSpeed;
     public double rightSpeed;
 
     public double error;
-    public double previousError; 
-    public double integral; 
+    public double previousError = 0.0; 
+    public double integral = 0.0; 
     public double derivative;
     public double output;
+    public long lastTime;
 
     public double wallDistance;
     public double currentPosition;
@@ -37,191 +33,58 @@ public class DriveTrain{
 	leftMotor = new MotorController(0, i2c, 3, false);
 	rightMotor = new MotorController(3, i2c, 4, true);
 	
-	leftMotorEncoder = new Encoder(1,2,true);
-	rightMotorEncoder = new Encoder(5,4,false);
-
-	//leftUltrasonic = new Ultrasonic();
-	//rightUltrasonic = new Ultrasonic();
-
-	gyro = new Gyro(0, 10);
-	
+	//setting lastTime here is not a good idea
+	lastTime = System.currentTimeMillis();
     }
-    //could maybe merge some of these methods
-    public void pidDriveStraightStart(double speed, boolean forward){
-	if(forward){
-		leftSpeed = speed;
-        	rightSpeed = speed;
-	}else{
-		leftSpeed = -speed;
-		rightSpeed = -speed;	
-	}	
 
-	//leftMotorEncoder.start();
-	//rightMotorEncoder.start();
+    public void pidDrive(double setPoint, double speed, double currentPosition, double kp, double ki, double kd){
 
-	gyro.start();
-	gyro.zero();
+	leftSpeed = speed;
+	rightSpeed = speed;
 
-	previousError = 0;
-	integral = 0;
-    }
-    public void pidTurnStart(boolean clockwise){
+	error = currentPosition;
+	long dt = System.currentTimeMillis() - lastTime;
 
-	if(clockwise){
-		leftSpeed = .5;
-		rightSpeed = -.5;
-	}else{
-		leftSpeed = -.5;
-		rightSpeed = .5;
-	} 
-	gyro.start();
-	gyro.zero();
-
-	previousError = 0;
-	integral = 0;
-
-    }
-    public void pidWallFollowStart(boolean left_side){
-
-	leftSpeed = .5;
-	rightSpeed = .5;
-	
-	if(left_side){
-	    //wallDistance = leftUtrasonic.asMeters(10);
-	}else{
-	    //wallDistance = rightUtrasonic.asMeters(10);
-	}
-	
-	previousError = 0;
-	integral = 0;
-
-    }
-    public void pidDriveStraightEncoder(double dt){
-	
-	error = leftMotorEncoder.getCount()-rightMotorEncoder.getCount();
-	
 	integral = integral + error*dt;
 	derivative = (error - previousError)/dt;
-	System.out.println("total encoder diff"+error);
-	System.out.println("deriv:"+derivative);
-	output = -(.1/100)*error+.0*integral-.1*derivative;
-	System.out.println("output:"+output);
+	//System.out.println("total angle number"+error);
+	//System.out.println("deriv:"+derivative);
+	output = kp*error+ki*integral+kd*derivative;
+	//System.out.println("output:"+output);
 
 	outputLeftSpeed=leftSpeed+output;
 	outputRightSpeed=rightSpeed-output;
 
-	setLeftDriveMotor(outputLeftSpeed);
-	setRightDriveMotor(outputRightSpeed);
+	setLeftSpeed(outputLeftSpeed);
+	setRightSpeed(outputRightSpeed);
 
 	previousError = error;
-
-    }
-    
-    public void pidDriveStraightGyro(double dt){
-	
-	error = gyro.getDegrees();
-
-	integral = integral + error*dt;
-	derivative = (error - previousError)/dt;
-	System.out.println("total angle number"+error);
-	System.out.println("deriv:"+derivative);
-	output = -(.1/20)*error+.0*integral-.0*derivative;
-	System.out.println("output:"+output);
-
-	outputLeftSpeed=leftSpeed+output;
-	outputRightSpeed=rightSpeed-output;
-
-	setLeftDriveMotor(outputLeftSpeed);
-	setRightDriveMotor(outputRightSpeed);
-
-	previousError = error;
-	
-
-    }
-    public void pidDriveStraightStop(){
-	//leftMotorEncoder.delete();
-	//rightMotorEncoder.delete();
-	
-	gyro.delete();
-    }
-    public void pidGyroTurn(double dt, double degrees){
-	
-	currentPosition = gyro.getDegrees();
-	error = currentPosition - degrees;
-	integral = integral + error*dt;
-	derivative = (error - previousError)/dt;
-	System.out.println("total angle number"+error);
-	System.out.println("deriv:"+derivative);
-	output = -(.1/20)*error+.0*integral-.0*derivative;
-	System.out.println("output:"+output);
-
-	outputLeftSpeed=leftSpeed+output;
-	outputRightSpeed=rightSpeed-output;
-
-	setLeftDriveMotor(outputLeftSpeed);
-	setRightDriveMotor(outputRightSpeed);
-
-	previousError = error;
-    }
-    
-    public void pidWallFollow(double dt, boolean leftSide){
-        //distance in meters
-	
-	if(leftSide){
-		currentPosition = leftUltrasonic.asMeters(10);
-	}else{
-		currentPosition = rightUltrasonic.asMeters(10);
-	}
-	error = wallDistance-currentPosition;
-	integral = integral + error*dt;
-	derivative = (error - previousError)/dt;
-	System.out.println("total angle number"+error);
-	System.out.println("deriv:"+derivative);
-	output = -(.1/20)*error+.0*integral-.0*derivative;
-	System.out.println("output:"+output);
-
-	outputLeftSpeed=leftSpeed+output;
-	outputRightSpeed=rightSpeed-output;
-
-	setLeftDriveMotor(outputLeftSpeed);
-	setRightDriveMotor(outputRightSpeed);
-
-	previousError = error;
+	lastTime = System.currentTimeMillis();
 	
     }
 
     public void goToWall(){
 	
     }
-    public void setLeftDriveMotor(double speed){
+    public void setLeftSpeed(double speed){
 	leftMotor.setSpeed(speed);
     }
-    public void setRightDriveMotor(double speed){
+    public void setRightSpeed(double speed){
 	rightMotor.setSpeed(speed);
     }
-    public void moveStraightRough(double speed, boolean positive){
-	if(positive==true){
-	    setLeftDriveMotor(speed);
-	    setRightDriveMotor(speed);
-	} else {
-	    setLeftDriveMotor(-speed);
-	    setRightDriveMotor(-speed);
-	}
+    public void moveStraightRough(double speed){
+	setLeftSpeed(speed);
+	setRightSpeed(speed);
     }
-    public void driveTank(double left_speed, double right_speed, boolean positive){
-	//if(positive){setLeftSpeed(left_speed);setRightSpeed(right_speed);}
-	//else{setLeftSpeed(-left_speed);setRightSpeed(-right_speed);}
-    }
-    public void setClockwiseTurn(double speed){
-	//setLeftSpeed(speed);
-	//setRightSpeed(-speed);
-    }
-    public void setCounterClockwiseTurn(double speed){
-	//setLeftSpeed(-speed);
-	//setRightSpeed(speed);
+
+    public void setTurnRough(double speed){
+	setLeftSpeed(speed);
+	setRightSpeed(-speed);
     }
 	
     public void stop(){
-	moveStraightRough(0,true);
+	moveStraightRough(0);
+    }
+    public void doNothing(){
     }
 }
