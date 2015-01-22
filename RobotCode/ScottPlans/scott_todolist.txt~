@@ -1,19 +1,13 @@
 code to do list:
 
 	interface with robot --> read sensors
-	create pid drive
+        mix: some updated with inputclass and some with methods
 
 	Flush out setState -- > state.getNext from input
 	determine output state vars from state.run()
 
 	develop processOutput --> make robot move solely based on outputstatevariables
 
-
-	box search
-	blind box
-	box follow
-
-	//do shake off
-
+change location of action on variables
 
 
