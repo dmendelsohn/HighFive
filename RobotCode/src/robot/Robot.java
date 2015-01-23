@@ -16,21 +16,20 @@ public class Robot{
 
 		runTime = System.currentTimeMillis();
 		 
-		state = new BoxSearch();
+		state = new DriveTrainTest();
 		
 	}
 
 	public static void main(String[] args){
 		Robot robot = new Robot();
 
-		InstantiatedSystems systems;
-		systems = robot.startSystems();
+		InstantiatedSystems systems = robot.startSystems();
 		
 		//implement state-system functionality here
 		InputStateVariables input;
 		OutputStateVariables output;
 
-		while(System.currentTimeMillis()-runTime<5000.){
+		while(System.currentTimeMillis()-runTime<11000.){
 			input = robot.generateInputStateVariables(systems);
 			robot.setState(input);
 			output = robot.readState(input);
@@ -59,14 +58,16 @@ public class Robot{
 	public void processOutput (OutputStateVariables output, InputStateVariables input, InstantiatedSystems systems){
 
 		System.out.println(output.drivetrainMethod);
-
+		if(output.zeroGyro){
+			systems.zeroGyro();
+		}
 		switch(output.drivetrainMethod){
 			
 			case "pidDrive":
-				if (output.drivetrainPIDType == "Gyroscope"){
-					systems.drivetrain.pidDrive(0, output.drivetrainSpeed , input.gyroAngle, -1.0/20.0, 0, 0);
-				}else if (output.drivetrainPIDType == "Ultrasonic"){
-					systems.drivetrain.pidDrive(0.5,output.drivetrainSpeed ,input.rightUltraDist, -1.0/20.0, 0, 0);
+				if (output.drivetrainPIDType.equals("Gyroscope")){
+					systems.drivetrain.pidDrive(0, 0.2 , input.gyroAngle, -1.0/20, 0, 0);
+				}else if (output.drivetrainPIDType.equals("Ultrasonic")){
+					systems.drivetrain.pidDrive(0.5,0.2 ,input.rightUltraDist, -1.0/20.0 , 0, 0);
 				}
 				break;
 			case "moveStraightRough":

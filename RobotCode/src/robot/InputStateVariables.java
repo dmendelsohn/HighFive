@@ -22,9 +22,10 @@ public class InputStateVariables{
 		leftEncoderCount = systems.readLeftEncoderCount();
 		rightEncoderCount = systems.readRightEncoderCount();
 
-		//feedLimitEngaged = systems.checkConveyorLimitSwitch();
+		feedLimitEngaged = systems.checkConveyorLimitSwitch();
 	
-		//leftUltraDist = systems.readLeftUltraDist();
-		//rightUltraDist = systems.readRightUltraDist();
+		leftUltraDist = systems.readLeftUltraDist();
+		rightUltraDist = systems.readRightUltraDist();
 	}
+
 }

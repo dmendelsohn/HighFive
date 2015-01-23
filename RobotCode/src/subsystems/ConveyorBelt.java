@@ -6,11 +6,11 @@ public class ConveyorBelt{
 
 	public ConveyorBelt(){
 		System.out.println("Hello ConveyorBelt!");
-		/*
+		
 		i2c = new I2c(6);
 		Pwm.initPwm(i2c);
-		conveyorMotor = new MotorController(5, i2c, 6, false);
-		*/
+		conveyorMotor = new MotorController(2, i2c, 2, false);
+		
 	}
 
 	public void moveBelt(double speed){

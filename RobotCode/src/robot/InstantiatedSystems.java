@@ -40,6 +40,8 @@ public class InstantiatedSystems{
 
 		//feedLimit = new Gpio();
 		*/
+
+		//Gyro(SPI, CS DIO)
 		gyro = new Gyro(0, 10);
 		
 
@@ -49,8 +51,11 @@ public class InstantiatedSystems{
 	//sensor methods 
 
 	public void startupGyro(){
-		gyro.start()
-		gyro.zero()
+		gyro.start();
+		gyro.zero();
+	}
+	public void zeroGyro(){
+		gyro.zero();
 	}
 	public void stopGyro(){
 		gyro.delete();
@@ -65,7 +70,9 @@ public class InstantiatedSystems{
 	}
 
 	public double readGyroAngle(){
-		return gyro.getDegrees();
+		double val = gyro.getDegrees();		
+		System.out.println("Gyro val:" + val);
+		return val;
 		//return 4.0;
 	}
 	public double readLeftUltraDist(){

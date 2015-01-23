@@ -24,7 +24,7 @@ public class WallFollow extends StateBase{
 
 	public OutputStateVariables run(InputStateVariables input){
 		System.out.println("WallFollow");
-		return outpsut;
+		return output;
 	}
 
 	public StateBase getNext(InputStateVariables input){

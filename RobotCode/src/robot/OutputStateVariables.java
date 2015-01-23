@@ -10,14 +10,16 @@ public class OutputStateVariables{
 	public double drivetrainSpeed;
 
 	public String hopperMethod;
-	public int hopperPosition;
-	public boolean leftHatchOpen;
-	public boolean rightHatchOpen;
+	public int hopperPosition = 0;
+	public boolean leftHatchOpen = false;
+	public boolean rightHatchOpen = false;
 
 	public String conveyorMethod;
 	public double conveyorSpeed;
 
 	public String visionMethod;
+
+	public boolean zeroGyro = false;
 
 	public OutputStateVariables(){
 

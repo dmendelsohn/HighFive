@@ -26,12 +26,14 @@ public class DriveTrain{
     public double outputRightSpeed;
 
     public DriveTrain(){
+
 	System.out.println("Hello DriveTrain!");
 	
-	i2c = new I2c(6);
+	I2c i2c = new I2c(6);
 	Pwm.initPwm(i2c);
-	leftMotor = new MotorController(0, i2c, 3, false);
-	rightMotor = new MotorController(3, i2c, 4, true);
+	//MotorController(DIO, i2c, pw m, inverted?)
+	leftMotor = new MotorController(0, i2c, 0, false);
+	rightMotor = new MotorController(3, i2c, 1, true);
 	
 	//setting lastTime here is not a good idea
 	lastTime = System.currentTimeMillis();
@@ -49,8 +51,9 @@ public class DriveTrain{
 	derivative = (error - previousError)/dt;
 	//System.out.println("total angle number"+error);
 	//System.out.println("deriv:"+derivative);
+	
 	output = kp*error+ki*integral+kd*derivative;
-	//System.out.println("output:"+output);
+	System.out.println("output:"+output);
 
 	outputLeftSpeed=leftSpeed+output;
 	outputRightSpeed=rightSpeed-output;
@@ -60,7 +63,7 @@ public class DriveTrain{
 
 	previousError = error;
 	lastTime = System.currentTimeMillis();
-	
+
     }
 
     public void goToWall(){
