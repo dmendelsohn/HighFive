@@ -1,4 +1,4 @@
-<project name="SimpleSample" basedir="." default="rebuild-run">
+<project name="Main" basedir="." default="rebuild-run">
 	<property name="src.dir"				value="src"/>
 	<property name="build.dir"				value="build"/>
 	<property name="lib.dir"				value="lib"/>
@@ -10,15 +10,41 @@
 	<property name="blob-analysis-class"	value="BlobAnalysis"/> <!--Finds bounding box, centroid, and deletes blobs that are too small -->
 
 	<property name="vision-files.dir"		value="vision"/>
-	<property name="input-file"				value="${in}"/> <!-- This must be specified using -Din argument -->
 	<property name="filter-img-file"		value="${vision-files.dir}/filtered-img.jpg"/> <!-- This is the pretty picture with blobs -->
 	<property name="filter-raw-file"		value="${vision-files.dir}/filtered-raw.out"/> <!-- This holds the byte array for the raw result of the filter -->
 	<property name="filter-info-file"		value="${vision-files.dir}/filtered-info.txt"/> <!-- this gives height and width dimensions -->
 	<property name="label-raw-file"			value="${vision-files.dir}/label-raw.out"/> <!-- This replaces color values with labels, in array of shorts -->
 	<property name="label-info-file"		value="${vision-files.dir}/label-info.txt"/> <!-- This file maps label numbers to original values (color enum)  -->
 	<property name="analysis-raw-file"		value="${vision-files.dir}/analysis-raw.out"/> <!-- like label-raw.out, but without "noise" blobs -->
-	<property name="analysis-info-file"		value="${vision-files.dir}/analysis-info.txt"/> <!-- augments label-info.txt with bounding and centriods -->
-	<property name="analysis-img-file"		value="${vision-files.dir}/analysis-img.jpg"/> <!-- human viewable image with analysis results -->
+	<property name="analysis-info-file-default"		value="${vision-files.dir}/analysis-info.txt"/> <!-- augments label-info.txt with bounding and centriods -->
+	<property name="analysis-img-file-default"		value="${vision-files.dir}/analysis-img.jpg"/> <!-- human viewable image with analysis results -->
+
+	<property name="in-default"				value="test_pics/One.jpg"/>
+	<condition property="input-file" value="${in}" else="${in-default}">
+		<isset property="in" />
+	</condition>
+
+	<condition property="analysis-img-file" value="${out}" else="${analysis-img-file-default}">
+		<isset property="out" />
+	</condition>
+
+	<condition property="analysis-info-file" value="${info}" else="${analysis-info-file-default}">
+		<isset property="info" />
+	</condition>
+
+	<condition property="vis-value" value="true" else="false">
+		<and>
+			<isset property="vis"/>
+			<equals arg1="${vis}" arg2="true"/>
+		</and>
+	</condition>
+
+	<condition property="debug-value" value="true" else="false">
+		<and>
+			<isset property="debug"/>
+			<equals arg1="${debug}" arg2="true"/>
+		</and>
+	</condition>
 
 	<path id="classpath">
             <fileset dir="${lib.dir}" includes="**/*.jar"/>
@@ -81,5 +107,21 @@
 			<arg value="${analysis-info-file}"/>	<!-- txt file w/ dimenions, label->color map, and BlobInfo objects-->
 		</java>
 	</target>
+
+	<target name="run" depends="jar">
+		<java fork="true" classname="${main-class}" >
+			<classpath>
+				<path refid="classpath"/>
+				<pathelement location="${jar.dir}/${ant.project.name}.jar"/>
+			</classpath>
+			<arg value="${input-file}"/>		<!-- source image path -->
+			<arg value="${analysis-info-file}"/> <!-- dest path to output text file -->
+			<arg value="${analysis-img-file}" /> 	<!-- if vis-value is true, then a jpg of the analysis will be put here -->
+			<arg value="${vis-value}" />
+			<arg value="${debug-value}"/>
+		</java>
+	</target>
+
+	<target name="rebuild-run" depends="clean,run"/>
 </project>
 

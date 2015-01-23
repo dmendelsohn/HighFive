@@ -51,7 +51,7 @@ public class BlobLabeling {
 
 	//This alters the data in place, replacing GameColor values with labels
 	//Returns map from label numbers to GameColor values
-	private static BlobLabelData labelBlobs(byte[] data, int height, int width) {
+	public static BlobLabelData labelBlobs(byte[] data, int height, int width) {
 		Map<Integer, Byte> labelToColor = new HashMap<Integer,Byte>();
 		LabelTracker labelTracker = new LabelTrackerImpl();
 		int curlabel = 1;
@@ -104,6 +104,8 @@ public class BlobLabeling {
 	}
 	
 	public static void main(String[] args) {
+		long total_start = System.currentTimeMillis();
+
 		if (args.length < 4) {
 			System.out.println("Not enough arguments for blob labeling program");
 			System.exit(0);
@@ -115,34 +117,40 @@ public class BlobLabeling {
 		int height = 0;
 		int width = 0;
 	
+		long start;
+		long end;
 		try {
+
+			start = System.currentTimeMillis();
 			byte[] data = Utils.getByteArrayFromFilename(inputRawFilename);
 			String info = Utils.getStringFromFilename(inputInfoFilename);
 			String[] lines = info.split("\\r?\\n");
 			height = Integer.parseInt(lines[0]);
 			width = Integer.parseInt(lines[1]);
+			end = System.currentTimeMillis();
+			System.out.println("Retrieving information from files, milli bench: " + (end-start));
 
 			System.out.println("Now labeling image with dimensions " + height +"x"+ width +", and size " + data.length);
 
+			start = System.currentTimeMillis();
 			BlobLabelData blobLabelData = labelBlobs(data, height, width);
 			Map<Integer,Byte> labelToColor = blobLabelData.getLabelToColorMap();
 			int[] labels = blobLabelData.getLabelData();
+			end = System.currentTimeMillis();
+			System.out.println("Blob labeling logic milli bench: " + (end-start));
 
-			//DEBUGGING
-			//System.out.println("Num pixels: " + labels.length);
-			//System.out.println("Num labels: " + labelToColor.entrySet().size());
-			//byte[] img_data = Utils.makeImageArrayFromLabelArray(blobLabelData);
-			//Mat mat = Utils.makeMatFromRgbArray(img_data, height, width);
-			//Utils.saveMatToFilename("blob_img_test.jpg", mat);
-
+			start = System.currentTimeMillis();
 			Utils.saveIntegerArrayToFilename(outputRawFilename, labels);
 			String labelInfo = Utils.getLabelOutput(height, width, labelToColor);
 			Utils.saveStringToFilename(outputInfoFilename, labelInfo);
-
+			end = System.currentTimeMillis();
+			System.out.println("Saving information into files, milli bench: " + (end-start));
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		} catch (NumberFormatException e) {
 			System.out.println("Badly formatted info file from Filter");
 		}
+		long total_end = System.currentTimeMillis();
+		System.out.println("Total BlobLabeling milli bench: " + (total_end-total_start));
 	}
 }

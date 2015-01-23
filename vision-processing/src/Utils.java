@@ -19,11 +19,11 @@ import javax.imageio.ImageIO;
 public class Utils {
 
 	public final static double RED_THRESHHOLD = 1.4;
-	public final static double GREEN_THRESHHOLD = 1.22;
+	public final static double GREEN_THRESHHOLD = 1.20;
 	public final static double BLUE_THRESHHOLD = 1.3;
 
 
-	public final static int BLOB_SIZE_THRESHHOLD = 200; //Ignore blobs smaller than 200 pixels
+	public final static int BLOB_SIZE_THRESHHOLD = 1000; //Ignore blobs smaller than 200 pixels
 
 	public enum GameColor { NONE, RED, GREEN, BLUE }
 
@@ -64,13 +64,13 @@ public class Utils {
 		rgb[2] = 0;
 		switch(color) {
 			case RED:
-				rgb[2] = -1;
+				rgb[0] = -1;
 				break;
 			case GREEN:
 				rgb[1] = -1;
 				break;
 			case BLUE:
-				rgb[0] = -1;
+				rgb[2] = -1;
 				break;
 			case NONE:
 				break;
@@ -124,10 +124,7 @@ public class Utils {
 
 	//BEGINNING OF FILE IO FUNCTIONS
 	public static PixelBuffer getPixelBufferFromFilename(String filename) throws IOException {
-		System.out.println("Reading image from " + filename);
 		File file = new File(filename);
-		System.out.println("The file's absolute path: " + file.getAbsolutePath());
-		System.out.println("The file's path: " + file.getPath());
 		BufferedImage bufferedImage = ImageIO.read(file);
 		byte[] pixels = ((DataBufferByte) bufferedImage.getRaster().getDataBuffer()).getData();
 		PixelBuffer pix = new PixelBuffer(pixels, bufferedImage.getHeight(), bufferedImage.getWidth());

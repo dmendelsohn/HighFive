@@ -5,25 +5,25 @@ public class FilterImage {
 	public static final int CHANNELS = 3;
 	public static boolean isRedPixel(byte[] data, int offset) {
 		double thresh = Utils.RED_THRESHHOLD;
-		short r = Utils.toUnsigned(data[offset]);
+		short b = Utils.toUnsigned(data[offset]);
 		short g = Utils.toUnsigned(data[offset+1]);
-		short b = Utils.toUnsigned(data[offset+2]);
+		short r = Utils.toUnsigned(data[offset+2]);
 		return (r > thresh * g && r > thresh * b);
 	}
 
 	public static boolean isGreenPixel(byte[] data, int offset) {
 		double thresh = Utils.GREEN_THRESHHOLD;
-		short r = Utils.toUnsigned(data[offset]);
+		short b = Utils.toUnsigned(data[offset]);
 		short g = Utils.toUnsigned(data[offset+1]);
-		short b = Utils.toUnsigned(data[offset+2]);
+		short r = Utils.toUnsigned(data[offset+2]);
 		return (g > thresh * r && g > thresh * b);
 	}
 
 	public static boolean isBluePixel(byte[] data, int offset) {
 		double thresh = Utils.BLUE_THRESHHOLD;
-		short r = Utils.toUnsigned(data[offset]);
+		short b = Utils.toUnsigned(data[offset]);
 		short g = Utils.toUnsigned(data[offset+1]);
-		short b = Utils.toUnsigned(data[offset+2]);
+		short r = Utils.toUnsigned(data[offset+2]);
 		return (b > thresh * g && b > thresh * r);
 	}
 
@@ -45,32 +45,34 @@ public class FilterImage {
 
 		byte[] raw_data = new byte[width*height];
 		
-		int row_index;
-		int index;
+		int index=0;
+		int offset=0;
 		Utils.GameColor color;
 
 		for(int i = 0; i < height; i++) {
-			row_index = i*width;
 			for(int j = 0; j < width; j++) {
 				// data is chilling at data[offset] for R, next two bytes for G and B
-				index = row_index + j;
-				if (isRedPixel(data, CHANNELS*index)) {
+				if (isRedPixel(data, offset)) {
 					color = Utils.GameColor.RED;
-				} else if (isGreenPixel(data, CHANNELS*index)) {
+				} else if (isGreenPixel(data, offset)) {
 					color = Utils.GameColor.GREEN;
-				} else if (isBluePixel(data, CHANNELS*index)) {
+				} else if (isBluePixel(data, offset)) {
 					color = Utils.GameColor.BLUE;
 				} else {
 					color = Utils.GameColor.NONE;
 				}
-				makePixel(data, CHANNELS*index, color);
+				makePixel(data, offset, color);
 				raw_data[index] = Utils.getByteFromGameColor(color); //Raw data array just consists of an int corresponding to the GameColor enum value
+				index++;
+				offset+=3;
 			}
 		}
 		return raw_data;
 	}
 
 	public static void main( String[] args ) {
+		long total_start = System.currentTimeMillis();
+
 		//Get some arguments
 		if (args.length < 4) {
 			System.out.println("Not enough arguments");
@@ -81,18 +83,39 @@ public class FilterImage {
 		String outRawFilename = args[2];
 		String outInfoFilename = args[3];
 
+		long start;
+		long end;
 		try {
+			start = System.currentTimeMillis();
 			PixelBuffer pixelBuffer = Utils.getPixelBufferFromFilename(inputFilename);
-			
-			// Filter into GameColors
-			byte[] raw_data = filter(pixelBuffer);
+			end = System.currentTimeMillis();
+			System.out.println("getPixelBufferFromFilename() milli bench: " + (end-start));
 
+			// Filter into GameColors
+			start = System.currentTimeMillis();
+			byte[] raw_data = filter(pixelBuffer);
+			end = System.currentTimeMillis();
+			System.out.println("filter milli bench: " + (end-start));
+
+			start = System.currentTimeMillis();
 			Utils.savePixelBufferToFilename(outImgFilename, pixelBuffer);
+			end = System.currentTimeMillis();
+			System.out.println("savePixelBufferToFilename() milli bench: " + (end-start));
+	
+			start = System.currentTimeMillis();
 			Utils.saveByteArrayToFilename(outRawFilename, raw_data);
+			end = System.currentTimeMillis();
+			System.out.println("saveByteArrayToFilename() milli bench: " + (end-start));
+
+			start = System.currentTimeMillis();
 			String infoOut = Utils.getFilterOutput(pixelBuffer.getHeight(), pixelBuffer.getWidth());
 			Utils.saveStringToFilename(outInfoFilename, infoOut);
+			end = System.currentTimeMillis();
+			System.out.println("filter output routine milli bench: " + (end-start));
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
+		long total_end = System.currentTimeMillis();
+		System.out.println("Total FilterImage milli bench: " + (total_end-total_start));
 	}
 }

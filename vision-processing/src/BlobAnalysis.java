@@ -76,7 +76,7 @@ public class BlobAnalysis {
 		}
 	}
 
-	public static void drawBoundingRect(byte[] data, int height, int width, BlobInfo blob) {
+	private static void drawBoundingRect(byte[] data, int height, int width, BlobInfo blob) {
 		byte[] rgb = Utils.getByteArrayFromGameColor(blob.getGameColor());
 		BoundingRect rect = blob.getBoundingRect();
 		drawVerticalLine(data, height, width, rgb, rect.getXMin(), rect.getYMin(), rect.getYMax());
@@ -85,7 +85,7 @@ public class BlobAnalysis {
 		drawHorizontalLine(data, height, width, rgb, rect.getXMin(), rect.getXMax(), rect.getYMax());
 	}
 
-	public static void drawVerticalLine(byte[] data, int height, int width, byte[] rgb, int x, int yMin, int yMax) {
+	private static void drawVerticalLine(byte[] data, int height, int width, byte[] rgb, int x, int yMin, int yMax) {
 		int offset = 3*(yMin*width + x);
 		for (int y = yMin; y <= yMax; y++) {
 			for (int j = 0; j < 3; j++) {
@@ -95,7 +95,7 @@ public class BlobAnalysis {
 		}
 	}
 
-	public static void drawHorizontalLine(byte[] data, int height, int width, byte[] rgb, int xMin, int xMax, int y) {
+	private static void drawHorizontalLine(byte[] data, int height, int width, byte[] rgb, int xMin, int xMax, int y) {
 		int offset = 3*(y*width + xMin);
 		for (int x = xMin; x <= xMax; x++) {
 			for (int j = 0; j < 3; j++) {
@@ -106,6 +106,8 @@ public class BlobAnalysis {
 	}
 
 	public static void main(String[] args) {
+		long total_start = System.currentTimeMillis();
+
 		if (args.length < 5) {
 			System.out.println("Need more args!");
 			System.exit(0);
@@ -119,9 +121,20 @@ public class BlobAnalysis {
 		int height = 0;
 		int width = 0;
 	
+		long start;
+		long end;
 		try {
+			start = System.currentTimeMillis();
 			int[] data = Utils.getIntegerArrayFromFilename(inputLabelFilename);
+			end = System.currentTimeMillis();
+			System.out.println("Retrieving label array milli bench: " + (end-start));
+
+			start = System.currentTimeMillis();
 			String info = Utils.getStringFromFilename(inputInfoFilename);
+			end = System.currentTimeMillis();
+			System.out.println("Retrieving string file milli bench: " + (end-start));
+
+			start = System.currentTimeMillis();
 			String[] lines = info.split("\\r?\\n");
 			height = Integer.parseInt(lines[0]);
 			width = Integer.parseInt(lines[1]);
@@ -133,35 +146,55 @@ public class BlobAnalysis {
 				byte gameColorByte = (byte)Integer.parseInt(lineParts[1]);
 				labelToColor.put(label, gameColorByte);
 			}
+			end = System.currentTimeMillis();
+			System.out.println("Rebuilding txt info milli bench: " + (end-start));
+
 			System.out.println("Now analyzing image with dimensions " + height +"x"+ width +", and size " + data.length);
 
-			int[] labels = Utils.getIntegerArrayFromFilename(inputLabelFilename);
-			BlobLabelData blobLabelData = new BlobLabelData(labels, labelToColor, height, width);
+			BlobLabelData blobLabelData = new BlobLabelData(data, labelToColor, height, width);
 			
 			// Remove blobs that are noise (too small to be balls or walls)
+			start = System.currentTimeMillis();
 			int numBlobsRemoved = removeSmallBlobs(blobLabelData);
+			end = System.currentTimeMillis();
+			System.out.println("Small blob removal milli bench: " + (end-start));
 			System.out.println("Removed " + numBlobsRemoved + " blobs.");
 			
 			// Add bounding boxes to all blobs
+			start = System.currentTimeMillis();
 			BlobInfo[] blobs = getAllBlobInfo(blobLabelData);
+			end = System.currentTimeMillis();
+			System.out.println("getAllBlobInfo() milli bench: " + (end-start));
 
+			start = System.currentTimeMillis();
 			//Output raw label data from within blobLabelData object
 			Utils.saveIntegerArrayToFilename(outputLabelFilename, blobLabelData.getLabelData());
 
 			//Output dimensions and blob specs to txt file	
 			String output = Utils.getAnalysisOutput(height, width, blobs);
 			Utils.saveStringToFilename(outputInfoFilename, output);
-			
+			end = System.currentTimeMillis();
+			System.out.println("Output files for label array and string milli bench : " + (end-start));
+
+
 			//Augment image with bounding rects and output  augmented image to a file
+			start = System.currentTimeMillis();
 			byte[] img_data = Utils.makeImageArrayFromLabelData(blobLabelData);
 			drawAllBoundingRects(img_data, height, width, blobs);
 			PixelBuffer pixelBuffer = new PixelBuffer(img_data, height, width);
+			end = System.currentTimeMillis();
+			System.out.println("Drawing rectangles milli bench: " + (end-start));
+			
+			start = System.currentTimeMillis();
 			Utils.savePixelBufferToFilename(outputImageFilename, pixelBuffer);
-
+			end = System.currentTimeMillis();
+			System.out.println("savePixelBufferToFilename() milli bench: " + (end-start));
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		} catch (NumberFormatException e) {
 			System.out.println("Badly formatted info file from Labeler");
 		}
+		long total_end = System.currentTimeMillis();
+		System.out.println("Total BlobAnalysis milli bench: " + (total_end-total_start));
 	}
 }
