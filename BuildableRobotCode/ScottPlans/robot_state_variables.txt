@@ -1,0 +1,36 @@
+drive train, hoppers, conveyor belt,  vision
+
+drive train 
+left and right wheel encoders as well as ultrasonic distance sensor +gryo
+
+variable names:
+double drivetrainLeftMotorSpeed
+double drivetrainRightMotorSpeed
+double drivetrainLeftEncoder
+double drivetrainRightEncoder
+double drivetrainGyroAngle
+
+hoppers
+servo positions (left, center, right) -- 3 of them as int -1, 0, 1
+servo positions for release (open, close) -- left, right, top , bottom
+
+variable names:
+int hopperPosition
+boolean hopperLeftRelease
+boolean hopperRightRelease
+
+conveyor belt 
+line break or limit switch the next state
+motor speed
+motor encoder
+
+variable names:
+double conveyorMotorSpeed
+double conveyorEncoder
+
+vision
+camera
+
+
+
+Maybe have already namesd most of these depending on placement in other location 

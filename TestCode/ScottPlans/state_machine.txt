@@ -1,0 +1,31 @@
+//package
+
+public class Robot {
+
+    private String state="";
+
+    public void setState(String state){
+	this.state=state;
+    }
+
+    public void doAction(){
+	if(state.equalsIgnoreCase("Case1")){
+	    System.out.println("Case1");
+            //do stuff
+	}else if(state.equalsIgnoreCase("Case2")){
+	    System.out.println("Case2");
+	    //do stuff
+	}
+    }
+
+    public static void main(String args[]){
+	Robot robo = new Robot();
+
+	robo.setState("Case1");
+	robo.doAction();
+
+	robo.setState("Case2");
+	robo.doAction();
+    }
+
+}
