@@ -5,8 +5,9 @@ public class Gyro extends Thread{
     Spi spi;
     Gpio chipSelect;
     boolean isRunning;
-    short total;
+    int total;
     short reading;
+    boolean first;
 
     public Gyro(int spiBus, int csPin){
 	chipSelect = new Gpio(csPin);
@@ -18,6 +19,7 @@ public class Gyro extends Thread{
 	total = 0;
 	reading = 0;
 	isRunning = true;
+	first = true;
     }
 
 
@@ -38,8 +40,12 @@ public class Gyro extends Thread{
 		responseVal = (responseVal<<8) | ((byte)response[2] & 0xFF);
 		responseVal = (responseVal<<8) | ((byte)response[1] & 0xFF);
 		responseVal = (responseVal<<8) | ((byte)response[0] & 0xFF);
-		reading = (short)((int)((responseVal >> 10) & 0xffff)-32.5);
-		total += reading;
+		if(!first){
+		    reading = (short)((short)((responseVal >> 10) & 0xffff)-18.5);
+		    total += reading;
+		}else{
+		    first=false;
+		}
 	    } else{
 		//idk
 	    }
@@ -47,7 +53,11 @@ public class Gyro extends Thread{
 	}
     }
 
-    public short getTotal(){
+    public double getDegrees(){
+	return total/2560000.0*360;
+    }
+
+    public int getTotal(){
 	return total;
     }
 

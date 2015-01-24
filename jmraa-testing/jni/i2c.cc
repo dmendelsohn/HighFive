@@ -25,6 +25,16 @@ JNIEXPORT jbyte JNICALL Java_jmraa_I2c_readByte (JNIEnv *env, jobject thisObj){
   return (jbyte)(inst->readByte());
 }
 
+JNIEXPORT jbyte JNICALL Java_jmraa_I2c_readReg (JNIEnv *env, jobject thisObj, jbyte reg){
+  mraa::I2c *inst = getHandle<mraa::I2c>(env, thisObj);  
+  return (jbyte)(inst->readReg((uint8_t)reg));
+}
+
+JNIEXPORT jshort JNICALL Java_jmraa_I2c_readWordReg (JNIEnv *env, jobject thisObj, jbyte reg){
+  mraa::I2c *inst = getHandle<mraa::I2c>(env, thisObj);  
+  return (jshort)(inst->readWordReg((uint8_t)reg));
+}
+
 JNIEXPORT jint JNICALL Java_jmraa_I2c_writeByte (JNIEnv *env, jobject thisObj, jbyte value){
   mraa::I2c *inst = getHandle<mraa::I2c>(env, thisObj);  
   return (int)(inst->writeByte((uint8_t)value));
@@ -39,5 +49,10 @@ JNIEXPORT jint JNICALL Java_jmraa_I2c_write (JNIEnv *env, jobject thisObj, jbyte
   mraa::I2c *inst = getHandle<mraa::I2c>(env, thisObj);
   int length = (int)(env->GetArrayLength(values));
   uint8_t *byteArr = (uint8_t*)(env->GetByteArrayElements(values, (jboolean)false));
-  return (int)(inst->write(byteArr, length));
+  mraa_result_t res = (inst->write(byteArr, length));
+  //  std::cout << "i2cwrite result: " << res << "\n";
+  //std::cout << "im confident this file has been recompiled";
+  int ret = (int) res;
+  //std::cout << "i2cwrite result int: " << ret << "\n";
+  return ret;
 }

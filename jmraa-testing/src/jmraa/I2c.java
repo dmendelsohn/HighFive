@@ -20,6 +20,10 @@ public class I2c {
 
     public native byte readByte();
 
+    public native byte readReg(byte reg);
+    
+    public native short readWordReg(byte reg);
+
     public native int writeByte(byte value);
 
     public native int write(byte[] values);

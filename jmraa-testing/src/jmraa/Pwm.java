@@ -19,7 +19,7 @@ public class Pwm{
 	}
 	
 	byte[] buff = new byte[5];
-	System.out.println(i2c.address((byte)(0x40)));
+	i2c.address((byte)(0x40));
 	buff[0] = (byte)(6+4*index);
 	double on = 4095.0*duty;
 	short onRounded = (short) on;
@@ -27,8 +27,8 @@ public class Pwm{
 	buff[2] = (byte)(0x00);
 	buff[3] = (byte)(onRounded & 0xFF);
 	buff[4] = (byte)((onRounded >> 8) & 0xFF);
-	System.out.println("writing to slave");
-	System.out.println(i2c.write(buff));
+	//System.out.println("writing to slave");
+	i2c.write(buff);
     }
 
     public static void initPwm(I2c i2c){
@@ -37,21 +37,23 @@ public class Pwm{
 	buff[0]=(byte)0x00;
 	buff[0]=(byte)(1 << 4);
 	
-	System.out.println("establishing address");
-	System.out.println(i2c.address((byte)(0x40)));
+	//System.out.println("establishing address");
+	i2c.address((byte)(0x40));
 	
-	System.out.println("init stuff");
-	System.out.println(i2c.write(buff));
+	//System.out.println("init stuff");
+	i2c.write(buff);
 	Utils.msleep(1000);
 	
-	System.out.println("write more init stuff");
+	//System.out.println("write more init stuff");
 	buff[0] = (byte)(0xFE);
 	buff[1] = (byte)(0xA3);
+	i2c.address((byte)(0x40));
+	i2c.write(buff);
 
-	System.out.println("write mode register");
+	//System.out.println("write mode register");
 	buff[0] = (byte)0;
 	buff[1] = (byte)(1 << 5 | 0 << 4);
-	System.out.println(i2c.address((byte)(0x40)));
-	System.out.println(i2c.write(buff));
+	i2c.address((byte)(0x40));
+	i2c.write(buff);
     }
 }
