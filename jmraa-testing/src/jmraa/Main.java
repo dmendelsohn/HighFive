@@ -5,21 +5,63 @@ import java.util.*;
 public class Main{
     
     static{System.loadLibrary("jmraa");}
-    
-    public static void setServoPosition(Pwm pwm, double duty){
-	pwm.writePwm(0.15 + 0.4*duty);
-    }
 
     public static void main(String[] args){
 	System.out.println("hello");
-	/*Encoder enc = new Encoder(5, 4, true);
-	enc.start();
+	
+	I2c i2c = new I2c(6);
+	Pwm.initPwm(i2c);
+
+	MotorController mcR = new MotorController(0, i2c, 0, true);
+	MotorController mcL = new MotorController(1, i2c, 1, false);
+	MotorController mcC = new MotorController(2, i2c, 2, true);
+	Encoder encC = new Encoder(8, 6, false);
+
+	Runtime.getRuntime().addShutdownHook(new Thread() {
+		public void run() {
+		    mcR.setSpeed(0);
+		    mcL.setSpeed(0);
+		    mcC.setSpeed(0);
+		}
+	    });
+	
+	long start = System.currentTimeMillis();
+	mcL.setSpeed(.2);
+	mcR.setSpeed(.2);
+	Utils.msleep(2000);
+	mcC.setSpeed(.2);
+	while(encC.getCount() < 1900);
+	System.out.println(encC.getCount());
+	mcC.setSpeed(0);
+	Utils.msleep(500);
+	mcC.setSpeed(.2);
+	Utils.msleep(200);
+	mcR.setSpeed(0);
+	mcL.setSpeed(0);
+	Utils.msleep(2500);
+	mcC.setSpeed(0);
+
+	//I2c i2c = new I2c(6);
+	//System.out.println(i2c.address((byte)(0x29)));
+	//System.out.println(i2c.readReg((byte)(0x12)));
+	/*Color color = new Color(i2c, Color.sensorATIME2p4, Color.sensorGain4x);
+	Utils.msleep(100);
+	short[] colors;
+	for(int i = 0; i < 100; i++){
+	    colors = color.getRawData();
+	    System.out.println(Arrays.toString(colors));
+	    Utils.msleep(100);
+	    }*/
+	
+
+	/*Encoder enc = new Encoder(8, 6, false);
 	for(int i = 0; i < 100; i++){
 	    System.out.println("count: " + enc.getCount() + "   deriv: " + enc.getDerivative());
 	    Utils.msleep(100);
-	}
-	enc.delete();*/
-	Gyro gyro = new Gyro(0, 10);
+	    }*/
+	
+
+	/*Gyro gyro = new Gyro(0, 10);
 	Runtime.getRuntime().addShutdownHook(new Thread() {
 		public void run() {
 		    gyro.delete();
@@ -27,7 +69,12 @@ public class Main{
 	    });
 	gyro.start();
 	Utils.msleep(500);
+	while(true){
+	    System.out.println("degrees:  " + gyro.getDegrees());
+	}*/
 	//double total = 0;
+	
+
 	/*int num = 1000;
 	for(int i = 0; i < num; i++){
 	    short reading = gyro.getReading();
@@ -37,48 +84,17 @@ public class Main{
 	}
 	double average = total/num;
 	System.out.println("Average: " + average);*/
-	int total;
+	
+
+	/*int total;
 	for(int i = 0; i < 1000; i++){
 	    System.out.println("degrees: " + gyro.getDegrees());
 	    //System.out.println("read: " + gyro.getReading());
 	    Utils.msleep(10);
 	}
-	gyro.delete();
-	/*Gpio chipSelect = new Gpio(10);
-	chipSelect.dir(Utils.Dir.DIR_OUT);
-	chipSelect.write(1);
-
-	System.out.println("created chip select");
-
-	Spi spi = new Spi(0);
-	spi.bitPerWord(32);
-	System.out.println("established Spi");
-	byte[] writeBuff = new byte[4];
-	int sensorRead = 0x20000000;
-	writeBuff[0] = (byte)(sensorRead & 0xff);
-	writeBuff[1] = (byte)((sensorRead >> 8) & 0xff);
-	writeBuff[2] = (byte)((sensorRead >> 16) & 0Xff);
-	writeBuff[3] = (byte)((sensorRead >> 24) & 0xff);
-	System.out.println("created write buffer");
-	short total = 0;
-
-	while(true){
-	    chipSelect.write(0);
-	    byte[] response = spi.write(writeBuff);
-	    chipSelect.write(1);
-	    if(response != null){
-		int responseVal = ((byte) response[3] & 0xFF);
-		responseVal = (responseVal<<8) | ((byte)response[2] & 0xFF);
-		responseVal = (responseVal<<8) | ((byte)response[1] & 0xFF);
-		responseVal = (responseVal<<8) | ((byte)response[0] & 0xFF);
-		short reading = (short)((responseVal >> 10) & 0xffff);
-		total += reading;
-	        System.out.println("reading: " + reading + "   total: " + total);
-	    }else{
-		System.out.println("no response");
-	    }
-	    Utils.msleep(10);
-	}
+	gyro.delete();*/
+	
+	
 	/*Ultrasonic ultrasonic = new Ultrasonic(9, 8);
 	while(true){
 	    long ns = ultrasonic.ping();
@@ -86,17 +102,20 @@ public class Main{
 	    System.out.println("approx dist = " + Ultrasonic.asMeters(ns) + "m");
 	    Utils.msleep(100);
 	    }*/
+	
+
 	/*Aio aio = new Aio(0);
 	for(int i = 0; i < 100; i++){
 	    System.out.println(aio.read());
 	    Utils.msleep(10);
 	    }*/
 
+	
 	/*I2c i2c = new I2c(6);
 	Pwm.initPwm(i2c);
 
-	MotorController mcR = new MotorController(3, i2c, 4, true);
-	MotorController mcL = new MotorController(0, i2c, 3, false);
+	MotorController mcR = new MotorController(3, i2c, 0, true);
+	MotorController mcL = new MotorController(0, i2c, 1, false);
 
 	Runtime.getRuntime().addShutdownHook(new Thread() {
 		public void run() {
@@ -110,19 +129,24 @@ public class Main{
 	while(System.currentTimeMillis()-start < 30000){
 	    long ping = ultra.ping();
 	    mcR.setSpeed(.2+(Ultrasonic.asMeters(ping)-.2)*1.3);
-	    System.out.println("ping: " + ping);
-	    System.out.println("enc: " + enc.getCount());
+	    //System.out.println("ping: " + ping);
+	    //	    System.out.println("enc: " + enc.getCount());
 	    Utils.msleep(60);
 	}
 	mcR.setSpeed(0);
 	mcL.setSpeed(0);*/
 	//enc.delete();
 
-	/*Pwm pwm = new Pwm(i2c, 0);
-	setServoPosition(pwm, .5);
-	Utils.msleep(5000);
-	setServoPosition(pwm, .95);*/
+	/*I2c i2c = new I2c(6);
+	Pwm.initPwm(i2c);
+	Servo servo = new Servo(i2c, 4, .04, .08);
+	for(int i = 0; i <= 10; i++){
+	    System.out.println("pos: " + i/10.0);
+	    servo.setPosition(i/10.0);
+	    Utils.msleep(1000);
+	}*/
 
+	
 	/*Gpio pin1 = new Gpio(13);
 	pin1.dir(Utils.Dir.DIR_OUT);
 	Gpio pin2 = new Gpio(12);

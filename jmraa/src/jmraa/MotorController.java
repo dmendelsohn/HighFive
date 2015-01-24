@@ -25,6 +25,6 @@ public class MotorController{
 	    direction.write(0);
 	}
 	power.writePwm(Math.abs(val));
-	System.out.println("set speed");
+	//	System.out.println("set speed");
     }
 }

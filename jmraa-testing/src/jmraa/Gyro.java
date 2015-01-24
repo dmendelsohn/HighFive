@@ -41,7 +41,7 @@ public class Gyro extends Thread{
 		responseVal = (responseVal<<8) | ((byte)response[1] & 0xFF);
 		responseVal = (responseVal<<8) | ((byte)response[0] & 0xFF);
 		if(!first){
-		    reading = (short)((short)((responseVal >> 10) & 0xffff)-21.5);
+		    reading = (short)((short)((responseVal >> 10) & 0xffff)-18.5);
 		    total += reading;
 		}else{
 		    first=false;
@@ -54,7 +54,7 @@ public class Gyro extends Thread{
     }
 
     public double getDegrees(){
-	return total/217666.0*360;
+	return total/2560000.0*360;
     }
 
     public int getTotal(){

@@ -1,25 +1,45 @@
 Create Numbering system for all motors and servos --> RobotConstants
 
+For the moment:
 2 drive motor:
   Left Motor PWM 0, DIO 0
   Left Encoder DIO 1,2
   Right Motor PWM 1, DIO 3
   Right Encoder DIO 4,5
 1 conveyor motor:
-  Motor PWM 3
+  Motor PWM 2, DIO 6
   Limit DIO 6
 2 servos (sorter and locker):
-  sorter PWM 4
-  locker PWM 5 
+  sorter PWM 3
+  locker PWM 4 
 4 servos (release):
-  LeftBottom PWM 6
-  LeftTop PWM 7
-  RightBottom PWM 8
-  RightTop PWM 9
+  LeftBottom PWM 5
+  RightBottom PWM 6
 
 Gyro:
   Spi DIO 10,11,12,13
 
+Final:
+2 drive motor:
+  Left Motor PWM 0, PWM-DO 15
+  Left Encoder DIO 0,1
+  Right Motor PWM 1, PWM-DO 14
+  Right Encoder DIO 2,3
+1 conveyor motor:
+  Motor PWM 2, PWM-DO 13
+  Conveyor Encoder DIO 4,5
+  Limit DIO 6
+2 servos (sorter and locker):
+  sorter PWM 3
+  locker PWM 4 
+4 servos (release):
+  LeftBottom PWM 5
+  RightBottom PWM 6
+2 Ultrasonic:
+  Left  Trig PWM-DO 12
+       	Echo DIO 8
+  Right Trig PWM-DO 11
+  	Echo DIO 9
 
-     
-x
+Gyro:
+  Spi DIO 10,11,12,13
