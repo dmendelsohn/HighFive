@@ -9,12 +9,29 @@ public class Main{
     public static void main(String[] args){
 	System.out.println("hello");
 	
-	I2c i2c = new I2c(6);
+
+	MuxShield shield = new MuxShield(0,1,2,3,4,5,6);
+
+	Ultrasonic ultra = new Ultrasonic(shield, 1, 1);
+
+	for(int i = 0; i < 10000; i++){
+	    long read = ultra.ping();
+	    System.out.println("read: " + read + " meters: " + Ultrasonic.asMeters(read));
+	    Utils.msleep(100);
+	}
+
+	/*Aio color = new Aio(0);
+	for(int i = 0; i < 10000; i++){
+	    System.out.println("read: " + color.read());
+	    Utils.msleep(100);
+	    }*/
+
+	/*I2c i2c = new I2c(6);
 	Pwm.initPwm(i2c);
 
-	MotorController mcR = new MotorController(8, i2c, 0, true);
-	MotorController mcL = new MotorController(5, i2c, 1, false);
-	MotorController mcC = new MotorController(6, i2c, 2, true);
+	MotorController mcL = new MotorController(8, i2c, 1, false);
+	MotorController mcR = new MotorController(9, i2c, 0, true);
+	//MotorController mcC = new MotorController(9, i2c, 2, true);
 	//Encoder encC = new Encoder(8, 6, false);
 
 	Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -23,23 +40,25 @@ public class Main{
 		    mcL.setSpeed(0);
 		    mcC.setSpeed(0);
 		}
-	    });
+	});
+
+
 	
 	long start = System.currentTimeMillis();
-	mcL.setSpeed(.2);
-	mcR.setSpeed(.2);
-	//	Utils.msleep(2000);
-	mcC.setSpeed(.2);
+	//mcL.setSpeed(.2);
+	//mcR.setSpeed(.2);
+	//Utils.msleep(2000);
+	//mcC.setSpeed(.2);
 	System.out.println("set motor speeds");
 	//while(encC.getCount() < 1900);
 	//System.out.println(encC.getCount());
 	//mcC.setSpeed(0);
 	//Utils.msleep(500);
 	//mcC.setSpeed(.2);
-	Utils.msleep(10000);
-	mcR.setSpeed(0);
-	mcL.setSpeed(0);
-	mcC.setSpeed(0);
+	//Utils.msleep(10000);
+	//mcR.setSpeed(0);
+	//mcL.setSpeed(0);
+	//mcC.setSpeed(0);*/
 
 	//I2c i2c = new I2c(6);
 	//System.out.println(i2c.address((byte)(0x29)));

@@ -2,26 +2,26 @@ package jmraa;
 
 public class Ultrasonic{
 
-    private Gpio trig;
-    private Gpio echo;
+    private int trig;
+    private int echo;
+    private MuxShield mux;
 
-    public Ultrasonic(int trigPin, int echoPin){
-	trig = new Gpio(trigPin);
-	trig.dir(Utils.Dir.DIR_OUT);
-	echo = new Gpio(echoPin);
-	echo.dir(Utils.Dir.DIR_IN);
+    public Ultrasonic(MuxShield muxIn, int trigPin, int echoPin){
+	trig = trigPin;
+	echo = echoPin;
+	mux = muxIn;
     }
 
     public long ping(){
-	trig.write(1);
+	mux.digitalWriteMS(trig, 1);
 	Utils.usleep(20);
-	trig.write(0);
+	mux.digitalWriteMS(trig, 0);
 	long waitStart = System.nanoTime();
-	while(echo.read()==0){
+	while(mux.digitalReadMS(echo)==0){
 	    if(System.nanoTime()-waitStart>15000000) return -1;
 	}
 	long pulseStart = System.nanoTime();
-	while(echo.read()==1){
+	while(mux.digitalReadMS(echo)==1){
 	    if(System.nanoTime()-pulseStart>15000000) return -1;
 	}
 	return System.nanoTime()-pulseStart;
