@@ -59,17 +59,17 @@ public class InstantiatedSystems{
 		gyro.zero();
 	}
 	public void stopGyro(){
-		//gyro.delete();
+		gyro.delete();
 	}
 	public void startupDriveEncoders(){
 		//leftMotorEncoder.start();
 		//rightMotorEncoder.start();
 	}
 	public void startupConveyorEncoder(){
-		//conveyorMotorEncoder.start();
+		conveyorMotorEncoder.start();
 	}
 	public void stopConveyorEncoder(){
-		//conveyorMotorEncoder.delete();
+		conveyorMotorEncoder.delete();
 	}
 
 	public double readGyroAngle(){

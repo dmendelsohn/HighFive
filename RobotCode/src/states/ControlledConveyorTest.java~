@@ -2,12 +2,12 @@ package states;
 import robot.*;
 
 
-public class ConveyorTest extends StateBase{
+public class ControlledConveyorTest extends StateBase{
 
 	public OutputStateVariables output;
 	public InputStateVariables input;
 
-	public ConveyorTest(){
+	public ControlledConveyorTest(){
 
 		super();
 
@@ -16,7 +16,7 @@ public class ConveyorTest extends StateBase{
 		output.drivetrainMethod = "doNothing";
 		
 		output.conveyorMethod = "moveBelt";
-		output.conveyorSpeed = 0.2;
+		output.conveyorSpeed = 0.3;
 
 		output.hopperMethod = "doNothing";
 		output.visionMethod = "doNothing";
@@ -27,16 +27,32 @@ public class ConveyorTest extends StateBase{
 
 	public OutputStateVariables run(InputStateVariables input){
 
-		System.out.println("ConveyorTest");
+		System.out.println("ControlledConveyorTest");
 		long elapsedTime = System.currentTimeMillis()-stateStartTime;
-
-		if (elapsedTime<25000){	
-		    output.conveyorMethod = "moveBelt";
-		    output.conveyorSpeed = 0.2;
-		}else{
-		    output.conveyorMethod = "stopBelt";
-		}
 		
+
+		if(elapsedTime<15000){
+			if (input.conveyorEncoderCount % 500.0 > 5.0){	
+			    output.conveyorMethod = "moveBelt";
+			    output.conveyorSpeed = 0.3;
+			}else{
+			    output.conveyorMethod = "stopBelt";
+			    try{
+				 Thread.sleep(10);
+		            } catch(Exception e){
+				    //IDC
+			    }
+			    output.conveyorSpeed = 0.3;
+			    try{
+				 Thread.sleep(10);
+		            } catch(Exception e){
+				    //IDC
+			    }
+			}
+		}else{
+			output.conveyorMethod = "stopBelt";
+		}
+			
 		System.out.println(output.conveyorMethod);
 		return output;
 	}

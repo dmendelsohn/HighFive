@@ -10,7 +10,7 @@ public class OutputStateVariables{
 	public double drivetrainSpeed;
 
 	public String hopperMethod;
-	public double hopperPosition = 0.0;
+	public int hopperPosition = 0;
 	public boolean leftHatchOpen = false;
 	public boolean rightHatchOpen = false;
 

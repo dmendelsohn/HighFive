@@ -32,8 +32,8 @@ public class DriveTrain{
 	I2c i2c = new I2c(6);
 	Pwm.initPwm(i2c);
 	//MotorController(DIO, i2c, pw m, inverted?)
-	leftMotor = new MotorController(0, i2c, 0, false);
-	rightMotor = new MotorController(3, i2c, 1, true);
+	leftMotor = new MotorController(5, i2c, 1, false);
+	rightMotor = new MotorController(8, i2c, 0, true);
 	
 	//setting lastTime here is not a good idea
 	lastTime = System.currentTimeMillis();

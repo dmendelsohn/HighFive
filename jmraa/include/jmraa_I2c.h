@@ -41,6 +41,22 @@ JNIEXPORT jbyte JNICALL Java_jmraa_I2c_readByte
 
 /*
  * Class:     jmraa_I2c
+ * Method:    readReg
+ * Signature: (B)B
+ */
+JNIEXPORT jbyte JNICALL Java_jmraa_I2c_readReg
+  (JNIEnv *, jobject, jbyte);
+
+/*
+ * Class:     jmraa_I2c
+ * Method:    readWordReg
+ * Signature: (B)S
+ */
+JNIEXPORT jshort JNICALL Java_jmraa_I2c_readWordReg
+  (JNIEnv *, jobject, jbyte);
+
+/*
+ * Class:     jmraa_I2c
  * Method:    writeByte
  * Signature: (B)I
  */

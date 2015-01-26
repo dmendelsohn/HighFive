@@ -1,23 +1,24 @@
 package subsystems;
+import jmraa.*;
 
 public class ConveyorBelt{
 
-	//public MotorController conveyorMotor;	
+	public MotorController conveyorMotor;	
 
 	public ConveyorBelt(){
 		System.out.println("Hello ConveyorBelt!");
 		
-		i2c = new I2c(6);
+		I2c i2c = new I2c(6);
 		Pwm.initPwm(i2c);
-		conveyorMotor = new MotorController(2, i2c, 2, false);
+		conveyorMotor = new MotorController(2, i2c, 2, true);
 		
 	}
 
 	public void moveBelt(double speed){
-		//conveyorMotor.setSpeed(speed);
+		conveyorMotor.setSpeed(speed);
 	}
 	public void stopBelt(){
-		//conveyorMotor.setSpeed(0);
+		conveyorMotor.setSpeed(0);
 	}
 	public void doNothing(){
 	}

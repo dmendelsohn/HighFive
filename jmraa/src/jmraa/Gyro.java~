@@ -43,7 +43,7 @@ public class Gyro extends Thread{
 		responseVal = (responseVal<<8) | ((byte)response[1] & 0xFF);
 		responseVal = (responseVal<<8) | ((byte)response[0] & 0xFF);
 		if(!first){
-		    reading = (short)((short)((responseVal >> 10) & 0xffff)+21.7);
+		    reading = (short)((short)((responseVal >> 10) & 0xffff));
 		    total += reading;
 		}else{
 		    first=false;
@@ -56,6 +56,10 @@ public class Gyro extends Thread{
 	}
     }
 
+    public double getDegrees(){
+	return total/2560000.0*360;
+    }
+
     public int getTotal(){
 	return total;
     }
@@ -64,12 +68,9 @@ public class Gyro extends Thread{
 	return reading;
     }
 
-    public double getAverageDrift(){
+    public short getAverageDrift(){
 	if(numRuns>0.5){
-		return ((double)total)/((double)numRuns);
-	}else{
-		return 1;
-	}
+		return ((double)total)/((double)numRuns)
     }
 
     public void zero(){

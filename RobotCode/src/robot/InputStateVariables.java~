@@ -27,7 +27,6 @@ public class InputStateVariables{
 		rightEncoderCount = systems.readRightEncoderCount();
 
 		conveyorEncoderCount = systems.readConveyorEncoderCount();
-
 		feedLimitEngaged = systems.checkConveyorLimitSwitch();
 	
 		leftUltraDist = systems.readLeftUltraDist();

@@ -2,19 +2,22 @@ package states;
 import robot.*;
 
 
-public class VisionTest extends StateBase{
+public class ConveyorTest extends StateBase{
 
 	public OutputStateVariables output;
 	public InputStateVariables input;
 
-	public VisionTest(){
+	public ConveyorTest(){
 
 		super();
 
 		output = new OutputStateVariables();
 
 		output.drivetrainMethod = "doNothing";
-		output.conveyorMethod = "doNothing";
+		
+		output.conveyorMethod = "moveBelt";
+		output.conveyorSpeed = 0.3;
+
 		output.hopperMethod = "doNothing";
 		output.visionMethod = "doNothing";
 
@@ -23,21 +26,18 @@ public class VisionTest extends StateBase{
 	}
 
 	public OutputStateVariables run(InputStateVariables input){
-		
-		System.out.println("VisionTest");
+
+		System.out.println("ConveyorTest");
 		long elapsedTime = System.currentTimeMillis()-stateStartTime;
-		
-		if (elapsedTime<4000){	
-		    output.visionMethod = "senseTarget";
-		}else if (elapsedTime<8000){
-		    output.visionMethod = "getDistance";
-		}else if (elapsedTime<12000){
-		    output.visionMethod = "howCentered";
+
+		if (elapsedTime<25000){	
+		    output.conveyorMethod = "moveBelt";
+		    output.conveyorSpeed = 0.3;
 		}else{
-		    output.visionMethod = "doNothing";
+		    output.conveyorMethod = "stopBelt";
 		}
 		
-		System.out.println(output.visionMethod);
+		System.out.println(output.conveyorMethod);
 		return output;
 	}
 
