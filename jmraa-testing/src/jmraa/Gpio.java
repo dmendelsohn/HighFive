@@ -17,4 +17,6 @@ public class Gpio {
     public native int read();
 
     public native int getPin();
+
+    public native int mode(Utils.Mode mode);
 }

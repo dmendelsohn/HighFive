@@ -1,9 +1,14 @@
 <project name="Main" basedir="." default="rebuild-run">
 	<property name="src.dir"				value="src"/>
 	<property name="build.dir"				value="build"/>
-	<property name="lib.dir"				value="lib"/>
+	<property name="lib.dir"     value="../../../../../../home/shomberg/opencv-2.4.10/java_build_2/bin"/>
+	<path id="classpath">
+          <fileset dir="${lib.dir}" includes="**/*.jar"/>
+	</path>
+
 	<property name="classes.dir"			value="${build.dir}/classes"/>
 	<property name="jar.dir"				value="${build.dir}/jar"/>
+	
 	<property name="main-class"				value="${ant.project.name}"/>
 	<property name="filter-class"			value="FilterImage"/>
 	<property name="blob-labeling-class"	value="BlobLabeling"/> <!-- Creates a byte array with color values replaced by blob labels, + info file -->
@@ -56,7 +61,7 @@
 
 	<target name="compile">
 		<mkdir dir="${classes.dir}"/>
-		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}"/>
+		<javac includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
 	</target>
 
 	<target name="jar" depends="compile">
@@ -110,6 +115,7 @@
 
 	<target name="run" depends="jar">
 		<java fork="true" classname="${main-class}" >
+		        <sysproperty key="java.library.path" path="../../../../../../home/shomberg/opencv-2.4.10/java_build_2/lib"/>
 			<classpath>
 				<path refid="classpath"/>
 				<pathelement location="${jar.dir}/${ant.project.name}.jar"/>

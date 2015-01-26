@@ -4,7 +4,10 @@ public class Gpio {
 
     private long nativeHandle;
 
-    public Gpio(int pin){
+    public Gpio(int pin) throws Exception{
+	if(pin == 7){
+	    throw new Exception("YOU FUCKED UP AND USED PIN 7 JESUS");
+	}
 	loadGpioNative(pin);
     }
 

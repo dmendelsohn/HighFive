@@ -2,8 +2,13 @@ import java.io.IOException;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.opencv.core.*;
+import org.opencv.highgui.*;
 
 public class Main {
+
+        static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
+
 	public static void main(String[] args) {
 		long total_start = System.currentTimeMillis();
 
@@ -22,7 +27,21 @@ public class Main {
 		long end;
 		try {
 			start = System.currentTimeMillis();
-			PixelBuffer pixelBuffer = Utils.getPixelBufferFromFilename(inputImageFilename);
+			VideoCapture camera = new VideoCapture();
+			camera.open(1);
+
+			Mat rawImage = new Mat();
+			
+			while(!camera.read(rawImage)) {
+			    try{
+				Thread.sleep(1);
+			    } catch(InterruptedException e){
+				e.printStackTrace();
+			    }
+			}
+			
+			PixelBuffer pixelBuffer = Utils.getPixelBufferFromMat(rawImage);
+			Utils.savePixelBufferToFilename("vision/rawImage.jpg", pixelBuffer);
 			int height = pixelBuffer.getHeight();
 			int width = pixelBuffer.getWidth();
 			end = System.currentTimeMillis();

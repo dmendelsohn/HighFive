@@ -6,9 +6,13 @@ public class Ultrasonic{
     private Gpio echo;
 
     public Ultrasonic(int trigPin, int echoPin){
-	trig = new Gpio(trigPin);
+	try{
+	    trig = new Gpio(trigPin);
+	    echo = new Gpio(echoPin);
+	} catch(Exception e){
+	    System.out.println(e.getMessage());
+	}
 	trig.dir(Utils.Dir.DIR_OUT);
-	echo = new Gpio(echoPin);
 	echo.dir(Utils.Dir.DIR_IN);
     }
 

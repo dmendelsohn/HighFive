@@ -11,7 +11,11 @@ public class Gyro extends Thread{
     double numRuns;
  
     public Gyro(int spiBus, int csPin){
-	chipSelect = new Gpio(csPin);
+	try{
+	    chipSelect = new Gpio(csPin);
+	} catch(Exception e){
+	    System.out.println(e.getMessage());
+	}
 	chipSelect.dir(Utils.Dir.DIR_OUT);
 	chipSelect.write(1);
 
@@ -54,6 +58,10 @@ public class Gyro extends Thread{
 	    }
 	    Utils.msleep(10);
 	}
+    }
+
+    public double getDegrees(){
+	return total/2560000.0*360;
     }
 
     public int getTotal(){

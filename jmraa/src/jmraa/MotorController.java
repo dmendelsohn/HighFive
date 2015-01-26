@@ -9,7 +9,11 @@ public class MotorController{
     boolean invert;
 
     public MotorController(int pin, I2c i2c, int index, boolean invertIn){
-	direction = new Gpio(pin);
+	try{
+	    direction = new Gpio(pin);
+	} catch(Exception e){
+	    System.out.println(e.getMessage());
+	}
 	direction.dir(Utils.Dir.DIR_OUT);
 	power = new Pwm(i2c, index);
 

@@ -12,6 +12,6 @@ public class Servo{
     }
 
     public void setPosition(double pos){
-	pwm.writePwm(low + (high-low)*pos);
+	pwm.writePwm(low + (high-low)*(pos+1)/2.0);
     }
 }

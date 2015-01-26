@@ -1,6 +1,9 @@
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
+import org.opencv.core.Mat;
+import org.opencv.core.Core;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -18,8 +21,10 @@ import javax.imageio.ImageIO;
 
 public class Utils {
 
-	public final static double RED_THRESHHOLD = 1.4;
-	public final static double GREEN_THRESHHOLD = 1.20;
+    static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
+
+	public final static double RED_THRESHHOLD = 1.5;
+	public final static double GREEN_THRESHHOLD = 1.1;
 	public final static double BLUE_THRESHHOLD = 1.3;
 
 
@@ -64,13 +69,13 @@ public class Utils {
 		rgb[2] = 0;
 		switch(color) {
 			case RED:
-				rgb[0] = -1;
+				rgb[2] = -1;
 				break;
 			case GREEN:
 				rgb[1] = -1;
 				break;
 			case BLUE:
-				rgb[2] = -1;
+				rgb[0] = -1;
 				break;
 			case NONE:
 				break;
@@ -122,10 +127,21 @@ public class Utils {
 		return sb.toString();
 	}
 
+        public static PixelBuffer getPixelBufferFromMat(Mat image){
+	        Mat2Image convert = new Mat2Image(BufferedImage.TYPE_3BYTE_BGR);
+	        BufferedImage bufferedImage = convert.getImage(image);
+		byte[] pixels = ((DataBufferByte) bufferedImage.getRaster().getDataBuffer()).getData();
+		PixelBuffer pix = new PixelBuffer(pixels, bufferedImage.getHeight(), bufferedImage.getWidth());
+		return pix;
+	}
+
 	//BEGINNING OF FILE IO FUNCTIONS
 	public static PixelBuffer getPixelBufferFromFilename(String filename) throws IOException {
 		File file = new File(filename);
 		BufferedImage bufferedImage = ImageIO.read(file);
+		System.out.println(bufferedImage.getType());
+		System.out.println(BufferedImage.TYPE_3BYTE_BGR);
+		System.out.println(BufferedImage.TYPE_INT_RGB);
 		byte[] pixels = ((DataBufferByte) bufferedImage.getRaster().getDataBuffer()).getData();
 		PixelBuffer pix = new PixelBuffer(pixels, bufferedImage.getHeight(), bufferedImage.getWidth());
 		return pix;

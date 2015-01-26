@@ -12,10 +12,10 @@ public class Main{
 	I2c i2c = new I2c(6);
 	Pwm.initPwm(i2c);
 
-	MotorController mcR = new MotorController(0, i2c, 0, true);
-	MotorController mcL = new MotorController(1, i2c, 1, false);
-	MotorController mcC = new MotorController(2, i2c, 2, true);
-	Encoder encC = new Encoder(8, 6, false);
+	MotorController mcR = new MotorController(8, i2c, 0, true);
+	MotorController mcL = new MotorController(5, i2c, 1, false);
+	MotorController mcC = new MotorController(6, i2c, 2, true);
+	//Encoder encC = new Encoder(8, 6, false);
 
 	Runtime.getRuntime().addShutdownHook(new Thread() {
 		public void run() {
@@ -28,17 +28,17 @@ public class Main{
 	long start = System.currentTimeMillis();
 	mcL.setSpeed(.2);
 	mcR.setSpeed(.2);
-	Utils.msleep(2000);
+	//	Utils.msleep(2000);
 	mcC.setSpeed(.2);
-	while(encC.getCount() < 1900);
-	System.out.println(encC.getCount());
-	mcC.setSpeed(0);
-	Utils.msleep(500);
-	mcC.setSpeed(.2);
-	Utils.msleep(200);
+	System.out.println("set motor speeds");
+	//while(encC.getCount() < 1900);
+	//System.out.println(encC.getCount());
+	//mcC.setSpeed(0);
+	//Utils.msleep(500);
+	//mcC.setSpeed(.2);
+	Utils.msleep(10000);
 	mcR.setSpeed(0);
 	mcL.setSpeed(0);
-	Utils.msleep(2500);
 	mcC.setSpeed(0);
 
 	//I2c i2c = new I2c(6);
@@ -139,12 +139,21 @@ public class Main{
 
 	/*I2c i2c = new I2c(6);
 	Pwm.initPwm(i2c);
-	Servo servo = new Servo(i2c, 4, .04, .08);
-	for(int i = 0; i <= 10; i++){
-	    System.out.println("pos: " + i/10.0);
-	    servo.setPosition(i/10.0);
-	    Utils.msleep(1000);
-	}*/
+	Servo servo = new Servo(i2c, 4, .031, .092);
+	servo.setPosition(0);
+	Utils.msleep(2000);
+	servo.setPosition(-1.0);
+	Utils.msleep(2000);
+	servo.setPosition(-.03);
+	Utils.msleep(2000);
+	servo.setPosition(1.0);
+	Utils.msleep(2000);
+	servo.setPosition(-.02);*/
+	//for(int i = -10; i <= 10; i++){
+	//    System.out.println("pos: " + i/10.0);
+	//    servo.setPosition(i/10.0);
+	//    Utils.msleep(1000);
+	//}
 
 	
 	/*Gpio pin1 = new Gpio(13);

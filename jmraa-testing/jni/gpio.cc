@@ -29,6 +29,24 @@ JNIEXPORT jint JNICALL Java_jmraa_Gpio_dir (JNIEnv *env, jobject thisObj, jobjec
   }
 }
 
+JNIEXPORT jint JNICALL Java_jmraa_Gpio_dir (JNIEnv *env, jobject thisObj, jobject mode){
+  mraa::Gpio *inst = getHandle<mraa::Gpio>(env, thisObj);  
+
+  jclass enumClass = env->FindClass("jmraa/Utils$Mode");
+  jmethodID getNameMethod = env->GetMethodID(enumClass, "name", "()Ljava/lang/String;");
+  jstring value = (jstring)env->CallObjectMethod(mode, getNameMethod);
+  std::string valueNative = env->GetStringUTFChars(value, 0);
+  if (valueNative.compare("MODE_STRONG") == 0) {
+    return (int)(inst->mode(mraa::MODE_STRONG));
+  }else if (valueNative.compare("MODE_PULLUP") == 0) {
+    return (int)(inst->dir(mraa::MODE_PULLUP));
+  } else if (valueNative.compare("MODE_PULLDOWN") == 0) {
+    return (int)(inst->dir(mraa::MODE_PULLDOWN));
+  } else{
+    return (int)(inst->dir(mraa::MODE_HIZ));
+  }
+}
+
 JNIEXPORT jint JNICALL Java_jmraa_Gpio_write (JNIEnv *env, jobject thisObj, jint value){
   mraa::Gpio *inst = getHandle<mraa::Gpio>(env, thisObj);  
   return (int)(inst->write(value));
