@@ -12,7 +12,7 @@ public class InstantiatedSystems{
         
 	//public Encoder leftMotorEncoder;
         //public Encoder rightMotorEncoder;
-	public Encoder conveyorMotorEncoder;
+	//public Encoder conveyorMotorEncoder;
 	/*
 	public Gpio feedLimit;
 
@@ -37,7 +37,11 @@ public class InstantiatedSystems{
 		//leftUltrasonic = new Ultrasonic();
 		//rightUltrasonic = new Ultrasonic();
 
-		conveyorMotorEncoder = new Encoder(7,7,true);
+		/*try{
+		    conveyorMotorEncoder = new Encoder(7,7,true);
+		} catch(Exception e){
+		    System.out.println(e.getMessage());
+		}*/
 
 		//feedLimit = new Gpio();
 		
@@ -95,8 +99,8 @@ public class InstantiatedSystems{
 		return 7.0;
 	}	
 	public double readConveyorEncoderCount(){
-		return conveyorMotorEncoder.getCount();
-		//return 6.0;
+	    //return conveyorMotorEncoder.getCount();
+	    return 6.0;
 	}
 
 	public boolean checkConveyorLimitSwitch(){
