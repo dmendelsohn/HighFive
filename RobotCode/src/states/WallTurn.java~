@@ -33,7 +33,7 @@ public class WallFollow extends StateBase{
 	    return new BoxFollow();
 	}else if(System.currentTimeMillis()-stateStartTime > 4000.){
 	    return new BoxSearch();
-	}else if(input.frontUltraDist<0.1){
+	}else if(input.closerSide.equals("left")){
 	    return new WallTurn();
 	}else{
 	    return this;

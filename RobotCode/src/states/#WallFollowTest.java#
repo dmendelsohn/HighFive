@@ -1,12 +1,12 @@
 package states;
 import robot.*;
 
-public class WallFollow extends StateBase{
+public class WallFollowTest extends StateBase{
 
     public OutputStateVariables output;
     public InputStateVariables input;
 
-    public WallFollow(){
+    public WallFollowTest(){
 
 	super();
 
@@ -23,7 +23,7 @@ public class WallFollow extends StateBase{
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	System.out.println("WallFollow");
+	System.out.println("WallFollowTest");
 	return output;
     }
 

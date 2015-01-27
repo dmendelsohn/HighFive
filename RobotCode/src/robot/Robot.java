@@ -66,7 +66,7 @@ public class Robot{
 	    systems.drivetrain.pidDrive(0, output.drivetrainSpeed, input.gyroAngle, -1.0/400000, 0, 0);
 	    break;
 	case "pidDriveTwoInputs":
-	    if ((input.leftBackUltraDist+input.leftFrontUltraDist)<(input.rightBackUltraDist+input.rightFrontUltraDist)){
+	    if (input.closerSide.equals("left")){
 		systems.drivetrain.pidDriveTwoInputs("left", 0.5, output.drivetrainSpeed,input.leftBackUltraDist,input.leftFrontUltraDist, 1.0/20.0 , 0, 0);
 	    }else{
 		systems.drivetrain.pidDriveTwoInputs("right", 0.5, output.drivetrainSpeed,input.rightBackUltraDist,input.rightFrontUltraDist, 1.0/20.0 , 0, 0);
@@ -94,8 +94,7 @@ public class Robot{
 	switch(output.hopperMethod){
 
 	case "setSorterPosition":
-	    System.out.println("output hopper val:" + output.hopperPosition);
-	    systems.hopper.setSorterPosition(output.hopperPosition);
+	    systems.hopper.setSorterPosition(input.photoState);
 	    break;
 	case "openLeftHatch":
 	    systems.hopper.openLeftHatch(output.leftHatchOpen);
