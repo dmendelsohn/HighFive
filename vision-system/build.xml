@@ -1,7 +1,7 @@
 <project name="Vision" basedir="." default="jar">
 	<property name="src.dir"				value="src"/>
 	<property name="build.dir"				value="build"/>
-	<property name="lib.dir"     value="../"/>
+	<property name="lib.dir"     value="../vision-lib/"/>
 	<path id="classpath">
           <fileset dir="${lib.dir}" includes="**/*.jar"/>
 	</path>
