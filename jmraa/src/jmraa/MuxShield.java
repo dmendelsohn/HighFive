@@ -25,7 +25,7 @@ public class MuxShield {
     public MuxShield(int S0, int S1, int S2, int S3, int OUTMD, int IO1, int IO2){
 
 	shiftReg = new int[16];
-
+	try{
 	s0 = new Gpio(S0);
 	s1 = new Gpio(S1);
 	s2 = new Gpio(S2);
@@ -33,6 +33,10 @@ public class MuxShield {
 	outmd = new Gpio(OUTMD);
 	io1 = new Gpio(IO1);
 	io2 = new Gpio(IO2);
+	} catch(Exception e){
+	    //pls no
+	    System.out.println(e.getMessage());
+	}
 	//public Gpio io3 = new Gpio(IO3);  
 
 	s0.dir(Utils.Dir.DIR_OUT);
