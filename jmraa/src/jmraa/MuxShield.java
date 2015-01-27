@@ -65,7 +65,6 @@ public class MuxShield {
 	    
 	s3.write(1);                     //latch in ALL values
 	outmd.write(0);                   //Exit output mode
-	System.out.println("vals: " + Arrays.toString(shiftReg));
     }
 
     public int digitalReadMS(int chan){
