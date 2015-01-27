@@ -44,7 +44,7 @@ public class InstantiatedSystems{
 	*/
 
 	// Ultrasonic(MuxShield muxIn, int trigPin, int echoPin)
-	frontUltrasonic = new Ultrasonic(shield,0,0)
+	frontUltrasonic = new Ultrasonic(shield,0,0);
 	leftBackUltrasonic = new Ultrasonic(shield,1,1);
 	leftFrontUltrasonic = new Ultrasonic(shield,2,2);
 	rightBackUltrasonic = new Ultrasonic(shield,3,3);
@@ -88,12 +88,14 @@ public class InstantiatedSystems{
 	double val = gyro.getTotal();		
 	return val;
     }
-
+    public double readFrontUltraDist(){
+	return frontUltrasonic.asMeters(10);
+    }
     public double readLeftBackUltraDist(){
 	return leftBackUltrasonic.asMeters(10);
     }
-    public double readLeftFrontEncoderCount(){
-	return leftFrontMotorEncoder.asMeters(10);
+    public double readLeftFrontUltraDist(){
+	return leftFrontUltrasonic.asMeters(10);
     }
     public double readRightBackUltraDist(){
 	return rightBackUltrasonic.asMeters(10);
