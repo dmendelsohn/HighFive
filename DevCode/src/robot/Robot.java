@@ -9,36 +9,40 @@ public class Robot{
 
     public StateBase state;
     public static long runTime;
-
+    public InstantiatedSystems systems;
 
     public Robot(){
 	runTime = System.currentTimeMillis();		 
-	state = new HopperTest();	
+	state = new HopperTest();
+	systems = new InstantiatedSystems();
     }
 
     public static void main(String[] args){
 	Robot robot = new Robot();
-	InstantiatedSystems systems = robot.startSystems();
-	Runtime.getRuntime().addShutdownHook(
-	    new Thread() {
-                public void run() {
-		    systems.kill();
-                }
-	    });
+	
+	robot.addShutdown();
 
 	//implement state-system functionality here
 	InputStateVariables input;
 	OutputStateVariables output;
 
 	while(System.currentTimeMillis()-runTime<30000.){
-	    input = robot.generateInputStateVariables(systems);
+	    input = robot.generateInputStateVariables();
 	    robot.setState(input);
 	    output = robot.readState(input);
-	    robot.processOutput(output, input, systems);
+	    robot.processOutput(output, input);
 	    Utils.msleep(10);
 	}
     }
 
+    public void addShutdown(){
+	Runtime.getRuntime().addShutdownHook(
+	    new Thread() {
+                public void run() {
+		    systems.kill();
+                }
+	    });
+    }
     public void setState(InputStateVariables input){
 	state = state.getNext(input);
     }
@@ -47,16 +51,12 @@ public class Robot{
 	//use state to determine output state variables
 	return state.run(input); 
     }
-		
-    public InstantiatedSystems startSystems(){
-	return new InstantiatedSystems();
-    }
 
-    public InputStateVariables generateInputStateVariables(InstantiatedSystems systems){
+    public InputStateVariables generateInputStateVariables(){
 	return new InputStateVariables(systems);
     }
 
-    public void processOutput (OutputStateVariables output, InputStateVariables input, InstantiatedSystems systems){
+    public void processOutput (OutputStateVariables output, InputStateVariables input){
 	if(output.zeroGyro){
 	    systems.zeroGyro();
 	}
@@ -93,7 +93,13 @@ public class Robot{
 
 	switch(output.hopperMethod){
 	case "setSorterPosition":
-	    systems.hopper.setSorterPosition(input.photoState);
+	    if(input.photoState.equals("green")){
+		    systems.hopper.setSorterPosition(1.0);
+	    } else if(input.photoState.equals("red")){
+		    systems.hopper.setSorterPosition(-1.0);
+	    } else {
+		systems.hopper.setSorterPosition(-0.3);
+	    }
 	    break;
 	case "openLeftHatch":
 	    systems.hopper.openLeftHatch(output.leftHatchOpen);

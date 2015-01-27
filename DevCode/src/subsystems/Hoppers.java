@@ -21,7 +21,7 @@ public class Hoppers{
     }
 
     public void kill(){
-	setSorterPosition("middle");
+	setSorterPosition(0);
 	openLeftHatch(true);
 	openRightHatch(true);
     }
@@ -31,7 +31,7 @@ public class Hoppers{
 	hopperServo.setPosition(position);
 
     }
-} 
+ 
 
 public void openLeftHatch(boolean release){
     if (release == true){
