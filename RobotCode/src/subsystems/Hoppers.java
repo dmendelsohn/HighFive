@@ -31,11 +31,11 @@ public class Hoppers{
     }
     public void setSorterPositionColor(String color){
         if(color.equals("green")){
-	    systems.hopper.setSorterPosition(1.0);
+	    hopperServo.setPosition(1.0);
 	} else if(color.equals("red")){
-	    systems.hopper.setSorterPosition(-1.0);
+	    hopperServo.setPosition(-1.0);
 	} else {
-	    systems.hopper.setSorterPosition(-0.3);
+	    hopperServo.setPosition(-0.3);
 	}
     }
     public void openLeftHatch(boolean release){
