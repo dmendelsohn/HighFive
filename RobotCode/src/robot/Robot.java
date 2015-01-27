@@ -13,7 +13,7 @@ public class Robot{
 
     public Robot(){
 	runTime = System.currentTimeMillis();		 
-	state = new DriveTrainTest();	
+	state = new ConveyorTest();	
     }
 
     public static void main(String[] args){
