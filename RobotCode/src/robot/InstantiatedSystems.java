@@ -44,11 +44,11 @@ public class InstantiatedSystems{
 	*/
 
 	// Ultrasonic(MuxShield muxIn, int trigPin, int echoPin)
-	frontUltrasonic = new Ultrasonic(shield,0,0);
-	leftBackUltrasonic = new Ultrasonic(shield,1,1);
-	leftFrontUltrasonic = new Ultrasonic(shield,2,2);
-	rightBackUltrasonic = new Ultrasonic(shield,3,3);
-	rightFrontUltrasonic = new Ultrasonic(shield,4,4);
+	frontUltrasonic = new Ultrasonic(shield,RobotMap.FRONT_ULTRASONIC_INPUT,RobotMap.FRONT_ULTRASONIC_OUTPUT);
+	leftBackUltrasonic = new Ultrasonic(shield,RobotMap.LEFT_BACK_ULTRASONIC_INPUT,RobotMap.LEFT_BACK_ULTRASONIC_OUTPUT);
+	leftFrontUltrasonic = new Ultrasonic(shield,RobotMap.LEFT_FRONT_ULTRASONIC_INPUT, RobotMap.LEFT_FRONT_ULTRASONIC_OUTPUT );
+	rightBackUltrasonic = new Ultrasonic(shield,RobotMap.RIGHT_BACK_ULTRASONIC_INPUT, RobotMap.RIGHT_BACK_ULTRASONIC_OUTPUT );
+	rightFrontUltrasonic = new Ultrasonic(shield,RobotMap.RIGHT_FRONT_ULTRASONIC_INPUT,RobotMap.RIGHT_FRONT_ULTRASONIC_OUTPUT);
 				
 	//feedLimit = new Gpio();
 		

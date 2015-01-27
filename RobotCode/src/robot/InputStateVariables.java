@@ -39,11 +39,18 @@ public class InputStateVariables{
 	rightBackUltraDist = systems.readRightBackUltraDist();
 	rightFrontUltraDist = systems.readRightFrontUltraDist();
 
+	System.out.println("front:"+ frontUltraDist);
+	System.out.println("leftback:"+ leftBackUltraDist);
+	System.out.println("leftfront:"+ leftFrontUltraDist);
+	System.out.println("rightBack:"+ rightBackUltraDist);
+	System.out.println("rightFront:"+ rightFrontUltraDist);
+
 	if((leftBackUltraDist+leftFrontUltraDist)<(rightBackUltraDist+rightFrontUltraDist)){
 	    closerSide = "left";
 	}else{
 	    closerSide = "right";
 	}
+	System.out.println(closerSide);
 
 	photoReading = systems.colorSensor.read();
 	if (photoReading < 400 && photoReading > 300){

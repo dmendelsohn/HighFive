@@ -1,4 +1,5 @@
 package subsystems;
+import robot.*;
 import jmraa.*;
 
 public class ConveyorBelt{
@@ -8,9 +9,10 @@ public class ConveyorBelt{
 	public ConveyorBelt(){
 		System.out.println("Hello ConveyorBelt!");
 		
-		I2c i2c = new I2c(6);
+		I2c i2c = new I2c(RobotMap.I2C_PORT);
 		Pwm.initPwm(i2c);
-		conveyorMotor = new MotorController(6, i2c, 2, true);
+		//MotorController(DIO, i2c, pwm, inverted?)
+		conveyorMotor = new MotorController(RobotMap.CONVEYOR_MOTOR_DIO, i2c, RobotMap.CONVEYOR_MOTOR_PWM, true);
 		
 	}
 

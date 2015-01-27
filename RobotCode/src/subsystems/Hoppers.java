@@ -1,4 +1,5 @@
 package subsystems;
+import robot.RobotMap;
 import jmraa.*;
 
 public class Hoppers{
@@ -11,12 +12,12 @@ public class Hoppers{
     public Hoppers(){
 	System.out.println("Hello Hoppers!");
 
-	//Servo(I2c i2c, int pin, double bot, double top)
-	I2c i2c = new I2c(6);
+	I2c i2c = new I2c(RobotMap.I2C_PORT);
 	Pwm.initPwm(i2c);
-	hopperServo = new Servo(i2c, 4, 0.031, 0.092);
-	leftReleaseServo = new Servo(i2c, 14, 0.033, 0.08);
-	rightReleaseServo = new Servo(i2c, 15, 0.04, 0.085);
+	//Servo(I2c i2c, int pin, double bot, double top)
+	hopperServo = new Servo(i2c,RobotMap.SORTER_SERVO_PWM, RobotMap.HOPPER_LOWER_BOUND, RobotMap.HOPPER_UPPER_BOUND);
+	leftReleaseServo = new Servo(i2c, RobotMap.LEFT_RELEASE_SERVO_PWM, RobotMap.LEFT_RELEASE_LOWER_BOUND, RobotMap.LEFT_RELEASE_UPPER_BOUND);
+	rightReleaseServo = new Servo(i2c, RobotMap.RIGHT_RELEASE_SERVO_PWM, RobotMap.RIGHT_RELEASE_LOWER_BOUND, RobotMap.RIGHT_RELEASE_UPPER_BOUND);
     }
 	
     public void setSorterPosition(String color){

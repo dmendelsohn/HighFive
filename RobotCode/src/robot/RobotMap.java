@@ -42,7 +42,15 @@ public class RobotMap{
     public static final int MOSI = 11;
     public static final int ChipSelect = 10;
 
-    //Other Constants
+    //I2c port
+    public static final int I2C_PORT = 6;
 
+    //Other Constants
+    public static final double HOPPER_LOWER_BOUND = 0.031;
+    public static final double HOPPER_UPPER_BOUND = 0.092;
+    public static final double LEFT_RELEASE_LOWER_BOUND = 0.033;
+    public static final double LEFT_RELEASE_UPPER_BOUND = 0.08;
+    public static final double RIGHT_RELEASE_LOWER_BOUND = 0.04;
+    public static final double RIGHT_RELEASE_UPPER_BOUND = 0.085;
 }
 

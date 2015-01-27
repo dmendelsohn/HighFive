@@ -32,11 +32,11 @@ public class DriveTrain{
 
 		System.out.println("Hello DriveTrain!");
 	
-		I2c i2c = new I2c(6);
+		I2c i2c = new I2c(RobotMap.I2C_PORT);
 		Pwm.initPwm(i2c);
 		//MotorController(DIO, i2c, pwm, inverted?)
-		leftMotor = new MotorController(5, i2c, 1, false);
-		rightMotor = new MotorController(8, i2c, 0, true);
+		leftMotor = new MotorController(RobotMap.LEFT_MOTOR_DIO, i2c, RobotMap.LEFT_MOTOR_PWM, false);
+		rightMotor = new MotorController(RobotMap.RIGHT_MOTOR_DIO, i2c, RobotMap.RIGHT_MOTOR_PWM, true);
 	
 		//setting lastTime here is not a good idea
 		lastTime = System.currentTimeMillis();

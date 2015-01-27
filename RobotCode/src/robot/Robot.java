@@ -16,7 +16,7 @@ public class Robot{
 
 	runTime = System.currentTimeMillis();
 		 
-	state = new CaptureTest();
+	state = new WallFollowTest();
 		
     }
 

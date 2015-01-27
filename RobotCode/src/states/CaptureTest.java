@@ -15,7 +15,7 @@ public class CaptureTest extends StateBase{
 
 		output.drivetrainMethod = "pidDrive";
 		output.drivetrainPIDType = "Gyroscope";
-		output.drivetrainSpeed = 0.5;
+		output.drivetrainSpeed = 0.2;
 
 		output.conveyorMethod = "moveBelt";
 		output.conveyorSpeed = 0.2;
@@ -39,7 +39,7 @@ public class CaptureTest extends StateBase{
 
 		    output.drivetrainMethod = "pidDrive";
 		    output.drivetrainPIDType = "Gyroscope";
-		    output.drivetrainSpeed = 0.5;
+		    output.drivetrainSpeed = 0.2;
 
 		    output.conveyorMethod = "moveBelt";
 		    output.conveyorSpeed = 0.2;
