@@ -8,8 +8,8 @@ public class RobotMap{
     public static final int CONVEYOR_MOTOR_PWM = 2;
 
     public static final int SORTER_SERVO_PWM = 13;
-    public static final int LEFT_RELEASE_SERVO_PWM = 15;
-    public static final int RIGHT_RELEASE_SERVO_PWM = 14;
+    public static final int LEFT_RELEASE_SERVO_PWM = 14;
+    public static final int RIGHT_RELEASE_SERVO_PWM = 15;
 
     //DIO slots
     public static final int LEFT_MOTOR_DIO = 8;

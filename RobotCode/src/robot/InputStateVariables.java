@@ -28,7 +28,7 @@ public class InputStateVariables{
 	//give values to different values using systems
 
 	gyroAngle = systems.readGyroAngle();
-	System.out.println("gyro: " + gyroAngle);
+	//System.out.println("gyro: " + gyroAngle);
 
 	//leftEncoderCount = systems.readLeftEncoderCount();
 	//rightEncoderCount = systems.readRightEncoderCount();

@@ -16,7 +16,6 @@ public class OutputStateVariables{
 
     public String conveyorMethod;
     public double conveyorSpeed;
-
     
     public String visionMethod;
 

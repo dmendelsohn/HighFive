@@ -27,26 +27,31 @@ public class Hoppers{
     }
 	
     public void setSorterPosition(double position){
-        
 	hopperServo.setPosition(position);
-
     }
- 
-
-public void openLeftHatch(boolean release){
-    if (release == true){
-	leftReleaseServo.setPosition(0.8);
-    }else{
-	leftReleaseServo.setPosition(-0.9);
+    public void setSorterPositionColor(String color){
+        if(color.equals("green")){
+	    systems.hopper.setSorterPosition(1.0);
+	} else if(color.equals("red")){
+	    systems.hopper.setSorterPosition(-1.0);
+	} else {
+	    systems.hopper.setSorterPosition(-0.3);
+	}
     }
-}
-public void openRightHatch(boolean release){
-    if (release == true){
-	rightReleaseServo.setPosition(-0.9);
-    }else{
-	rightReleaseServo.setPosition(0.9);
+    public void openLeftHatch(boolean release){
+	if (release == true){
+	    leftReleaseServo.setPosition(0.8);
+	}else{
+	    leftReleaseServo.setPosition(-0.9);
+	}
     }
-}
-public void doNothing(){
-}
+    public void openRightHatch(boolean release){
+	if (release == true){
+	    rightReleaseServo.setPosition(-0.9);
+	}else{
+	    rightReleaseServo.setPosition(0.9);
+	}
+    }
+    public void doNothing(){
+    }
 }
