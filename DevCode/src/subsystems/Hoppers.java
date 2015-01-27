@@ -26,7 +26,7 @@ public class Hoppers{
 	openRightHatch(true);
     }
 	
-    public void setSorterPosition(int position){
+    public void setSorterPosition(double position){
         
 	hopperServo.setPosition(position);
 
