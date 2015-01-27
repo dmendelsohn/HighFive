@@ -37,11 +37,11 @@ public class Robot{
 
     public void addShutdown(){
 	Runtime.getRuntime().addShutdownHook(
-	    new Thread() {
-                public void run() {
-		    systems.kill();
-                }
-	    });
+					     new Thread() {
+						 public void run() {
+						     systems.kill();
+						 }
+					     });
     }
     public void setState(InputStateVariables input){
 	state = state.getNext(input);
@@ -93,13 +93,10 @@ public class Robot{
 
 	switch(output.hopperMethod){
 	case "setSorterPosition":
-	    if(input.photoState.equals("green")){
-		    systems.hopper.setSorterPosition(1.0);
-	    } else if(input.photoState.equals("red")){
-		    systems.hopper.setSorterPosition(-1.0);
-	    } else {
-		systems.hopper.setSorterPosition(-0.3);
-	    }
+	    systems.hopper.setSorterPosition(output.hopperPosition);
+	    break;
+	case "setSorterPositionColor":
+	    systems.hopper.setSorterPositionColor(input.photoState);
 	    break;
 	case "openLeftHatch":
 	    systems.hopper.openLeftHatch(output.leftHatchOpen);
