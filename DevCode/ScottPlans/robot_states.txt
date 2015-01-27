@@ -1,0 +1,49 @@
+depends on range of camera
+
+starting state
+
+State 1: Box Search
+	circle in place
+	if sees box --> State 2
+	if gyro>=360: --> State 5
+____________________________________________
+
+State 2: Box Follow
+	Head toward box
+	if loses sight of box --> State 3
+	if box_distance < 1 -->
+
+State 3: Blind Box Follow:
+	start timer
+	Head in same direction
+	if sees Box --> State 2
+	if timer > 4 sec --> State 1
+
+State 4: Capture
+	start timer
+	Head in same direction
+	capture piece
+	if timer>3 sec --> State 1
+_________________________________________________
+
+State 5: Bounce
+	start timer
+	Head in same direction
+	if (timer % 3000ms < 30) --> State 1
+	if ultrasound_distance<2: 
+		turn 120 degrees
+
+searchForBox()
+followBox()
+followBoxBlindly()
+captureBox()
+bounceOffWalls()
+
+
+
+
+
+
+
+
+	

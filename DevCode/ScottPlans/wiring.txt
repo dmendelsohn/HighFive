@@ -1,0 +1,47 @@
+Create Numbering system for all motors and servos --> RobotConstants
+
+For the moment:
+2 drive motor:
+  Left Motor		PWM 0	DIO 0
+  Left Encoder 	    	DIO ?,?
+  Right Motor 	    	PWM 1	DIO 3
+  Right Encoder     	DIO ?,?
+1 conveyor motor:
+  Conveyor Motor	PWM 2	DIO 6
+  Conveyor Encoder  	DIO ?,?
+1 servo
+  Sorter		PWM 13
+2 servos (release):
+  LeftBack		PWM 15
+  RightBack 	    	PWM 14
+5 Ultrasonic:
+  Front			Trig MUX-DO 1
+  			Echo MUX-DO 1
+  LeftFront		Trig MUX-DO 2
+       			Echo MUX-DI 2
+  LeftBack		Trig MUX-DO 3
+       			Echo MUX-DI 3
+  RightFront		Trig MUX-DO 4
+       		     	Echo MUX-DI 4
+  RightBack	     	Trig MUX-DO 0
+       		     	Echo MUX-DI 0
+4 Color sensors:
+  Sorter		AI 0
+  RightLine		AI 1
+  MiddleLine		AI 2
+  LeftLine		AI 3
+
+MUX
+  S0			DIO 0
+  S1			DIO 1
+  S2			DIO 2
+  S3			DIO 3
+  OUTMD			DIO 4
+  IO1			DIO 5
+  IO2			DIO 6
+
+Gyro(SPI):
+  CLK			DIO 13
+  MISO			DIO 12
+  MOSI			DIO 11
+  ChipSelect		DIO 10

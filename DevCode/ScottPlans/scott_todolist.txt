@@ -1,0 +1,5 @@
+code to do list:
+
+robot map
+logging
+think through subsystems carefully
