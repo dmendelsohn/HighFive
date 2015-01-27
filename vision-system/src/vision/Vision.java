@@ -19,46 +19,46 @@ public class Vision extends Thread{
     static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
 
     public Vision(int in){
-	isRunning = false;
-	blobs = new BlobInfo[0];
-	debug = true;
-	index = in;
+		isRunning = false;
+		blobs = new BlobInfo[0];
+		debug = true;
+		index = in;
     }
 
     public BlobInfo[] getBlobs(){
-	return blobs;
+		return blobs;
     }
 
     public BlobInfo getClosestStack(){
-	if(blobs.length == 0) return null;
-	BlobInfo ret = blobs[0];
-	for(BlobInfo b: blobs){
-	    if(b.getBoundingRect().getYMin() < ret.getBoundingRect().getYMin()){
-		ret = b;
-	    }
-	}
-	return ret;
+		if(blobs.length == 0) return null;
+		BlobInfo ret = blobs[0];
+		for(BlobInfo b: blobs){
+		    if(b.getBoundingRect().getYMin() < ret.getBoundingRect().getYMin()){
+				ret = b;
+		    }
+		}
+		return ret;
     }
     
     public void run() {
-	isRunning = true;
+		isRunning = true;
 
-	long start;
-	long end;
-	VideoCapture camera = new VideoCapture();
-	camera.open(index);
+		long start;
+		long end;
+		VideoCapture camera = new VideoCapture();
+		camera.open(index);
 
-	Mat rawImage = new Mat();
+		Mat rawImage = new Mat();
 	
-	while(isRunning){
-	    long total_start = System.currentTimeMillis();
-	    start = System.currentTimeMillis();
-	    while(!camera.read(rawImage)) {
-		try{
-		    Thread.sleep(1);
-		} catch(InterruptedException e){
-		    e.printStackTrace();
-		}
+		while(isRunning){
+		    long total_start = System.currentTimeMillis();
+		    start = System.currentTimeMillis();
+		    while(!camera.read(rawImage)) {
+			try{
+			    Thread.sleep(1);
+			} catch(InterruptedException e){
+				e.printStackTrace();
+			}
 	    }
 			
 	    PixelBuffer pixelBuffer = Utils.getPixelBufferFromMat(rawImage);
