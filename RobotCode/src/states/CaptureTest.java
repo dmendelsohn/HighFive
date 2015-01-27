@@ -35,7 +35,7 @@ public class CaptureTest extends StateBase{
 	System.out.println("CaptureTest");
 	long elapsedTime = System.currentTimeMillis()-stateStartTime;
 
-	if (elapsedTime<15000){	
+	if (elapsedTime<15000){
 
 	    output.drivetrainMethod = "pidDrive";
 	    output.drivetrainPIDType = "Gyroscope";

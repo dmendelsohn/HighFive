@@ -15,7 +15,7 @@ public class DriveTrainTest extends StateBase{
 
 	output.drivetrainMethod = "pidDrive";
 	output.drivetrainPIDType = "Gyroscope";
-	output.drivetrainSpeed = 0.4;
+	output.drivetrainSpeed = 0.2;
 
 	output.conveyorMethod = "doNothing";
 	output.hopperMethod = "doNothing";
@@ -36,7 +36,7 @@ public class DriveTrainTest extends StateBase{
 	if (elapsedTime<10000){
 	    output.drivetrainMethod = "pidDrive";
 	    output.drivetrainPIDType = "Gyroscope";
-	    output.drivetrainSpeed = 0.4;
+	    output.drivetrainSpeed = 0.2;
 	}else{
 	    output.drivetrainMethod = "stop";
 	}

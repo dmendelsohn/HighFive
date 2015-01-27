@@ -43,11 +43,11 @@ public class InstantiatedSystems{
 	*/
 	
 	// Ultrasonic(MuxShield muxIn, int trigPin, int echoPin)
-	frontUltrasonic = new Ultrasonic(shield,0,0);
-	leftBackUltrasonic = new Ultrasonic(shield,1,1);
-	leftFrontUltrasonic = new Ultrasonic(shield,2,2);
-	rightBackUltrasonic = new Ultrasonic(shield,3,3);
-	rightFrontUltrasonic = new Ultrasonic(shield,4,4);
+	frontUltrasonic = new Ultrasonic(shield,RobotMap.FRONT_ULTRASONIC_OUTPUT, RobotMap.FRONT_ULTRASONIC_INPUT);
+	leftBackUltrasonic = new Ultrasonic(shield,RobotMap.LEFT_BACK_ULTRASONIC_OUTPUT, RobotMap.LEFT_BACK_ULTRASONIC_INPUT);
+	leftFrontUltrasonic = new Ultrasonic(shield,RobotMap.LEFT_FRONT_ULTRASONIC_OUTPUT, RobotMap.LEFT_FRONT_ULTRASONIC_INPUT);
+	rightBackUltrasonic = new Ultrasonic(shield,RobotMap.RIGHT_BACK_ULTRASONIC_OUTPUT, RobotMap.RIGHT_BACK_ULTRASONIC_INPUT);
+	rightFrontUltrasonic = new Ultrasonic(shield,RobotMap.RIGHT_FRONT_ULTRASONIC_OUTPUT, RobotMap.RIGHT_FRONT_ULTRASONIC_INPUT);
 					
 	//feedLimit = new Gpio();
 			
@@ -95,28 +95,28 @@ public class InstantiatedSystems{
     }
 
     public double readGyroAngle(){
-	double val = gyro.getTotal();		
+	double val = gyro.getDegrees();		
 	return val;
     }
 
     public double readFrontUltraDist(){
-	return frontUltrasonic.asMeters(10);
+	return Ultrasonic.asMeters(frontUltrasonic.ping());
     }
 
     public double readLeftBackUltraDist(){
-	return leftBackUltrasonic.asMeters(10);
+	return Ultrasonic.asMeters(leftBackUltrasonic.ping());
     }
 
     public double readLeftFrontUltraDist(){
-	return leftFrontUltrasonic.asMeters(10);
+	return Ultrasonic.asMeters(leftFrontUltrasonic.ping());
     }
 
     public double readRightBackUltraDist(){
-	return rightBackUltrasonic.asMeters(10);
+	return Ultrasonic.asMeters(rightBackUltrasonic.ping());
     }
 
     public double readRightFrontUltraDist(){
-	return rightFrontUltrasonic.asMeters(10);
+	return Ultrasonic.asMeters(rightFrontUltrasonic.ping());
     }
     /*
       public double readRightEncoderCount(){

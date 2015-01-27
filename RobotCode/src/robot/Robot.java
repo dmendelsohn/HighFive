@@ -13,7 +13,7 @@ public class Robot{
 
     public Robot(){
 	runTime = System.currentTimeMillis();		 
-	state = new CaptureTest();	
+	state = new DriveTrainTest();	
     }
 
     public static void main(String[] args){
@@ -62,13 +62,13 @@ public class Robot{
 	}
 	switch(output.drivetrainMethod){
 	case "pidDrive":
-	    systems.drivetrain.pidDrive(0, output.drivetrainSpeed, input.gyroAngle, -1.0/400000, 0, 0);
+	    systems.drivetrain.pidDrive(0, output.drivetrainSpeed, input.gyroAngle, RobotMap.KP_PID_DRIVE, RobotMap.KI_PID_DRIVE, RobotMap.KD_PID_DRIVE);
 	    break;
 	case "pidDriveTwoInputs":
 	    if (input.closerSide.equals("left")){
-		systems.drivetrain.pidDriveTwoInputs("left", 0.5, output.drivetrainSpeed,input.leftBackUltraDist,input.leftFrontUltraDist, 1.0/20.0 , 0, 0);
+		systems.drivetrain.pidDriveTwoInputs("left", 0.5, output.drivetrainSpeed,input.leftBackUltraDist,input.leftFrontUltraDist, RobotMap.KP_DOUBLE_PID_DRIVE ,  RobotMap.KI_DOUBLE_PID_DRIVE,  RobotMap.KD_DOUBLE_PID_DRIVE);
 	    }else{
-		systems.drivetrain.pidDriveTwoInputs("right", 0.5, output.drivetrainSpeed,input.rightBackUltraDist,input.rightFrontUltraDist, 1.0/20.0 , 0, 0);
+		systems.drivetrain.pidDriveTwoInputs("right", 0.5, output.drivetrainSpeed,input.rightBackUltraDist,input.rightFrontUltraDist, RobotMap.KP_DOUBLE_PID_DRIVE ,  RobotMap.KI_DOUBLE_PID_DRIVE,  RobotMap.KD_DOUBLE_PID_DRIVE);
 	    }
 	    break;
 	case "moveStraightRough":

@@ -12,9 +12,9 @@ public class RobotMap{
     public static final int RIGHT_RELEASE_SERVO_PWM = 14;
 
     //DIO slots
-    public static final int LEFT_MOTOR_DIO = 0;
-    public static final int RIGHT_MOTOR_DIO = 3;
-    public static final int CONVEYOR_MOTOR_DIO = 6;
+    public static final int LEFT_MOTOR_DIO = 8;
+    public static final int RIGHT_MOTOR_DIO = 9;
+    public static final int CONVEYOR_MOTOR_DIO = 14;
 
     //MUX Shield slots
     //Inputs
@@ -45,12 +45,21 @@ public class RobotMap{
     //I2c port
     public static final int I2C_PORT = 6;
 
-    //Other Constants
+    //Servo bounds
     public static final double HOPPER_LOWER_BOUND = 0.031;
     public static final double HOPPER_UPPER_BOUND = 0.092;
     public static final double LEFT_RELEASE_LOWER_BOUND = 0.033;
     public static final double LEFT_RELEASE_UPPER_BOUND = 0.08;
     public static final double RIGHT_RELEASE_LOWER_BOUND = 0.04;
     public static final double RIGHT_RELEASE_UPPER_BOUND = 0.085;
+
+    //PID constants
+    public static final double KP_PID_DRIVE = .1/45.0;
+    public static final double KI_PID_DRIVE = 0;
+    public static final double KD_PID_DRIVE = 0;
+
+    public static final double KP_DOUBLE_PID_DRIVE = .1/.2;
+    public static final double KI_DOUBLE_PID_DRIVE = 0;
+    public static final double KD_DOUBLE_PID_DRIVE = 0;
 }
 

@@ -28,6 +28,7 @@ public class InputStateVariables{
 	//give values to different values using systems
 
 	gyroAngle = systems.readGyroAngle();
+	System.out.println("gyro: " + gyroAngle);
 
 	//leftEncoderCount = systems.readLeftEncoderCount();
 	//rightEncoderCount = systems.readRightEncoderCount();
@@ -39,11 +40,11 @@ public class InputStateVariables{
 	rightBackUltraDist = systems.readRightBackUltraDist();
 	rightFrontUltraDist = systems.readRightFrontUltraDist();
 
-	System.out.println("front:"+ frontUltraDist);
+	/*System.out.println("front:"+ frontUltraDist);
 	System.out.println("leftback:"+ leftBackUltraDist);
 	System.out.println("leftfront:"+ leftFrontUltraDist);
 	System.out.println("rightBack:"+ rightBackUltraDist);
-	System.out.println("rightFront:"+ rightFrontUltraDist);
+	System.out.println("rightFront:"+ rightFrontUltraDist);*/
 
 	if((leftBackUltraDist+leftFrontUltraDist)<(rightBackUltraDist+rightFrontUltraDist)){
 	    closerSide = "left";
