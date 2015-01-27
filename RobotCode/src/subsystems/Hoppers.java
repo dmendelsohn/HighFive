@@ -21,36 +21,32 @@ public class Hoppers{
     }
 
     public void kill(){
-	setSorterPosition("middle");
+	setSorterPosition(0);
 	openLeftHatch(true);
 	openRightHatch(true);
     }
 	
-    public void setSorterPosition(String color){
+    public void setSorterPosition(double position){
         
-	if (color.equals("red")){
-	    hopperServo.setPosition(-1);
-	}else if(color.equals("green")){
-	    hopperServo.setPosition(1);
-	}else{
-	    hopperServo.setPosition(0);
-	}
-    } 
+	hopperServo.setPosition(position);
 
-    public void openLeftHatch(boolean release){
-	if (release == true){
-	    leftReleaseServo.setPosition(0.8);
-	}else{
-	    leftReleaseServo.setPosition(-0.9);
-	}
     }
-    public void openRightHatch(boolean release){
-	if (release == true){
-	    rightReleaseServo.setPosition(-0.9);
-	}else{
-	    rightReleaseServo.setPosition(0.9);
-	}
+ 
+
+public void openLeftHatch(boolean release){
+    if (release == true){
+	leftReleaseServo.setPosition(0.8);
+    }else{
+	leftReleaseServo.setPosition(-0.9);
     }
-    public void doNothing(){
+}
+public void openRightHatch(boolean release){
+    if (release == true){
+	rightReleaseServo.setPosition(-0.9);
+    }else{
+	rightReleaseServo.setPosition(0.9);
     }
+}
+public void doNothing(){
+}
 }
