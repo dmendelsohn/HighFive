@@ -38,12 +38,13 @@ public class BoxFollow extends StateBase{
 
     public StateBase getNext(InputStateVariables input){
 	//if(input.feedLimitEngaged){
-	if(false){
+/*	if(false){
 	    return new ConveyorCapture();
 	}else if(System.currentTimeMillis()-stateStartTime > 1500.){
 	    return new BlindBoxFollow();
 	} else{
 	    return this;
-	}
+	}*/
+		return this;
     }
 }

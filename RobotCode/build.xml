@@ -1,6 +1,5 @@
-<project name="RobotCode" basedir="." default="main">
-
-    <property name="src.dir"     value="src"/>
+<project name="RobotCode" basedir="." default="main" xmlns:if="ant:if" xmlns:unless="ant:unless">
+   	<property name="src.dir"     value="src"/>
 
     <property name="build.dir"   value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
@@ -8,8 +7,6 @@
     <property name="jmraa.dir"   value="../jmraa/"/>
 
     <property name="main-class"  value="robot/Robot"/>
-
-
 
     <target name="clean">
         <delete dir="${build.dir}"/>
@@ -32,9 +29,10 @@
 
     <target name="run" depends="jar">
         <java jar="${jar.dir}/RobotCode.jar" fork="true">
-           <sysproperty key="java.library.path" path="${jmraa.dir}/jni/"/>
-	</java>
-    </target>
+			<sysproperty key="java.library.path" path="${jmraa.dir}/jni/"/>
+			<arg value="${start}" unless:blank="${start}"/>
+		</java>
+	</target>
 
     <target name="clean-build" depends="clean,jar"/>
 
