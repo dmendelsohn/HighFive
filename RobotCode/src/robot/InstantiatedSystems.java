@@ -95,8 +95,7 @@ public class InstantiatedSystems{
     }
 
     public double readGyroAngle(){
-	double val = gyro.getDegrees();		
-	return val;
+	return gyro.getDegrees();	
     }
 
     public double readFrontUltraDist(){
