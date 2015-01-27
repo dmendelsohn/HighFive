@@ -30,45 +30,45 @@ public class DriveTrain{
 
     public DriveTrain(){
 
-		System.out.println("Hello DriveTrain!");
+	System.out.println("Hello DriveTrain!");
 	
-		I2c i2c = new I2c(RobotMap.I2C_PORT);
-		Pwm.initPwm(i2c);
-		//MotorController(DIO, i2c, pwm, inverted?)
-		leftMotor = new MotorController(RobotMap.LEFT_MOTOR_DIO, i2c, RobotMap.LEFT_MOTOR_PWM, false);
-		rightMotor = new MotorController(RobotMap.RIGHT_MOTOR_DIO, i2c, RobotMap.RIGHT_MOTOR_PWM, true);
+	I2c i2c = new I2c(RobotMap.I2C_PORT);
+	Pwm.initPwm(i2c);
+	//MotorController(DIO, i2c, pwm, inverted?)
+	leftMotor = new MotorController(RobotMap.LEFT_MOTOR_DIO, i2c, RobotMap.LEFT_MOTOR_PWM, false);
+	rightMotor = new MotorController(RobotMap.RIGHT_MOTOR_DIO, i2c, RobotMap.RIGHT_MOTOR_PWM, true);
 	
-		//setting lastTime here is not a good idea
-		lastTime = System.currentTimeMillis();
+	//setting lastTime here is not a good idea
+	lastTime = System.currentTimeMillis();
     }
 
     public void pidDrive(double setPoint, double speed, double currentPosition, double kp, double ki, double kd){
-		leftSpeed = speed;
-		rightSpeed = speed;
+	leftSpeed = speed;
+	rightSpeed = speed;
 
-		error = currentPosition;
-		long dt = System.currentTimeMillis() - lastTime;
+	error = currentPosition;
+	long dt = System.currentTimeMillis() - lastTime;
 
-		integral = integral + error*dt;
-		derivative = (error - previousError)/dt;
-		//System.out.println("total angle number"+error);
-		//System.out.println("deriv:"+derivative);
+	integral = integral + error*dt;
+	derivative = (error - previousError)/dt;
+	//System.out.println("total angle number"+error);
+	//System.out.println("deriv:"+derivative);
 	
-		output = kp*error+ki*integral+kd*derivative;
-		System.out.println("output:"+output);
+	output = kp*error+ki*integral+kd*derivative;
+	System.out.println("output:"+output);
 
-		outputLeftSpeed=leftSpeed+output;
-		outputRightSpeed=rightSpeed-output;
+	outputLeftSpeed=leftSpeed+output;
+	outputRightSpeed=rightSpeed-output;
 
-		setLeftSpeed(outputLeftSpeed);
-		setRightSpeed(outputRightSpeed);
+	setLeftSpeed(outputLeftSpeed);
+	setRightSpeed(outputRightSpeed);
 
-		previousError = error;
-		lastTime = System.currentTimeMillis();
+	previousError = error;
+	lastTime = System.currentTimeMillis();
 
     }
     public void pidDriveTwoInputs(String wallDirection, double setPoint, double speed, double currentPositionBack,
-			double currentPositionFront, double kp, double ki, double kd) {
+				  double currentPositionFront, double kp, double ki, double kd) {
 
 	leftSpeed = speed;
 	rightSpeed = speed;
@@ -105,24 +105,24 @@ public class DriveTrain{
     }
 
     public void setLeftSpeed(double speed){
-		leftMotor.setSpeed(speed);
+	leftMotor.setSpeed(speed);
     }
 
     public void setRightSpeed(double speed){
-		rightMotor.setSpeed(speed);
+	rightMotor.setSpeed(speed);
     }
 
     public void moveStraightRough(double speed){
-		setLeftSpeed(speed);
-		setRightSpeed(speed);
+	setLeftSpeed(speed);
+	setRightSpeed(speed);
     }
     public void setTurnRough(double speed){
-		setLeftSpeed(speed);
-		setRightSpeed(-speed);
+	setLeftSpeed(speed);
+	setRightSpeed(-speed);
     }
 	
     public void stop(){
-		moveStraightRough(0);
+	moveStraightRough(0);
     }
     public void doNothing(){
     }

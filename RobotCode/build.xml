@@ -1,4 +1,4 @@
-<project name="HelloWorld" basedir="." default="main">
+<project name="RobotCode" basedir="." default="main">
 
     <property name="src.dir"     value="src"/>
 
@@ -22,7 +22,7 @@
 
     <target name="jar" depends="compile">
         <mkdir dir="${jar.dir}"/>
-        <jar destfile="${jar.dir}/HelloWorld.jar" basedir="${classes.dir}">
+        <jar destfile="${jar.dir}/RobotCode.jar" basedir="${classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main-class}"/>
                 <attribute name="Class-Path" value="../../../jmraa/jmraa.jar"/>
@@ -31,7 +31,7 @@
     </target>
 
     <target name="run" depends="jar">
-        <java jar="${jar.dir}/HelloWorld.jar" fork="true">
+        <java jar="${jar.dir}/RobotCode.jar" fork="true">
            <sysproperty key="java.library.path" path="${jmraa.dir}/jni/"/>
 	</java>
     </target>
