@@ -2,36 +2,57 @@ package robot;
 
 public class InputStateVariables{
 
-	public double gyroAngle; 
+    public double gyroAngle; 
 
-	public double leftEncoderCount;
-	public double rightEncoderCount;
+    //public double leftEncoderCount;
+    //public double rightEncoderCount;
+    //public double conveyorEncoderCount;
 
-	public double conveyorEncoderCount;
+    public double frontUltraDist;
+    public double leftBackUltraDist;
+    public double leftFrontUltraDist;
+    public double rightBackUltraDist;
+    public double rightFrontUltraDist;
 
-	public double leftUltraDist;
-	public double rightUltraDist;
+    public String closerSide;
 
-	public boolean seesTarget; //vision
-	public double howCentered; //vision
-	public double boxDistance; //vision
+    public boolean seesTarget; //vision
+    public double howCentered; //vision
+    public double boxDistance; //vision
 
-	public boolean feedLimitEngaged; 
+    public double photoReading;
+    public String photoState;
 
-	public InputStateVariables(InstantiatedSystems systems){
-		//give values to different values using systems
 
-		gyroAngle = systems.readGyroAngle();
+    public InputStateVariables(InstantiatedSystems systems){
+	//give values to different values using systems
 
-		leftEncoderCount = systems.readLeftEncoderCount();
-		rightEncoderCount = systems.readRightEncoderCount();
+	gyroAngle = systems.readGyroAngle();
 
-		conveyorEncoderCount = systems.readConveyorEncoderCount();
+	//leftEncoderCount = systems.readLeftEncoderCount();
+	//rightEncoderCount = systems.readRightEncoderCount();
+	//conveyorEncoderCount = systems.readConveyorEncoderCount();
 
-		feedLimitEngaged = systems.checkConveyorLimitSwitch();
-	
-		leftUltraDist = systems.readLeftUltraDist();
-		rightUltraDist = systems.readRightUltraDist();
+	frontUltraDist = systems.readFrontUltraDist();
+        leftBackUltraDist = systems.readLeftBackUltraDist();
+	leftFrontUltraDist = systems.readLeftFrontUltraDist();
+	rightBackUltraDist = systems.readRightBackUltraDist();
+	rightFrontUltraDist = systems.readRightFrontUltraDist();
+
+	if((leftBackUltraDist+leftFrontUltraDist)<(rightBackUltraDist+rightFrontUltraDist)){
+	    closerSide = "left";
+	}else{
+	    closerSide = "right";
 	}
+
+	photoReading = systems.colorSensor.read();
+	if (photoReading < 400 && photoReading > 300){
+	    photoState = "green";
+	}else if (photoReading > 450){
+	    photoState = "red";
+	}else{
+	    photoState = "none";
+	}
+    }
 
 }

@@ -1,19 +1,23 @@
 package states;
 import robot.*;
 
-public class WallFollow extends StateBase{
+public class WallTurn extends StateBase{
 
     public OutputStateVariables output;
     public InputStateVariables input;
 
-    public WallFollow(){
+    public WallTurn(){
 
 	super();
 
 	output = new OutputStateVariables();
 
-	output.drivetrainMethod = "pidDriveTwoInputs";
-	output.drivetrainSpeed = 0.2;
+	output.drivetrainMethod = "setTurnRough";
+	if(input.closerSide.equals("left")){
+	    output.drivetrainSpeed = 0.2;
+	}else{
+	    output.drivetrainSpeed = -0.2;
+	}
 		
 	output.hopperMethod = "doNothing";
 	output.conveyorMethod = "doNothing";
@@ -31,10 +35,8 @@ public class WallFollow extends StateBase{
 	//if(input.seesTarget){
 	if(false){
 	    return new BoxFollow();
-	}else if(System.currentTimeMillis()-stateStartTime > 4000.){
-	    return new BoxSearch();
-	}else if(input.frontUltraDist<0.1){
-	    return new WallTurn();
+	}else if(input.frontUltraDist>0.1){
+	    return new WallFollow();
 	}else{
 	    return this;
 	}

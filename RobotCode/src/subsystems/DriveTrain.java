@@ -12,7 +12,10 @@ public class DriveTrain{
     public double leftSpeed;
     public double rightSpeed;
 
+    public double error1;
+    public double error2;
     public double error;
+
     public double previousError = 0.0; 
     public double integral = 0.0; 
     public double derivative;
@@ -27,24 +30,54 @@ public class DriveTrain{
 
     public DriveTrain(){
 
-	System.out.println("Hello DriveTrain!");
+		System.out.println("Hello DriveTrain!");
 	
-	I2c i2c = new I2c(6);
-	Pwm.initPwm(i2c);
-	//MotorController(DIO, i2c, pw m, inverted?)
-	leftMotor = new MotorController(5, i2c, 1, false);
-	rightMotor = new MotorController(8, i2c, 0, true);
+		I2c i2c = new I2c(6);
+		Pwm.initPwm(i2c);
+		//MotorController(DIO, i2c, pwm, inverted?)
+		leftMotor = new MotorController(5, i2c, 1, false);
+		rightMotor = new MotorController(8, i2c, 0, true);
 	
-	//setting lastTime here is not a good idea
-	lastTime = System.currentTimeMillis();
+		//setting lastTime here is not a good idea
+		lastTime = System.currentTimeMillis();
     }
 
     public void pidDrive(double setPoint, double speed, double currentPosition, double kp, double ki, double kd){
+		leftSpeed = speed;
+		rightSpeed = speed;
+
+		error = currentPosition;
+		long dt = System.currentTimeMillis() - lastTime;
+
+		integral = integral + error*dt;
+		derivative = (error - previousError)/dt;
+		//System.out.println("total angle number"+error);
+		//System.out.println("deriv:"+derivative);
+	
+		output = kp*error+ki*integral+kd*derivative;
+		System.out.println("output:"+output);
+
+		outputLeftSpeed=leftSpeed+output;
+		outputRightSpeed=rightSpeed-output;
+
+		setLeftSpeed(outputLeftSpeed);
+		setRightSpeed(outputRightSpeed);
+
+		previousError = error;
+		lastTime = System.currentTimeMillis();
+
+    }
+    public void pidDriveTwoInputs(String wallDirection, double setPoint, double speed, double currentPositionBack,
+			double currentPositionFront, double kp, double ki, double kd) {
 
 	leftSpeed = speed;
 	rightSpeed = speed;
 
-	error = currentPosition;
+	//constants for how to weigh errors relative to each other
+	error1 = (0.2)*(currentPositionFront-currentPositionBack);
+        error2 = (0.8)*((currentPositionFront+currentPositionBack)/2.0 - setPoint);
+	error = error1 + error2;
+
 	long dt = System.currentTimeMillis() - lastTime;
 
 	integral = integral + error*dt;
@@ -54,9 +87,14 @@ public class DriveTrain{
 	
 	output = kp*error+ki*integral+kd*derivative;
 	System.out.println("output:"+output);
-
-	outputLeftSpeed=leftSpeed+output;
-	outputRightSpeed=rightSpeed-output;
+	
+	if (wallDirection=="left"){
+	    outputLeftSpeed=leftSpeed-output;
+	    outputRightSpeed=rightSpeed+output;
+	}else{
+	    outputLeftSpeed=leftSpeed+output;
+	    outputRightSpeed=rightSpeed-output;	
+	}
 
 	setLeftSpeed(outputLeftSpeed);
 	setRightSpeed(outputRightSpeed);
@@ -66,27 +104,25 @@ public class DriveTrain{
 
     }
 
-    public void goToWall(){
-	
-    }
     public void setLeftSpeed(double speed){
-	leftMotor.setSpeed(speed);
-    }
-    public void setRightSpeed(double speed){
-	rightMotor.setSpeed(speed);
-    }
-    public void moveStraightRough(double speed){
-	setLeftSpeed(speed);
-	setRightSpeed(speed);
+		leftMotor.setSpeed(speed);
     }
 
+    public void setRightSpeed(double speed){
+		rightMotor.setSpeed(speed);
+    }
+
+    public void moveStraightRough(double speed){
+		setLeftSpeed(speed);
+		setRightSpeed(speed);
+    }
     public void setTurnRough(double speed){
-	setLeftSpeed(speed);
-	setRightSpeed(-speed);
+		setLeftSpeed(speed);
+		setRightSpeed(-speed);
     }
 	
     public void stop(){
-	moveStraightRough(0);
+		moveStraightRough(0);
     }
     public void doNothing(){
     }
