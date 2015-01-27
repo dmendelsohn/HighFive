@@ -71,8 +71,7 @@ public class DriveTrain{
 	lastTime = System.currentTimeMillis();
 
     }
-    public void pidDriveTwoInputs(String wallDirection, double setPoint, double speed, double currentPositionBack,
-				  double currentPositionFront, double kp, double ki, double kd) {
+    public void pidDriveTwoInputs(String wallDirection, double setPoint, double speed, double currentPositionBack, double currentPositionFront, double kp, double ki, double kd) {
 
 	leftSpeed = speed;
 	rightSpeed = speed;
@@ -92,7 +91,7 @@ public class DriveTrain{
 	output = kp*error+ki*integral+kd*derivative;
 	System.out.println("output:"+output);
 	
-	if (wallDirection=="left"){
+	if (wallDirection.equals("left")){
 	    outputLeftSpeed=leftSpeed-output;
 	    outputRightSpeed=rightSpeed+output;
 	}else{

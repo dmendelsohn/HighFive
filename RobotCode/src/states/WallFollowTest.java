@@ -10,7 +10,7 @@ public class WallFollowTest extends StateBase{
 	super();
 	output = new OutputStateVariables();
 	output.drivetrainMethod = "pidDriveTwoInputs";
-	output.drivetrainSpeed = 0.2;		
+	output.drivetrainSpeed = 0.2;
 	output.hopperMethod = "doNothing";
 	output.conveyorMethod = "doNothing";
 	output.visionMethod = "senseTarget";

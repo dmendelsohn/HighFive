@@ -13,17 +13,21 @@ public class Ultrasonic{
     }
 
     public long ping(){
-	mux.digitalWriteMS(trig, 1);
+        mux.digitalWriteMS(trig, 1);
 	Utils.usleep(20);
 	mux.digitalWriteMS(trig, 0);
+	Utils.usleep(20);
+	System.out.println("pinged");
 	long waitStart = System.nanoTime();
 	while(mux.digitalReadMS(echo)==0){
 	    if(System.nanoTime()-waitStart>15000000) return -1;
 	}
+	System.out.println("pulse started");
 	long pulseStart = System.nanoTime();
 	while(mux.digitalReadMS(echo)==1){
 	    if(System.nanoTime()-pulseStart>15000000) return -1;
 	}
+	System.out.println("pulse finished");
 	return System.nanoTime()-pulseStart;
     }
 

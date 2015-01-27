@@ -105,18 +105,22 @@ public class InstantiatedSystems{
 
     public double readLeftBackUltraDist(){
 	return Ultrasonic.asMeters(leftBackUltrasonic.ping());
+	//return 0;
     }
 
     public double readLeftFrontUltraDist(){
 	return Ultrasonic.asMeters(leftFrontUltrasonic.ping());
+	//return 0;
     }
 
     public double readRightBackUltraDist(){
 	return Ultrasonic.asMeters(rightBackUltrasonic.ping());
+	//return 0;
     }
 
     public double readRightFrontUltraDist(){
 	return Ultrasonic.asMeters(rightFrontUltrasonic.ping());
+	//return 0;
     }
     /*
       public double readRightEncoderCount(){

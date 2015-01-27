@@ -1,5 +1,7 @@
 package robot;
 
+import jmraa.Utils;
+
 public class InputStateVariables{
 
     public double gyroAngle; 
@@ -28,23 +30,32 @@ public class InputStateVariables{
 	//give values to different values using systems
 
 	gyroAngle = systems.readGyroAngle();
-	System.out.println("gyro: " + gyroAngle);
+	//System.out.println("gyro: " + gyroAngle);
 
 	//leftEncoderCount = systems.readLeftEncoderCount();
 	//rightEncoderCount = systems.readRightEncoderCount();
 	//conveyorEncoderCount = systems.readConveyorEncoderCount();
 
+	System.out.println("front");
 	frontUltraDist = systems.readFrontUltraDist();
+	Utils.usleep(60);
+	System.out.println("left back");
         leftBackUltraDist = systems.readLeftBackUltraDist();
+	Utils.usleep(60);
+	System.out.println("left front");
 	leftFrontUltraDist = systems.readLeftFrontUltraDist();
+	Utils.usleep(60);
+	System.out.println("right back");
 	rightBackUltraDist = systems.readRightBackUltraDist();
+	Utils.usleep(60);
+	System.out.println("right front");
 	rightFrontUltraDist = systems.readRightFrontUltraDist();
 
-	/*System.out.println("front:"+ frontUltraDist);
+	System.out.println("front:"+ frontUltraDist);
 	System.out.println("leftback:"+ leftBackUltraDist);
 	System.out.println("leftfront:"+ leftFrontUltraDist);
 	System.out.println("rightBack:"+ rightBackUltraDist);
-	System.out.println("rightFront:"+ rightFrontUltraDist);*/
+	System.out.println("rightFront:"+ rightFrontUltraDist);
 
 	if((leftBackUltraDist+leftFrontUltraDist)<(rightBackUltraDist+rightFrontUltraDist)){
 	    closerSide = "left";
