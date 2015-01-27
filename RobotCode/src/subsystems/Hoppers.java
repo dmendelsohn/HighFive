@@ -19,6 +19,12 @@ public class Hoppers{
 	leftReleaseServo = new Servo(i2c, RobotMap.LEFT_RELEASE_SERVO_PWM, RobotMap.LEFT_RELEASE_LOWER_BOUND, RobotMap.LEFT_RELEASE_UPPER_BOUND);
 	rightReleaseServo = new Servo(i2c, RobotMap.RIGHT_RELEASE_SERVO_PWM, RobotMap.RIGHT_RELEASE_LOWER_BOUND, RobotMap.RIGHT_RELEASE_UPPER_BOUND);
     }
+
+    public void kill(){
+	setSorterPosition("middle");
+	openLeftHatch(true);
+	openRightHatch(true);
+    }
 	
     public void setSorterPosition(String color){
         

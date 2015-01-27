@@ -19,6 +19,12 @@ public class Robot{
     public static void main(String[] args){
 	Robot robot = new Robot();
 	InstantiatedSystems systems = robot.startSystems();
+	Runtime.getRuntime().addShutdownHook(
+	    new Thread() {
+                public void run() {
+		    systems.kill();
+                }
+	    });
 
 	//implement state-system functionality here
 	InputStateVariables input;

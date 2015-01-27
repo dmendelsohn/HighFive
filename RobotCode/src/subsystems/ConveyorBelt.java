@@ -16,6 +16,10 @@ public class ConveyorBelt{
 		
     }
 
+    public void kill(){
+	stopBelt();
+    }
+
     public void moveBelt(double speed){
 	conveyorMotor.setSpeed(speed);
     }

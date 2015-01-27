@@ -42,6 +42,10 @@ public class DriveTrain{
 	lastTime = System.currentTimeMillis();
     }
 
+    public void kill(){
+	stop();
+    }
+
     public void pidDrive(double setPoint, double speed, double currentPosition, double kp, double ki, double kd){
 	leftSpeed = speed;
 	rightSpeed = speed;

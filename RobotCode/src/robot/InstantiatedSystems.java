@@ -61,6 +61,12 @@ public class InstantiatedSystems{
 	startupConveyorEncoder();
     }
 
+    public void kill(){
+	drivetrain.kill();
+	hopper.kill();
+	conveyor.kill();
+    }
+
     //sensor methods 
     public void startupGyro(){
 	gyro.start();
