@@ -38,7 +38,7 @@ public class BlobLabeling {
 		int minMatchingLabel = Integer.MAX_VALUE;
 		for (LabeledNeighbor neighbor : neighbors) {
 			int label = neighbor.getLabel();
-			if (label > 0 && label < minMatchingLabel) {
+			if (label > 0 && label < minMatchingLabel && currentColorValue == neighbor.getColor()) {
 				minMatchingLabel = label;
 			}
 		}
