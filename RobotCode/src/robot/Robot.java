@@ -16,8 +16,45 @@ public class Robot{
 		state = new ConveyorTest();	
     }
 
+	public Robot(StateBase startingState) {
+		runTime = System.currentTimeMillis();
+		state = startingState;
+	}
+
     public static void main(String[] args){
-		Robot robot = new Robot();
+		Robot robot;
+		if (args.length == 0) {
+			robot = new Robot();
+		} else {
+			//Use first argument to determine test type
+			StateBase startState;
+			switch (args[0]) {
+				case "HopperTest":
+					startState = new HopperTest();
+					break;
+				case "ConveyorTest":
+					startState = new ConveyorTest();
+					break;
+				case "CaptureTest":
+					startState = new CaptureTest();
+					break;
+				case "VisionTest":
+					startState = new VisionTest();
+					break;
+				case "WallFollowTest":
+					startState = new WallFollowTest();
+					break;
+				case "DriveTrainTest":
+					startState = new DriveTrainTest();
+					break;
+				default:
+					startState = new HopperTest(); //This is a nonsense line to get stuff to compile
+					System.out.println("Invalid Start State");
+					System.exit(0);
+					break;
+			}
+			robot = new Robot(startState);
+		}
 		InstantiatedSystems systems = robot.startSystems();
 		Runtime.getRuntime().addShutdownHook(
 		    new Thread() {
