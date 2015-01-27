@@ -10,7 +10,7 @@ public class Main{
 	System.out.println("hello");
 	
 
-	MuxShield shield = new MuxShield(0,1,2,3,4,5,6);
+	/*MuxShield shield = new MuxShield(0,1,2,3,4,5,6);
 
 	Ultrasonic ultra = new Ultrasonic(shield, 1, 1);
 
@@ -18,13 +18,13 @@ public class Main{
 	    long read = ultra.ping();
 	    System.out.println("read: " + read + " meters: " + Ultrasonic.asMeters(read));
 	    Utils.msleep(100);
-	}
+	}*/
 
-	/*Aio color = new Aio(0);
+	Aio color = new Aio(0);
 	for(int i = 0; i < 10000; i++){
 	    System.out.println("read: " + color.read());
 	    Utils.msleep(100);
-	    }*/
+	}
 
 	/*I2c i2c = new I2c(6);
 	Pwm.initPwm(i2c);
