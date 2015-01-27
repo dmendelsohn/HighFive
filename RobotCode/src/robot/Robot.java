@@ -9,37 +9,80 @@ public class Robot{
 
     public StateBase state;
     public static long runTime;
-
+    public InstantiatedSystems systems;
 
     public Robot(){
 	runTime = System.currentTimeMillis();		 
-	state = new WallFollowTest();	
+	state = new HopperTest();
+	systems = new InstantiatedSystems();
+    }
+
+    public Robot(StateBase startingState) {
+	runTime = System.currentTimeMillis();
+	state = startingState;
     }
 
     public static void main(String[] args){
-	Robot robot = new Robot();
+	Robot robot;
+	if (args.length == 0) {
+	    robot = new Robot();
+	} else {
+	    //Use first argument to determine test type
+	    StateBase startState;
+	    switch (args[0]) {
+	    case "HopperTest":
+		startState = new HopperTest();
+		break;
+	    case "ConveyorTest":
+		startState = new ConveyorTest();
+		break;
+	    case "CaptureTest":
+		startState = new CaptureTest();
+		break;
+	    case "VisionTest":
+		startState = new VisionTest();
+		break;
+	    case "WallFollowTest":
+		startState = new WallFollowTest();
+		break;
+	    case "DriveTrainTest":
+		startState = new DriveTrainTest();
+		break;
+	    default:
+		startState = new HopperTest(); //This is a nonsense line to get stuff to compile
+		System.out.println("Invalid Start State");
+		System.exit(0);
+		break;
+	    }
+	    robot = new Robot(startState);
+	}
 	InstantiatedSystems systems = robot.startSystems();
-	Runtime.getRuntime().addShutdownHook(new Thread() {
-		public void run() {
-		    systems.kill();
-		    Utils.msleep(100);
-		    systems.kill();
-		}
-	    });
+
+
+	
+	robot.addShutdown();
 
 	//implement state-system functionality here
 	InputStateVariables input;
 	OutputStateVariables output;
-	
+
 	while(System.currentTimeMillis()-runTime<30000.){
-	    input = robot.generateInputStateVariables(systems);
+	    input = robot.generateInputStateVariables();
 	    robot.setState(input);
 	    output = robot.readState(input);
-	    robot.processOutput(output, input, systems);
+	    robot.processOutput(output, input);
 	    Utils.msleep(10);
 	}
     }
 
+    public void addShutdown(){
+	Runtime.getRuntime().addShutdownHook(
+					     new Thread() {
+						 public void run() {
+						     systems.kill();
+						 }
+					     });
+    }
     public void setState(InputStateVariables input){
 	state = state.getNext(input);
     }
@@ -98,7 +141,13 @@ public class Robot{
 
 	switch(output.hopperMethod){
 	case "setSorterPosition":
-	    systems.hopper.setSorterPosition(input.photoState);
+	    if(input.photoState.equals("green")){
+		systems.hopper.setSorterPosition(1.0);
+	    } else if(input.photoState.equals("red")){
+		systems.hopper.setSorterPosition(-1.0);
+	    } else {
+		systems.hopper.setSorterPosition(-0.3);
+	    }
 	    break;
 	case "openLeftHatch":
 	    systems.hopper.openLeftHatch(output.leftHatchOpen);

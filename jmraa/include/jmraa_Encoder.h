@@ -7,12 +7,30 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#undef jmraa_Encoder_MIN_PRIORITY
-#define jmraa_Encoder_MIN_PRIORITY 1L
-#undef jmraa_Encoder_NORM_PRIORITY
-#define jmraa_Encoder_NORM_PRIORITY 5L
-#undef jmraa_Encoder_MAX_PRIORITY
-#define jmraa_Encoder_MAX_PRIORITY 10L
+/*
+ * Class:     jmraa_Encoder
+ * Method:    loadEncoderNative
+ * Signature: (II)V
+ */
+JNIEXPORT void JNICALL Java_jmraa_Encoder_loadEncoderNative
+  (JNIEnv *, jobject, jint, jint);
+
+/*
+ * Class:     jmraa_Encoder
+ * Method:    getCountNative
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_jmraa_Encoder_getCountNative
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     jmraa_Encoder
+ * Method:    getDerivative
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_jmraa_Encoder_getDerivative
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif
