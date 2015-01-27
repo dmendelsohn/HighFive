@@ -84,7 +84,7 @@ public class InstantiatedSystems{
 	//conveyorMotorEncoder.delete();
     }
 
-    public double readGyroAngle(){
+    p ublic double readGyroAngle(){
 	double val = gyro.getTotal();		
 	return val;
     }
