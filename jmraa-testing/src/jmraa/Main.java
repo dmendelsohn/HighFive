@@ -8,8 +8,17 @@ public class Main{
 
     public static void main(String[] args){
 	System.out.println("hello");
-	
 
+	I2c i2c = new I2c(6);
+	Pwm.initPwm(i2c);
+	
+	Ultrasonic ultra = new Ultrasonic(i2c, 4, 8);
+	for(int i = 0; i < 10000; i++){
+	    ultra.ping();
+	    System.out.println("time: " + ultra.getTime() + "  meters: " + ultra.getMeters());
+	    Utils.msleep(10);
+	}
+	
 	/*MuxShield shield = new MuxShield(0,1,2,3,4,5,6);
 
 	Ultrasonic ultra = new Ultrasonic(shield, 1, 1);
@@ -20,11 +29,11 @@ public class Main{
 	    Utils.msleep(100);
 	}*/
 
-	Aio color = new Aio(0);
+	/*Aio color = new Aio(0);
 	for(int i = 0; i < 10000; i++){
 	    System.out.println("read: " + color.read());
 	    Utils.msleep(100);
-	}
+	    }*/
 
 	/*I2c i2c = new I2c(6);
 	Pwm.initPwm(i2c);
