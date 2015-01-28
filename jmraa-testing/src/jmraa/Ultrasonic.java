@@ -2,32 +2,34 @@ package jmraa;
 
 public class Ultrasonic{
 
-    private int trig;
-    private int echo;
-    private MuxShield mux;
+    private long nativeHandle;
+    private Pwm trig;
+    private long lastPing;
+    private Gpio trig;
 
-    public Ultrasonic(MuxShield muxIn, int trigPin, int echoPin){
-	trig = trigPin;
-	echo = echoPin;
-	mux = muxIn;
+    //public Ultrasonic(I2c i2c, int trigPin, int echoPin){
+    public Ultrasonic(int trigPin, int echoPin){
+	//trig = new Pwm(i2c, trigPin);
+	trig = new Gpio(trigPin);
+	loadUltrasonicNative(echoPin);
+	lastPing = 0;
     }
 
-    public long ping(){
-	mux.digitalWriteMS(trig, 1);
+    private native void loadUltrasonicNative(int echoPin);
+
+    public void ping(){
+	if(System.currentTimeMillis()-lastPing < 60) return;
+	lastPing = System.currentTimeMillis();
+	//trig.writePwm(1);
+	trig.write(1);
 	Utils.usleep(20);
-	mux.digitalWriteMS(trig, 0);
-	long waitStart = System.nanoTime();
-	while(mux.digitalReadMS(echo)==0){
-	    if(System.nanoTime()-waitStart>15000000) return -1;
-	}
-	long pulseStart = System.nanoTime();
-	while(mux.digitalReadMS(echo)==1){
-	    if(System.nanoTime()-pulseStart>15000000) return -1;
-	}
-	return System.nanoTime()-pulseStart;
+	//trig.writePwm(0);
+	trig.write(0);
     }
 
-    public static double asMeters(long ns){
-	return (ns*340.0/2000000000.0);
+    public native double getTime();
+
+    public double getMeters(){
+	return (getTime()*340.0/2.0);
     }
 }
