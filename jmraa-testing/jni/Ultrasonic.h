@@ -7,4 +7,5 @@ class Ultrasonic {
   static void echo_handler(void* args);
   Ultrasonic (int);
   double get_time();
+  bool rising;
 };
