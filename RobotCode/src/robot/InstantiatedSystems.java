@@ -28,9 +28,11 @@ public class InstantiatedSystems{
         
 
     public InstantiatedSystems(){
-	drivetrain = new DriveTrain();
-	hopper = new Hoppers();
-	conveyor = new ConveyorBelt();
+	i2c = new I2c(6);
+	Pwm.initPwm(i2c);
+	drivetrain = new DriveTrain(i2c);
+	hopper = new Hoppers(i2c);
+	conveyor = new ConveyorBelt(i2c);
 	vision = new Vision();
 	shield = new MuxShield(0,1,2,3,4,5,6);
 

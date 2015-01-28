@@ -28,12 +28,10 @@ public class DriveTrain{
     public double outputLeftSpeed;
     public double outputRightSpeed;
 
-    public DriveTrain(){
+    public DriveTrain(I2c i2c){
 
 	System.out.println("Hello DriveTrain!");
 	
-	I2c i2c = new I2c(RobotMap.I2C_PORT);
-	Pwm.initPwm(i2c);
 	//MotorController(DIO, i2c, pwm, inverted?)
 	leftMotor = new MotorController(RobotMap.LEFT_MOTOR_DIO, i2c, RobotMap.LEFT_MOTOR_PWM, false);
 	rightMotor = new MotorController(RobotMap.RIGHT_MOTOR_DIO, i2c, RobotMap.RIGHT_MOTOR_PWM, true);

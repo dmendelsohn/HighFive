@@ -9,11 +9,9 @@ public class Hoppers{
     public Servo leftReleaseServo;
     public Servo rightReleaseServo;
 
-    public Hoppers(){
+    public Hoppers(I2c i2c){
 	System.out.println("Hello Hoppers!");
 
-	I2c i2c = new I2c(RobotMap.I2C_PORT);
-	Pwm.initPwm(i2c);
 	//Servo(I2c i2c, int pin, double bot, double top)
 	hopperServo = new Servo(i2c,RobotMap.SORTER_SERVO_PWM, RobotMap.HOPPER_LOWER_BOUND, RobotMap.HOPPER_UPPER_BOUND);
 	leftReleaseServo = new Servo(i2c, RobotMap.LEFT_RELEASE_SERVO_PWM, RobotMap.LEFT_RELEASE_LOWER_BOUND, RobotMap.LEFT_RELEASE_UPPER_BOUND);
