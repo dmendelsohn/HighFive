@@ -77,8 +77,8 @@ public class DriveTrain{
 	rightSpeed = speed;
 
 	//constants for how to weigh errors relative to each other
-	error1 = (0.2)*(currentPositionFront-currentPositionBack);
-        error2 = (0.8)*((currentPositionFront+currentPositionBack)/2.0 - setPoint);
+	error1 = (-1.0)*(currentPositionFront-currentPositionBack);
+        error2 = (-1.0)*((currentPositionFront+currentPositionBack)/2.0 - setPoint);
 	error = error1 + error2;
 
 	long dt = System.currentTimeMillis() - lastTime;
