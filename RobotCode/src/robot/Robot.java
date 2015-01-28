@@ -32,6 +32,9 @@ public class Robot{
 	    //Use first argument to determine test type
 	    StateBase startState;
 	    switch (args[0]) {
+	    case "HopperColorTest":
+		startState = new HopperColorTest();
+		break;
 	    case "HopperTest":
 		startState = new HopperTest();
 		break;
@@ -80,6 +83,7 @@ public class Robot{
 						 public void run() {
 						     systems.kill();
 						     Utils.msleep(100);
+						     systems.kill();
 						 }
 					     });
     }
@@ -107,7 +111,7 @@ public class Robot{
 	    break;
 	case "pidDriveTwoInputs":
 	    if (input.closerSide.equals("left")){
-<<<<<<< HEAD
+
 		systems.drivetrain.pidDriveTwoInputs("left", 0.5,
 						     output.drivetrainSpeed, input.leftBackUltraDist, input.leftFrontUltraDist,
 						     RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
@@ -115,11 +119,6 @@ public class Robot{
 		systems.drivetrain.pidDriveTwoInputs("right", 0.5, 
 						     output.drivetrainSpeed, input.rightBackUltraDist, input.rightFrontUltraDist, 
 						     RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
-=======
-		systems.drivetrain.pidDriveTwoInputs("left", 0.2,output.drivetrainSpeed, input.leftBackUltraDist, input.leftFrontUltraDist,RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
-	    }else{
-		systems.drivetrain.pidDriveTwoInputs("right", 0.5, output.drivetrainSpeed, input.rightBackUltraDist, input.rightFrontUltraDist,RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
->>>>>>> 3ad81b8fea1b60178df3f8a8fb7486fb3c573b19
 	    }
 	    break;
 	case "moveStraightRough":
