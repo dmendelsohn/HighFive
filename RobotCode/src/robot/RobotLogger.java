@@ -115,15 +115,15 @@ public class RobotLogger {
 			if (isLoggingHoppers) {
 				StringBuilder sb = new StringBuilder();
 				sb.append("HopperMethod: ").append(output.hopperMethod).append("\n");
-				sb.append("LeftHatchOpen: ").append(output.leftHatchOpen).append("\n");
-				sb.append("RightHatchOpen: ").append(output.rightHatchOpen).append("\n");
+				sb.append("HopperOpenLeft: ").append(output.hopperOpenLeft).append("\n");
+				sb.append("HopperOpenRight: ").append(output.hopperOpenRight).append("\n");
 				HOPPERS_LOGGER.fine(sb.toString());
 				ANYTHING_LOGGER.fine("[Hoppers]\n" + sb.toString());
 			}
 	
 			if (isLoggingSorter) {
 				StringBuilder sb = new StringBuilder();
-				sb.append("SorterPosition: ").append(output.hopperPosition).append("\n");
+				sb.append("SorterPosition: ").append(output.sorterPosition).append("\n");
 				SORTER_LOGGER.fine(sb.toString());
 				ANYTHING_LOGGER.fine("[Sorter]\n" + sb.toString());
 			}

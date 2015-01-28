@@ -15,7 +15,7 @@ public class Robot{
 
     public Robot(){
 	runTime = System.currentTimeMillis();		 
-	state = new HopperColorTest();
+	state = new SorterColorTest();
 	systems = new InstantiatedSystems();
 	logger = new RobotLogger();
     }
@@ -35,8 +35,14 @@ public class Robot{
 	    //Use first argument to determine test type
 	    StateBase startState;
 	    switch (args[0]) {
-	    case "HopperColorTest":
-		startState = new HopperColorTest();
+	    case "Main":
+		startState = new BoxSearch();
+		break;
+	    case "SorterColorTest":
+		startState = new SorterColorTest();
+		break;
+	    case "SorterTest":
+		startState = new SorterTest();
 		break;
 	    case "HopperTest":
 		startState = new HopperTest();
@@ -159,22 +165,30 @@ public class Robot{
 	}
 
 	switch(output.hopperMethod){
-	case "setSorterPosition":
-	    systems.hopper.setSorterPosition(output.hopperPosition);
+        case "hopperOpenBoth":
+	    systems.hopper.hopperOpenBoth(output.hopperOpenLeft, output.hopperOpenRight);
 	    break;
-	case "setSorterPositionColor":
-	    systems.hopper.setSorterPositionColor(input.photoState);
-	    break;
-	case "openLeftHatch":
-	    systems.hopper.openLeftHatch(output.leftHatchOpen);
+	case "hopperOpenLeft":
+	    systems.hopper.hopperOpenLeft(output.hopperOpenLeft);
 	    //true opens hatch
 	    break;
-	case "openRightHatch":
-	    systems.hopper.openRightHatch(output.rightHatchOpen);
+	case "hopperOpenRight":
+	    systems.hopper.hopperOpenRight(output.hopperOpenRight);
 	    //true opens hatch				
 	    break;
 	case "doNothing":
 	    systems.hopper.doNothing();
+	    break;
+	}	
+	switch(output.sorterMethod){
+	case "setSorterPosition":
+	    systems.sorter.setSorterPosition(output.sorterPosition);
+	    break;
+	case "setSorterPositionColor":
+	    systems.sorter.setSorterPositionColor(input.photoState);
+	    break;
+	case "doNothing":
+	    systems.sorter.doNothing();
 	    break;
 	}	
 

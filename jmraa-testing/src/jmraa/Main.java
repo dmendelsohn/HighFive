@@ -8,16 +8,13 @@ public class Main{
 
     public static void main(String[] args){
 	System.out.println("hello");
-
-	I2c i2c = new I2c(6);
-	Pwm.initPwm(i2c);
 	
-	Ultrasonic ultra = new Ultrasonic(i2c, 4, 8);
+	/*Ultrasonic ultra = new Ultrasonic(8,9);
 	for(int i = 0; i < 10000; i++){
 	    ultra.ping();
-	    System.out.println("time: " + ultra.getTime() + "  meters: " + ultra.getMeters());
-	    Utils.msleep(10);
-	}
+	    System.out.println("meters: " + ultra.getMeters());
+	    Utils.msleep(100);
+	    }*/
 	
 	/*MuxShield shield = new MuxShield(0,1,2,3,4,5,6);
 
@@ -82,11 +79,11 @@ public class Main{
 	    }*/
 	
 
-	/*Encoder enc = new Encoder(8, 6, false);
-	for(int i = 0; i < 100; i++){
+	Encoder enc = new Encoder(0,1, false);
+	for(int i = 0; i < 1000; i++){
 	    System.out.println("count: " + enc.getCount() + "   deriv: " + enc.getDerivative());
 	    Utils.msleep(100);
-	    }*/
+	}
 	
 
 	/*Gyro gyro = new Gyro(0, 10);

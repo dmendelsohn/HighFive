@@ -3,24 +3,28 @@ import states.*;
 import robot.*;
 
 
-public class ConveyorTest extends StateBase{
+public class HopperColorTest extends StateBase{
 
     public OutputStateVariables output;
     public InputStateVariables input;
 
-    public ConveyorTest(){
+    public HopperColorTest(){
 
 	super();
 
 	output = new OutputStateVariables();
 
 	output.drivetrainMethod = "doNothing";
-		
-	output.conveyorMethod = "moveBelt";
-	output.conveyorSpeed = 0.1;
-	output.sorterMethod = "doNothing";
-	output.hopperMethod = "doNothing";
+	output.conveyorMethod = "doNothing";
+
+	output.hopperMethod = "setSorterPosition";
+	output.hopperPosition = -.1;
+	output.leftHatchOpen = false;
+	output.rightHatchOpen = false;
+
 	output.visionMethod = "doNothing";
+
+	output.zeroGyro = false;
 
 	stateStartTime = System.currentTimeMillis();
 		
@@ -28,21 +32,18 @@ public class ConveyorTest extends StateBase{
 
     public OutputStateVariables run(InputStateVariables input){
 
-	System.out.println("ConveyorTest");
+	System.out.println("HopperTest");
 	long elapsedTime = System.currentTimeMillis()-stateStartTime;
 
-	if (elapsedTime<25000){	
-	    output.conveyorMethod = "moveBelt";
-	    output.conveyorSpeed = 0.1;
-	}else{
-	    output.conveyorMethod = "stopBelt";
+	if (elapsedTime<120000){	
+	    output.hopperMethod = "setSorterPositionColor";
 	}
-		
-	System.out.println(output.conveyorMethod);
+	     
 	return output;
     }
 
     public StateBase getNext(InputStateVariables input){
 	return this;
     }
+
 }

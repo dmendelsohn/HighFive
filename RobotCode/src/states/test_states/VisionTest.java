@@ -16,6 +16,7 @@ public class VisionTest extends StateBase{
 
 	output.drivetrainMethod = "doNothing";
 	output.conveyorMethod = "doNothing";
+	output.sorterMethod = "doNothing";
 	output.hopperMethod = "doNothing";
 	output.visionMethod = "doNothing";
 
@@ -45,5 +46,4 @@ public class VisionTest extends StateBase{
     public StateBase getNext(InputStateVariables input){
 	return this;
     }
-
 }
