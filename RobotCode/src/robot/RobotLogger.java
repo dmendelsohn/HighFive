@@ -31,6 +31,7 @@ public class RobotLogger {
 	private static final boolean isLoggingSorter = true;
 	private static final boolean isLoggingConveyor = true;
 
+	private static final String BASE_DIR = "logs"
 	private static final String ANYTHING_FILE = "Anything.log";
 	private static final String COLOR_SENSOR_FILE = "ColorSensor.log";
 	private static final String CAMERA_FILE = "Camera.log";
@@ -40,7 +41,7 @@ public class RobotLogger {
 	private static final String DRIVE_TRAIN_FILE = "DriveTrain.log";
 	private static final String HOPPERS_FILE = "Hoppers.log";
 	private static final String SORTER_FILE = "Sorter.log";
-	private static final String CONVEYOR_FILE = "Conveyor.file";
+	private static final String CONVEYOR_FILE = "Conveyor.log";
 	private static final String[] ALL_FILES = {ANYTHING_FILE, COLOR_SENSOR_FILE, CAMERA_FILE, 
 												ULTRASONIC_SENSORS_FILE, GYROSCOPE_FILE, ROBOT_STATE_FILE,
 												DRIVE_TRAIN_FILE, HOPPERS_FILE, SORTER_FILE, CONVEYOR_FILE};
@@ -49,7 +50,9 @@ public class RobotLogger {
 		//Sets up file handler(s)
 		try {
 			for (int i = 0; i < ALL_LOGGERS.length; i++) {
-				FileHandler fileHandler = new FileHandler(ALL_FILES[i]);
+				FileHandler fileHandler = new FileHandler(BASE_DIR + "/" + ALL_FILES[i]);
+				SimpleFormatter sf = new SimpleFormatter();
+				fileHandler.setFormatter(sf);
 				ALL_LOGGERS[i].addHandler(fileHandler);
 			}
 		} catch (IOException exception) {
