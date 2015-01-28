@@ -1,5 +1,6 @@
 package subsystems;
 import robot.RobotMap;
+import java.util.Arrays;
 import jmraa.*;
 
 public class Hoppers{
@@ -8,9 +9,20 @@ public class Hoppers{
 
     public Servo leftReleaseServo;
     public Servo rightReleaseServo;
+    
+    public long startTime;
+    
+    public int[] lastColorArray;
+    //-1 for red, 0 for none, 1 for green
+    public boolean lastColorStreak;
 
     public Hoppers(){
 	System.out.println("Hello Hoppers!");
+
+	lastColorArray = new int[10];
+	for(int i = 0 ; i<10; i++){
+	    lastColorArray[i]=0;
+	}
 
 	I2c i2c = new I2c(RobotMap.I2C_PORT);
 	Pwm.initPwm(i2c);
@@ -29,14 +41,46 @@ public class Hoppers{
     public void setSorterPosition(double position){
 	hopperServo.setPosition(position);
     }
-    public void setSorterPositionColor(String color){
-        if(color.equals("green")){
-	    hopperServo.setPosition(1.0);
-	} else if(color.equals("red")){
-	    hopperServo.setPosition(-1.0);
-	} else {
-	    hopperServo.setPosition(-0.3);
+    
+    public void updateColorArray(String color){
+	lastColorStreak = true;
+
+	for (int i = 0; i<9; i++){
+	    lastColorArray[i+1] = lastColorArray[i];
 	}
+        
+	if(color.equals("none")){
+	    lastColorArray[0] = 0;
+	}else if(color.equals("red")){
+	    lastColorArray[0] = -1;
+	}else{
+	    lastColorArray[0] = 1;
+	}
+
+	for (int i = 0; i<8; i++){
+	    if(lastColorArray[i]!=lastColorArray[i+1]){
+		    lastColorStreak = false;
+	    }
+	}
+    }
+    public void actuateColorArray(){
+	if(lastColorStreak){
+	    if(System.currentTimeMillis()-startTime>1000){
+		startTime = System.currentTimeMillis();
+		if(lastColorArray[0]==1){
+		    hopperServo.setPosition(1.0);
+		} else if(lastColorArray[0]==-1){
+		    hopperServo.setPosition(-1.0);
+		} else {
+		    hopperServo.setPosition(-0.06);
+		}
+	    }
+	}
+    }
+    public void setSorterPositionColor(String newColor){
+        updateColorArray(newColor);
+	actuateColorArray();
+	//System.out.println("Color Array:"+Arrays.toString(lastColorArray));
     }
     public void openLeftHatch(boolean release){
 	if (release == true){

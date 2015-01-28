@@ -3,12 +3,12 @@ import states.*;
 import robot.*;
 
 
-public class VisionTest extends StateBase{
+public class HopperColorTest extends StateBase{
 
     public OutputStateVariables output;
     public InputStateVariables input;
 
-    public VisionTest(){
+    public HopperColorTest(){
 
 	super();
 
@@ -16,29 +16,29 @@ public class VisionTest extends StateBase{
 
 	output.drivetrainMethod = "doNothing";
 	output.conveyorMethod = "doNothing";
-	output.hopperMethod = "doNothing";
+
+	output.hopperMethod = "setSorterPosition";
+	output.hopperPosition = -.1;
+	output.leftHatchOpen = false;
+	output.rightHatchOpen = false;
+
 	output.visionMethod = "doNothing";
+
+	output.zeroGyro = false;
 
 	stateStartTime = System.currentTimeMillis();
 		
     }
 
     public OutputStateVariables run(InputStateVariables input){
-		
-	System.out.println("VisionTest");
+
+	System.out.println("HopperTest");
 	long elapsedTime = System.currentTimeMillis()-stateStartTime;
-		
-	if (elapsedTime<4000){	
-	    output.visionMethod = "senseTarget";
-	}else if (elapsedTime<8000){
-	    output.visionMethod = "getDistance";
-	}else if (elapsedTime<12000){
-	    output.visionMethod = "howCentered";
-	}else{
-	    output.visionMethod = "doNothing";
+
+	if (elapsedTime<120000){	
+	    output.hopperMethod = "setSorterPositionColor";
 	}
-		
-	System.out.println(output.visionMethod);
+	     
 	return output;
     }
 

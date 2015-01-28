@@ -46,8 +46,8 @@ public class RobotMap{
     public static final int I2C_PORT = 6;
 
     //Servo bounds
-    public static final double HOPPER_LOWER_BOUND = 0.031;
-    public static final double HOPPER_UPPER_BOUND = 0.092;
+    public static final double HOPPER_LOWER_BOUND = 0.032;
+    public static final double HOPPER_UPPER_BOUND = 0.0917;
     public static final double LEFT_RELEASE_LOWER_BOUND = 0.033;
     public static final double LEFT_RELEASE_UPPER_BOUND = 0.08;
     public static final double RIGHT_RELEASE_LOWER_BOUND = 0.04;
@@ -61,5 +61,10 @@ public class RobotMap{
     public static final double KP_DOUBLE_PID_DRIVE = .1/.2;
     public static final double KI_DOUBLE_PID_DRIVE = 0;
     public static final double KD_DOUBLE_PID_DRIVE = 0;
+
+    //Color thresholding constants
+    public static final double NOTHING_GREEN_COLOR_BOUNDARY = 210.0;
+    public static final double GREEN_RED_COLOR_BOUNDARY = 380.0;
+ 
 }
 

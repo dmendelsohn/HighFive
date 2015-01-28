@@ -1,4 +1,5 @@
-package states;
+package states.test_states;
+import states.*;
 import robot.*;
 
 public class WallFollowTest extends StateBase{

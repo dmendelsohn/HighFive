@@ -108,11 +108,23 @@ public class DriveTrain{
     }
 
     public void setLeftSpeed(double speed){
-	leftMotor.setSpeed(speed);
+	if(speed>0.4){
+	    leftMotor.setSpeed(0.4);
+	}else if(speed<-0.4){
+	    leftMotor.setSpeed(-0.4);
+	}else{
+	    leftMotor.setSpeed(speed);
+	}
     }
 
     public void setRightSpeed(double speed){
-	rightMotor.setSpeed(speed);
+        if(speed>0.4){
+	    rightMotor.setSpeed(0.4);
+	}else if(speed<-0.4){
+	    rightMotor.setSpeed(-0.4);
+	}else{
+	    rightMotor.setSpeed(speed);
+	}
     }
 
     public void moveStraightRough(double speed){
