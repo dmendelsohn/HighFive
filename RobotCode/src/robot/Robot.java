@@ -11,17 +11,20 @@ public class Robot{
     public StateBase state;
     public static long runTime;
     public InstantiatedSystems systems;
+	public RobotLogger logger;
 
     public Robot(){
 	runTime = System.currentTimeMillis();		 
 	state = new SorterColorTest();
 	systems = new InstantiatedSystems();
+	logger = new RobotLogger();
     }
 
     public Robot(StateBase startingState) {
 	runTime = System.currentTimeMillis();
 	state = startingState;
 	systems = new InstantiatedSystems();
+	logger = new RobotLogger();
     }
 
     public static void main(String[] args){
@@ -79,9 +82,23 @@ public class Robot{
 	    robot.setState(input);
 	    output = robot.readState(input);
 	    robot.processOutput(output, input);
+		
+		//Logging
+		robot.getLogger().logInputs(input);
+		robot.getLogger().logState(robot.getState());
+		robot.getLogger().logOutputs(output);
+
 	    Utils.msleep(10);
 	}
     }
+
+	public RobotLogger getLogger() {
+		return logger;
+	}
+
+	public StateBase getState() {
+		return state;
+	}
 
     public void addShutdown(){
 	Runtime.getRuntime().addShutdownHook(
