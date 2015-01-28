@@ -45,4 +45,8 @@ public class BoxFollow extends StateBase{
 	}*/
 		return this;
     }
+
+    public String getName(){
+	return "WallFollow";
+    }
 }

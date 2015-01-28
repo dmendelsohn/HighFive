@@ -40,4 +40,7 @@ public class WallTurn extends StateBase{
 	    return this;
 	}
     }
+    public String getName(){
+	return "WallTurn";
+    }
 }

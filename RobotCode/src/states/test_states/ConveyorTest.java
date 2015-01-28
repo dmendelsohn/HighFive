@@ -46,4 +46,7 @@ public class ConveyorTest extends StateBase{
 	return this;
     }
 
+    public String getName(){
+	return "ConveyorTest";
+    }
 }

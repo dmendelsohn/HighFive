@@ -47,5 +47,7 @@ public class SorterColorTest extends StateBase{
     public StateBase getNext(InputStateVariables input){
 	return this;
     }
-
+    public String getName(){
+	return "SorterColorTest";
+    }
 }
