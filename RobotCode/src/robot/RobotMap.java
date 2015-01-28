@@ -18,13 +18,13 @@ public class RobotMap{
 
     //MUX Shield slots
     //Inputs
-    public static final int FRONT_ULTRASONIC_INPUT = 7;
+    //public static final int FRONT_ULTRASONIC_INPUT = 7;
     public static final int LEFT_BACK_ULTRASONIC_INPUT = 3;
     public static final int LEFT_FRONT_ULTRASONIC_INPUT = 5;
     public static final int RIGHT_BACK_ULTRASONIC_INPUT = 1;
     public static final int RIGHT_FRONT_ULTRASONIC_INPUT = 9;
     //Outputs
-    public static final int FRONT_ULTRASONIC_OUTPUT = 7;
+    //public static final int FRONT_ULTRASONIC_OUTPUT = 7;
     public static final int LEFT_BACK_ULTRASONIC_OUTPUT = 3;
     public static final int LEFT_FRONT_ULTRASONIC_OUTPUT = 5;
     public static final int RIGHT_BACK_ULTRASONIC_OUTPUT = 1;
@@ -45,11 +45,13 @@ public class RobotMap{
     //I2c port
     public static final int I2C_PORT = 6;
 
-    //Servo bounds
-    public static final double HOPPER_LOWER_BOUND = 0.032;
-    public static final double HOPPER_UPPER_BOUND = 0.0917;
+    //Bounding Constants
+    public static final double SORTER_LOWER_BOUND = 0.032;
+    public static final double SORTER_UPPER_BOUND = 0.0917;
+
     public static final double LEFT_RELEASE_LOWER_BOUND = 0.033;
     public static final double LEFT_RELEASE_UPPER_BOUND = 0.08;
+
     public static final double RIGHT_RELEASE_LOWER_BOUND = 0.04;
     public static final double RIGHT_RELEASE_UPPER_BOUND = 0.085;
 

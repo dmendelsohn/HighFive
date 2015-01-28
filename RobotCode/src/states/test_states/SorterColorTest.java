@@ -3,12 +3,12 @@ import states.*;
 import robot.*;
 
 
-public class HopperTest extends StateBase{
+public class SorterColorTest extends StateBase{
 
     public OutputStateVariables output;
     public InputStateVariables input;
 
-    public HopperTest(){
+    public SorterColorTest(){
 
 	super();
 
@@ -18,9 +18,9 @@ public class HopperTest extends StateBase{
 	output.conveyorMethod = "doNothing";
 
 	output.sorterMethod = "setSorterPosition";
-	output.sorterPosition = -0.06;
+	output.sorterPosition = -.06;
 
-	output.hopperMethod = "doNothing";
+	output.hopperMethod = "hopperOpenBoth";
 	output.hopperOpenLeft = false;
 	output.hopperOpenRight = false;
 
@@ -33,23 +33,14 @@ public class HopperTest extends StateBase{
     }
 
     public OutputStateVariables run(InputStateVariables input){
-
-	System.out.println("HopperTest");
+	
+	System.out.println("SorterColorTest");
 	long elapsedTime = System.currentTimeMillis()-stateStartTime;
-	     
-	if (elapsedTime<5000){
-	    output.hopperMethod = "hopperOpenLeft";
-	    output.hopperOpenLeft = true;
-	}else if (elapsedTime<6000){
-	    output.hopperMethod = "hopperOpenLeft";
-	    output.hopperOpenLeft = false;
-	}else if (elapsedTime<7000){
-	    output.hopperMethod = "hopperOpenRight";
-	    output.hopperOpenRight = true;
-	}else if (elapsedTime<8000){
-	    output.hopperMethod = "hopperOpenRight";
-	    output.hopperOpenRight = false;
+
+	if (elapsedTime<120000){	
+	    output.sorterMethod = "setSorterPositionColor";
 	}
+	     
 	return output;
     }
 

@@ -16,8 +16,10 @@ public class BoxSearch extends StateBase{
 	output.drivetrainPIDType = "Gyroscope";
 	output.drivetrainSpeed = 0.5;
 
-	output.hopperMethod = "doNothing";
+	output.sorterMethod = "doNothing";
 
+	output.hopperMethod = "doNothing";
+	
 	output.conveyorMethod = "doNothing";
 
 	output.visionMethod = "senseTarget";
@@ -44,5 +46,4 @@ public class BoxSearch extends StateBase{
 	    return this;
 	}
     }
-
 }
