@@ -11,7 +11,7 @@ public class BlindBoxFollow extends StateBase{
 
 	output.drivetrainMethod = "pidDrive";
 	output.drivetrainPIDType = "Gyroscope";
-	output.drivetrainSpeed = 0.4;
+	output.drivetrainSpeed = 0.3;
 
 	output.hopperMethod = "doNothing";
 	output.conveyorMethod = "doNothing";

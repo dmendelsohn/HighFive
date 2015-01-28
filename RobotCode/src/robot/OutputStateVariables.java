@@ -4,15 +4,18 @@ public class OutputStateVariables{
 
     public boolean hasFuckedStevensMom;
 
+
     public String drivetrainMethod;
     public String drivetrainPIDType;
     public double drivetrainSpeed;
     public String pidSide;
 
+    public String sorterMethod;
+    public double sorterPosition;
+
     public String hopperMethod;
-    public double hopperPosition = 0.0;
-    public boolean leftHatchOpen = false;
-    public boolean rightHatchOpen = false;
+    public boolean hopperOpenLeft = false;
+    public boolean hopperOpenRight = false;
 
     public String conveyorMethod;
     public double conveyorSpeed;

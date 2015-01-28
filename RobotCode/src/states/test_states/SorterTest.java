@@ -3,12 +3,12 @@ import states.*;
 import robot.*;
 
 
-public class HopperTest extends StateBase{
+public class SorterTest extends StateBase{
 
     public OutputStateVariables output;
     public InputStateVariables input;
 
-    public HopperTest(){
+    public SorterTest(){
 
 	super();
 
@@ -18,9 +18,9 @@ public class HopperTest extends StateBase{
 	output.conveyorMethod = "doNothing";
 
 	output.sorterMethod = "setSorterPosition";
-	output.sorterPosition = -0.06;
+	output.sorterPosition = -0.03;
 
-	output.hopperMethod = "doNothing";
+	output.hopperMethod = "hopperOpenBoth";
 	output.hopperOpenLeft = false;
 	output.hopperOpenRight = false;
 
@@ -33,23 +33,24 @@ public class HopperTest extends StateBase{
     }
 
     public OutputStateVariables run(InputStateVariables input){
+	output.hopperMethod = "doNothing";
 
-	System.out.println("HopperTest");
+	System.out.println("SorterTest");
 	long elapsedTime = System.currentTimeMillis()-stateStartTime;
-	     
-	if (elapsedTime<5000){
-	    output.hopperMethod = "hopperOpenLeft";
-	    output.hopperOpenLeft = true;
+	
+	if (elapsedTime<5000){	
+	    output.sorterMethod = "setSorterPosition";
+	    output.sorterPosition = -1.0;
 	}else if (elapsedTime<6000){
-	    output.hopperMethod = "hopperOpenLeft";
-	    output.hopperOpenLeft = false;
+	    output.sorterMethod = "setSorterPosition";
+	    output.sorterPosition = -0.03;
 	}else if (elapsedTime<7000){
-	    output.hopperMethod = "hopperOpenRight";
-	    output.hopperOpenRight = true;
+	    output.sorterMethod = "setSorterPosition";
+	    output.sorterPosition = 1.0;
 	}else if (elapsedTime<8000){
-	    output.hopperMethod = "hopperOpenRight";
-	    output.hopperOpenRight = false;
-	}
+	    output.sorterMethod = "setSorterPosition";
+	    output.sorterPosition = -0.03;
+	} 
 	return output;
     }
 

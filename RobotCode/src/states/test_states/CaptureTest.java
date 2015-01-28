@@ -21,7 +21,12 @@ public class CaptureTest extends StateBase{
 	output.conveyorMethod = "moveBelt";
 	output.conveyorSpeed = 0.1;
 
-        output.hopperMethod = "setSorterPositionColor";
+	output.sorterMethod = "doNothing";
+
+        output.hopperMethod = "hopperOpenBoth";
+	output.hopperOpenLeft = false;
+	output.hopperOpenRight = false;
+
 	output.visionMethod = "doNothing";
 
 	output.zeroGyro = true;
@@ -31,6 +36,7 @@ public class CaptureTest extends StateBase{
     }
 
     public OutputStateVariables run(InputStateVariables input){
+	output.hopperMethod = "doNothing";
 	output.zeroGyro = false;
 
 	System.out.println("CaptureTest");
