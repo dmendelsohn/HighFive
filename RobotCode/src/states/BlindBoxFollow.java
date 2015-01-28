@@ -40,8 +40,5 @@ public class BlindBoxFollow extends StateBase{
 	}*/
 		return this;
     }
-    public String getName(){
-	return "BlindBoxFollow";
-    }
 }
 

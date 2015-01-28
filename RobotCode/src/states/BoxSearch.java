@@ -46,8 +46,4 @@ public class BoxSearch extends StateBase{
 	    return this;
 	}
     }
-
-    public String getName(){
-	return "BoxSearch";
-    }
 }

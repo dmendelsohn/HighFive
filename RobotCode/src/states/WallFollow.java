@@ -34,7 +34,4 @@ public class WallFollow extends StateBase{
 	    return this;
 	}
     }
-    public String getName(){
-	return "WallFollow";
-    }
 }
