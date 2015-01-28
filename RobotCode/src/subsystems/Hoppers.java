@@ -16,9 +16,10 @@ public class Hoppers{
     //-1 for red, 0 for none, 1 for green
     public boolean lastColorStreak;
 
-    public Hoppers(){
+    public Hoppers(I2c i2c){
 	System.out.println("Hello Hoppers!");
 
+<<<<<<< HEAD
 	lastColorArray = new int[10];
 	for(int i = 0 ; i<10; i++){
 	    lastColorArray[i]=0;
@@ -26,6 +27,8 @@ public class Hoppers{
 
 	I2c i2c = new I2c(RobotMap.I2C_PORT);
 	Pwm.initPwm(i2c);
+=======
+>>>>>>> 3ad81b8fea1b60178df3f8a8fb7486fb3c573b19
 	//Servo(I2c i2c, int pin, double bot, double top)
 	hopperServo = new Servo(i2c,RobotMap.SORTER_SERVO_PWM, RobotMap.HOPPER_LOWER_BOUND, RobotMap.HOPPER_UPPER_BOUND);
 	leftReleaseServo = new Servo(i2c, RobotMap.LEFT_RELEASE_SERVO_PWM, RobotMap.LEFT_RELEASE_LOWER_BOUND, RobotMap.LEFT_RELEASE_UPPER_BOUND);
