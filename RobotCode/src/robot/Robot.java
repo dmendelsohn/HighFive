@@ -17,10 +17,11 @@ public class Robot{
 	systems = new InstantiatedSystems();
     }
 
-	public Robot(StateBase startingState) {
-		runTime = System.currentTimeMillis();
-		state = startingState;
-	}
+    public Robot(StateBase startingState) {
+	runTime = System.currentTimeMillis();
+	state = startingState;
+	systems = new InstantiatedSystems();
+    }
 
     public static void main(String[] args){
 		Robot robot;
@@ -56,8 +57,6 @@ public class Robot{
 			}
 			robot = new Robot(startState);
 		}
-		InstantiatedSystems systems = robot.startSystems();
-
 	
 		robot.addShutdown();
 	
