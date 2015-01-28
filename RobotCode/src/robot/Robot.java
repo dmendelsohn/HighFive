@@ -56,8 +56,6 @@ public class Robot{
 			}
 			robot = new Robot(startState);
 		}
-		InstantiatedSystems systems = robot.startSystems();
-
 	
 		robot.addShutdown();
 	
