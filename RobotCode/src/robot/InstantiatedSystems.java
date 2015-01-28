@@ -43,11 +43,11 @@ public class InstantiatedSystems{
 	*/
 	
 	// Ultrasonic(MuxShield muxIn, int trigPin, int echoPin)
-	frontUltrasonic = new Ultrasonic(shield,RobotMap.FRONT_ULTRASONIC_OUTPUT, RobotMap.FRONT_ULTRASONIC_INPUT);
-	leftBackUltrasonic = new Ultrasonic(shield,RobotMap.LEFT_BACK_ULTRASONIC_OUTPUT, RobotMap.LEFT_BACK_ULTRASONIC_INPUT);
-	leftFrontUltrasonic = new Ultrasonic(shield,RobotMap.LEFT_FRONT_ULTRASONIC_OUTPUT, RobotMap.LEFT_FRONT_ULTRASONIC_INPUT);
-	rightBackUltrasonic = new Ultrasonic(shield,RobotMap.RIGHT_BACK_ULTRASONIC_OUTPUT, RobotMap.RIGHT_BACK_ULTRASONIC_INPUT);
-	rightFrontUltrasonic = new Ultrasonic(shield,RobotMap.RIGHT_FRONT_ULTRASONIC_OUTPUT, RobotMap.RIGHT_FRONT_ULTRASONIC_INPUT);
+	//frontUltrasonic = new Ultrasonic(shield,RobotMap.FRONT_ULTRASONIC_OUTPUT, RobotMap.FRONT_ULTRASONIC_INPUT);
+	//leftBackUltrasonic = new Ultrasonic(shield,RobotMap.LEFT_BACK_ULTRASONIC_OUTPUT, RobotMap.LEFT_BACK_ULTRASONIC_INPUT);
+	//leftFrontUltrasonic = new Ultrasonic(shield,RobotMap.LEFT_FRONT_ULTRASONIC_OUTPUT, RobotMap.LEFT_FRONT_ULTRASONIC_INPUT);
+	//rightBackUltrasonic = new Ultrasonic(shield,RobotMap.RIGHT_BACK_ULTRASONIC_OUTPUT, RobotMap.RIGHT_BACK_ULTRASONIC_INPUT);
+	//rightFrontUltrasonic = new Ultrasonic(shield,RobotMap.RIGHT_FRONT_ULTRASONIC_OUTPUT, RobotMap.RIGHT_FRONT_ULTRASONIC_INPUT);
 					
 	//feedLimit = new Gpio();
 			
@@ -99,27 +99,28 @@ public class InstantiatedSystems{
     }
 
     public double readFrontUltraDist(){
-	return Ultrasonic.asMeters(frontUltrasonic.ping());
+	//return Ultrasonic.asMeters(frontUltrasonic.ping());
+	return 0;
     }
 
     public double readLeftBackUltraDist(){
-	return Ultrasonic.asMeters(leftBackUltrasonic.ping());
-	//return 0;
+	//return Ultrasonic.asMeters(leftBackUltrasonic.ping());
+	return 0;
     }
 
     public double readLeftFrontUltraDist(){
-	return Ultrasonic.asMeters(leftFrontUltrasonic.ping());
-	//return 0;
+	//return Ultrasonic.asMeters(leftFrontUltrasonic.ping());
+	return 0;
     }
 
     public double readRightBackUltraDist(){
-	return Ultrasonic.asMeters(rightBackUltrasonic.ping());
-	//return 0;
+	//return Ultrasonic.asMeters(rightBackUltrasonic.ping());
+	return 0;
     }
 
     public double readRightFrontUltraDist(){
-	return Ultrasonic.asMeters(rightFrontUltrasonic.ping());
-	//return 0;
+	//return Ultrasonic.asMeters(rightFrontUltrasonic.ping());
+	return 0;
     }
     /*
       public double readRightEncoderCount(){

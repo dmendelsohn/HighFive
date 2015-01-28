@@ -36,19 +36,19 @@ public class InputStateVariables{
 	//rightEncoderCount = systems.readRightEncoderCount();
 	//conveyorEncoderCount = systems.readConveyorEncoderCount();
 
-	System.out.println("front");
+	//System.out.println("front");
 	frontUltraDist = systems.readFrontUltraDist();
-	Utils.usleep(60);
-	System.out.println("left back");
+	//Utils.usleep(60);
+	//System.out.println("left back");
         leftBackUltraDist = systems.readLeftBackUltraDist();
-	Utils.usleep(60);
-	System.out.println("left front");
+	//Utils.usleep(60);
+	//System.out.println("left front");
 	leftFrontUltraDist = systems.readLeftFrontUltraDist();
-	Utils.usleep(60);
-	System.out.println("right back");
+	//Utils.usleep(60);
+	//System.out.println("right back");
 	rightBackUltraDist = systems.readRightBackUltraDist();
-	Utils.usleep(60);
-	System.out.println("right front");
+	//Utils.usleep(60);
+	//System.out.println("right front");
 	rightFrontUltraDist = systems.readRightFrontUltraDist();
 
 	System.out.println("front:"+ frontUltraDist);
@@ -72,6 +72,10 @@ public class InputStateVariables{
 	}else{
 	    photoState = "none";
 	}
+
+	seesTarget = systems.vision.senseTarget();
+	howCentered = systems.vision.howCentered();
+	boxDistance = systems.vision.getDistance();
     }
 
 }

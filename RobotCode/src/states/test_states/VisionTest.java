@@ -26,8 +26,10 @@ public class VisionTest extends StateBase{
 		
 	System.out.println("VisionTest");
 	long elapsedTime = System.currentTimeMillis()-stateStartTime;
+
+	System.out.println("sees target: " + input.seesTarget + "  howCentered: " + input.howCentered + "  distance: " + input.boxDistance);
 		
-	if (elapsedTime<4000){	
+	/*if (elapsedTime<4000){	
 	    output.visionMethod = "senseTarget";
 	}else if (elapsedTime<8000){
 	    output.visionMethod = "getDistance";
@@ -35,7 +37,7 @@ public class VisionTest extends StateBase{
 	    output.visionMethod = "howCentered";
 	}else{
 	    output.visionMethod = "doNothing";
-	}
+	}*/
 		
 	System.out.println(output.visionMethod);
 	return output;

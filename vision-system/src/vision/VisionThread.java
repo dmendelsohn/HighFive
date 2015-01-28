@@ -15,8 +15,9 @@ public class VisionThread extends Thread{
     BlobInfo[] blobs;
     boolean debug;
     int index;
-	int height;
-	int width;
+    int height;
+    int width;
+    int count;
 
     static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
 
@@ -27,6 +28,7 @@ public class VisionThread extends Thread{
 		width = 0;
 		debug = true;
 		index = in;
+		count = 0;
     }
 
 	private boolean isBlock(BlobInfo b) {
@@ -84,11 +86,17 @@ public class VisionThread extends Thread{
 
 	public double getDistanceToNearestBlock() {
 		BlobInfo b = getNearestBlock();
+		if(b == null){
+		    return -1;
+		}
 		return getDistanceToBlock(b);
 	}
 
 	public double getHeadingToNearestBlock() {
 		BlobInfo b = getNearestBlock();
+		if(b == null){
+		    return 0;
+		}
 		return getHeadingToBlock(b);
 	}
 
@@ -128,6 +136,11 @@ public class VisionThread extends Thread{
 	    	}
 			
 			PixelBuffer pixelBuffer = Utils.getPixelBufferFromMat(rawImage);
+			try{
+			    Utils.savePixelBufferToFilename("rawImage" + count + ".jpg", pixelBuffer);
+			} catch(IOException e){
+			    e.printStackTrace();
+			}
 			height = pixelBuffer.getHeight();
 			width = pixelBuffer.getWidth();
 			end = System.currentTimeMillis();
@@ -159,6 +172,16 @@ public class VisionThread extends Thread{
 		    blobs = BlobAnalysis.getAllBlobInfo(blobLabelData);
 		    end = System.currentTimeMillis();
 		    if (debug) System.out.println("[Timing] getAllBlobInfo() milli bench: " + (end-start));
+
+		    //Save Nice image
+		    byte[] img_data = Utils.makeImageArrayFromLabelData(blobLabelData);
+		    PixelBuffer pixelBufferOut = new PixelBuffer(img_data, height, width);
+		    try{
+			Utils.savePixelBufferToFilename("processedImage" + count + ".jpg", pixelBufferOut);
+		    } catch(IOException e){
+			e.printStackTrace();
+		    }
+		    count++;
 			
 		    long total_end = System.currentTimeMillis();
 		    if (debug) System.out.println("[Timing] Total Main milli bench: " + (total_end-total_start));

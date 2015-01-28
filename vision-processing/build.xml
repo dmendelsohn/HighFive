@@ -1,7 +1,7 @@
 <project name="Main" basedir="." default="rebuild-run">
 	<property name="src.dir"				value="src"/>
 	<property name="build.dir"				value="build"/>
-	<property name="lib.dir"     value="../../../../../../home/shomberg/opencv-2.4.10/java_build_2/bin"/>
+	<property name="lib.dir"     value="../vision-lib/"/>
 	<path id="classpath">
           <fileset dir="${lib.dir}" includes="**/*.jar"/>
 	</path>
@@ -115,7 +115,7 @@
 
 	<target name="run" depends="jar">
 		<java fork="true" classname="${main-class}" >
-		        <sysproperty key="java.library.path" path="../../../../../../home/shomberg/opencv-2.4.10/java_build_2/lib"/>
+		        <sysproperty key="java.library.path" path="${lib.dir}"/>
 			<classpath>
 				<path refid="classpath"/>
 				<pathelement location="${jar.dir}/${ant.project.name}.jar"/>

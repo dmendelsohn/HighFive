@@ -5,27 +5,27 @@ import vision.VisionThread;
 
 
 public class Vision{
-	VisionThread visionThread;
+    VisionThread visionThread;
 
     public Vision(){
-		System.out.println("Hello Vision!");
-		visionThread = new VisionThread(0);
-		visionThread.run();
+	System.out.println("Hello Vision!");
+	visionThread = new VisionThread(0);
+	visionThread.start();
     }
 
     public boolean senseTarget(){
-		return visionThread.isBlockSeen();
+	return visionThread.isBlockSeen();
     }
 
     public double getDistance(){
-		return visionThread.getDistanceToNearestBlock();
+	return visionThread.getDistanceToNearestBlock();
     }
     public double howCentered(){
-		//-1 for to left, 0 to middle, 1 to right , 2 if non-existent
-		return visionThread.getHeadingToNearestBlock();
+	//-1 for to left, 0 to middle, 1 to right , 2 if non-existent
+	return visionThread.getHeadingToNearestBlock();
     }
 
-	public void doNothing(){
-		//Empty function body
-	}
+    public void doNothing(){
+	//Empty function body
+    }
 }
