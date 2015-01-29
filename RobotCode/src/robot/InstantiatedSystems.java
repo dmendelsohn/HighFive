@@ -4,7 +4,7 @@ import jmraa.*;
 
 public class InstantiatedSystems{
 
-    public DriveTrain drivetrain;
+    public DriveTrain driveTrain;
     public Sorter sorter;
     public Hoppers hopper;
     public ConveyorBelt conveyor;
@@ -30,7 +30,7 @@ public class InstantiatedSystems{
     public InstantiatedSystems(){
 	i2c = new I2c(6);
 	Pwm.initPwm(i2c);
-	drivetrain = new DriveTrain(i2c);
+	driveTrain = new DriveTrain(i2c);
 	sorter = new Sorter(i2c);
 	hopper = new Hoppers(i2c);
 	conveyor = new ConveyorBelt(i2c);
@@ -65,7 +65,7 @@ public class InstantiatedSystems{
     }
 
     public void kill(){
-	drivetrain.kill();
+	driveTrain.kill();
 	sorter.kill();
 	hopper.kill();
 	conveyor.kill();

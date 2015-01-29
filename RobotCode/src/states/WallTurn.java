@@ -1,6 +1,8 @@
 package states;
 import robot.*;
 
+import static robot.Enums.*;
+
 public class WallTurn extends StateBase{
 
     public OutputStateVariables output;
@@ -11,22 +13,18 @@ public class WallTurn extends StateBase{
 
 	output = new OutputStateVariables();
 
-	output.drivetrainMethod = "setTurnRough";
-	if(input.closerSide.equals("left")){
-	    output.drivetrainSpeed = 0.2;
+	output.driveTrainMethod = DriveTrainMethod.SET_TURN_ROUGH;
+	if(input.closerSide == CloserSide.LEFT){
+	    output.driveTrainSpeed = 0.2;
 	}else{
-	    output.drivetrainSpeed = -0.2;
+	    output.driveTrainSpeed = -0.2;
 	}
-	output.sorterMethod = "doNothing";	
-	output.hopperMethod = "doNothing";
-	output.conveyorMethod = "doNothing";
-
-	output.visionMethod = "senseTarget";
-		
+	output.sorterMethod = SorterMethod.DO_NOTHING;	
+	output.hopperMethod = HopperMethod.DO_NOTHING;
+	output.conveyorMethod = ConveyorMethod.DO_NOTHING;
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	System.out.println("WallFollow");
 	return output;
     }
 

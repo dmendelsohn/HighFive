@@ -2,6 +2,7 @@ package states.test_states;
 import states.*;
 import robot.*;
 
+import static robot.Enums.*;
 
 public class SorterTest extends StateBase{
 
@@ -14,18 +15,13 @@ public class SorterTest extends StateBase{
 
 	output = new OutputStateVariables();
 
-	output.drivetrainMethod = "doNothing";
-	output.conveyorMethod = "doNothing";
+	output.driveTrainMethod = DriveTrainMethod.DO_NOTHING;
+	output.conveyorMethod = ConveyorMethod.DO_NOTHING;
 
-	output.sorterMethod = "setSorterPosition";
-	output.sorterPosition = -0.03;
+	output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+	output.sorterPosition = SorterPosition.MIDDLE;
 
-	output.hopperMethod = "hopperOpenBoth";
-	output.hopperOpenLeft = false;
-	output.hopperOpenRight = false;
-
-	output.visionMethod = "doNothing";
-
+	output.hopperMethod = HopperMethod.DO_NOTHING;
 	output.zeroGyro = false;
 
 	stateStartTime = System.currentTimeMillis();
@@ -33,23 +29,21 @@ public class SorterTest extends StateBase{
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	output.hopperMethod = "doNothing";
 
-	System.out.println("SorterTest");
 	long elapsedTime = System.currentTimeMillis()-stateStartTime;
 	
 	if (elapsedTime<5000){	
-	    output.sorterMethod = "setSorterPosition";
-	    output.sorterPosition = -1.0;
+	    output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+	    output.sorterPosition = SorterPosition.LEFT;
 	}else if (elapsedTime<6000){
-	    output.sorterMethod = "setSorterPosition";
-	    output.sorterPosition = -0.03;
+	    output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+	    output.sorterPosition = SorterPosition.MIDDLE;
 	}else if (elapsedTime<7000){
-	    output.sorterMethod = "setSorterPosition";
-	    output.sorterPosition = 1.0;
+	    output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+	    output.sorterPosition = SorterPosition.RIGHT;
 	}else if (elapsedTime<8000){
-	    output.sorterMethod = "setSorterPosition";
-	    output.sorterPosition = -0.03;
+	    output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+	    output.sorterPosition = SorterPosition.MIDDLE;
 	} 
 	return output;
     }

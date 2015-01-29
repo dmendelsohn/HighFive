@@ -1,6 +1,8 @@
 package states;
 import robot.*;
 
+import static robot.Enums.*;
+
 public class BlindBoxFollow extends StateBase{
 	
     public OutputStateVariables output;
@@ -9,20 +11,18 @@ public class BlindBoxFollow extends StateBase{
 	super();
 	output = new OutputStateVariables();
 
-	output.drivetrainMethod = "pidDrive";
-	output.drivetrainPIDType = "Gyroscope";
-	output.drivetrainSpeed = 0.3;
+	output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
+	output.driveTrainPidType = DriveTrainPidType.GYROSCOPE;
+	output.driveTrainSpeed = 0.3;
 
-	output.hopperMethod = "doNothing";
-	output.conveyorMethod = "doNothing";
+	output.hopperMethod = HopperMethod.DO_NOTHING;
+	output.conveyorMethod = ConveyorMethod.DO_NOTHING;
+	output.sorterMethod = SorterMethod.DO_NOTHING;
 
-	output.visionMethod = "senseTarget";
-		
 	stateStartTime = System.currentTimeMillis();
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	System.out.println("BlindWallFollow");
 	return output;
     }
 

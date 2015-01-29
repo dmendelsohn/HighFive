@@ -5,6 +5,8 @@ import java.util.logging.*;
 
 import java.io.IOException;
 
+import static robot.Enums.*;
+
 public class RobotLogger {
 	private static final Logger ANYTHING_LOGGER = Logger.getLogger("Anything_Logger");
 	private static final Logger COLOR_SENSOR_LOGGER = Logger.getLogger("Color_Sensor_Log");
@@ -31,7 +33,7 @@ public class RobotLogger {
 	private static final boolean isLoggingSorter = true;
 	private static final boolean isLoggingConveyor = true;
 
-        private static final String BASE_DIR = "logs";
+	private static final String BASE_DIR = "logs";
 	private static final String ANYTHING_FILE = "Anything.log";
 	private static final String COLOR_SENSOR_FILE = "ColorSensor.log";
 	private static final String CAMERA_FILE = "Camera.log";
@@ -65,7 +67,6 @@ public class RobotLogger {
 			if (isLoggingColorSensor) {
 				StringBuilder sb = new StringBuilder();
 				sb.append("PhotoReading: ").append(input.photoReading).append("\n");
-				sb.append("PhotoState: ").append(input.photoState).append("\n");
 				COLOR_SENSOR_LOGGER.fine(sb.toString());
 				ANYTHING_LOGGER.fine("[ColorSensor]\n" + sb.toString());
 			}
@@ -101,33 +102,33 @@ public class RobotLogger {
 		if (isLoggingAnything) {
 			if (isLoggingDriveTrain) {
 				StringBuilder sb = new StringBuilder();
-				sb.append("DriveTrainMethod: ").append(output.drivetrainMethod).append("\n");
-				sb.append("DriveTrainPIDType: ").append(output.drivetrainPIDType).append("\n");
-				sb.append("DriveTrainSpeed: ").append(output.drivetrainSpeed).append("\n");
-				sb.append("pidSide: ").append(output.pidSide).append("\n");
+				sb.append("DriveTrainMethod: ").append(output.driveTrainMethod.name()).append("\n");
+				sb.append("DriveTrainPIDType: ").append(output.driveTrainPidType.name()).append("\n");
+				sb.append("DriveTrainSpeed: ").append(output.driveTrainSpeed).append("\n");
+				sb.append("pidSide: ").append(output.pidSide.name()).append("\n");
 				DRIVE_TRAIN_LOGGER.fine(sb.toString());
 				ANYTHING_LOGGER.fine("[DriveTrain]\n" + sb.toString());
 			}
 		
 			if (isLoggingHoppers) {
 				StringBuilder sb = new StringBuilder();
-				sb.append("HopperMethod: ").append(output.hopperMethod).append("\n");
-				sb.append("HopperOpenLeft: ").append(output.hopperOpenLeft).append("\n");
-				sb.append("HopperOpenRight: ").append(output.hopperOpenRight).append("\n");
+				sb.append("HopperMethod: ").append(output.hopperMethod.name()).append("\n");
+				sb.append("HopperLeftOpen: ").append(output.hopperLeftOpen).append("\n");
+				sb.append("HopperRightOpen: ").append(output.hopperRightOpen).append("\n");
 				HOPPERS_LOGGER.fine(sb.toString());
 				ANYTHING_LOGGER.fine("[Hoppers]\n" + sb.toString());
 			}
 	
 			if (isLoggingSorter) {
 				StringBuilder sb = new StringBuilder();
-				sb.append("SorterPosition: ").append(output.sorterPosition).append("\n");
+				sb.append("SorterPosition: ").append(output.sorterPosition.name()).append("\n");
 				SORTER_LOGGER.fine(sb.toString());
 				ANYTHING_LOGGER.fine("[Sorter]\n" + sb.toString());
 			}
 
 			if (isLoggingConveyor) {
 				StringBuilder sb = new StringBuilder();
-				sb.append("ConveyorMethod: ").append(output.conveyorMethod).append("\n");
+				sb.append("ConveyorMethod: ").append(output.conveyorMethod.name()).append("\n");
 				sb.append("ConveyorSpeed: ").append(output.conveyorSpeed).append("\n");
 				CONVEYOR_LOGGER.fine(sb.toString());
 				ANYTHING_LOGGER.fine("[Conveyor]\n" + sb.toString());

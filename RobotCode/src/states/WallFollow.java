@@ -1,6 +1,8 @@
 package states;
 import robot.*;
 
+import static robot.Enums.*;
+
 public class WallFollow extends StateBase{
 
     public OutputStateVariables output;
@@ -9,16 +11,14 @@ public class WallFollow extends StateBase{
     public WallFollow(){
 	super();
 	output = new OutputStateVariables();
-	output.drivetrainMethod = "pidDriveTwoInputs";
-	output.drivetrainSpeed = 0.2;
-	output.sorterMethod = "doNothing";
-	output.hopperMethod = "doNothing";
-	output.conveyorMethod = "doNothing";
-	output.visionMethod = "senseTarget";
+	output.driveTrainMethod = DriveTrainMethod.PID_DRIVE_TWO_INPUTS;
+	output.driveTrainSpeed = 0.2;
+	output.sorterMethod = SorterMethod.DO_NOTHING;
+	output.hopperMethod = HopperMethod.DO_NOTHING;
+	output.conveyorMethod = ConveyorMethod.DO_NOTHING;
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	System.out.println("WallFollow");
 	return output;
     }
 

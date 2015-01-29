@@ -1,6 +1,8 @@
 package states;
 import robot.*;
 
+import static robot.Enums.*;
+
 public class BoxFollow extends StateBase{
 
     public OutputStateVariables output;
@@ -15,22 +17,18 @@ public class BoxFollow extends StateBase{
 
 	output = new OutputStateVariables();
 
-	output.drivetrainMethod = "pidDrive";
-	output.drivetrainPIDType = "Gyroscope";
-	output.drivetrainSpeed = 0.3;
+	output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
+	output.driveTrainPidType = DriveTrainPidType.GYROSCOPE;
+	output.driveTrainSpeed = 0.3;
 	
-	output.sorterMethod = "doNothing";
+	output.sorterMethod = SorterMethod.DO_NOTHING;
+	output.hopperMethod = HopperMethod.DO_NOTHING;
+	output.conveyorMethod = ConveyorMethod.DO_NOTHING;
 
-	output.hopperMethod = "doNothing";
-	
-	output.conveyorMethod = "doNothing";
-
-	output.visionMethod = "howCentered";
 		
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	System.out.println("BoxFollow");
 	return output;
     }
 

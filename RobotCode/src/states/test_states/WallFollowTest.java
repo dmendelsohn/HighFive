@@ -2,6 +2,8 @@ package states.test_states;
 import states.*;
 import robot.*;
 
+import static robot.Enums.*;
+
 public class WallFollowTest extends StateBase{
 
     public OutputStateVariables output;
@@ -10,19 +12,17 @@ public class WallFollowTest extends StateBase{
     public WallFollowTest(){
 	super();
 	output = new OutputStateVariables();
-	output.drivetrainMethod = "pidDriveTwoInputs";
-	output.drivetrainSpeed = 0.2;
-	output.sorterMethod = "doNothing";
-	output.hopperMethod = "doNothing";
-	output.conveyorMethod = "doNothing";
-	output.visionMethod = "senseTarget";
+	output.driveTrainMethod = DriveTrainMethod.PID_DRIVE_TWO_INPUTS;
+	output.driveTrainSpeed = 0.2;
+	output.sorterMethod = SorterMethod.DO_NOTHING;
+	output.hopperMethod = HopperMethod.DO_NOTHING;
+	output.conveyorMethod = ConveyorMethod.DO_NOTHING;
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	System.out.println("WallFollowTest");
-	/*if (System.currentTimeMillis()-stateStartTime>10000){
-	    output.drivetrainMethod = "stop";
-	    }*/	
+	if (System.currentTimeMillis()-stateStartTime>10000){
+	    output.driveTrainMethod = DriveTrainMethod.STOP;
+	}	
 	return output;
     }
 
