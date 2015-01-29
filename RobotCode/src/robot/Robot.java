@@ -173,7 +173,6 @@ public class Robot{
 	}
     }
 
-<<<<<<< HEAD
 	private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
 		//Sorting
 		double analogReading = input.photoReading;
@@ -187,20 +186,5 @@ public class Robot{
 		}
 
 		//TODO: Line Following
-=======
-    private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
-	//Sorting
-	double analogReading = input.photoReading;
-	systems.sorter.addDataPoint(analogReading);
-	if (systems.sorter.hasColorStreak()) {
-	    output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
-	    BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
-	    output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
-	} else {
-	    output.sorterMethod = SorterMethod.DO_NOTHING;
->>>>>>> 3d64be6ece7e3c4f7f93a67d0035ce719b241c76
 	}
-
-	//TODO: Line Following
-    }
 }

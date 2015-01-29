@@ -19,10 +19,19 @@ public class Main{
 	  MuxShield shield = new MuxShield(0,1,2,3,4,5,6,1);
 
 	for(int i = 0; i < 10000; i++){
+<<<<<<< Updated upstream
 	    int rightFront = shield.analogRead(1);
 	    int front = shield.analogRead(2);
 	    int rightBack = (shield.analogRead(0));
 	    System.out.println("1.2: " + (int)(rightFront-1.2*rightBack) + "  1.25: " + (int)(rightFront-1.25*rightBack) + "  1.3: " + (int)(rightFront-1.3*rightBack));
+=======
+	    //int rightFront = shield.analogRead(1);
+	    //int front = shield.analogRead(2);
+	    //int rightBack = (shield.analogRead(0));
+	    //System.out.println("1.2: " + (int)(rightFront-1.2*rightBack) + "  1.25: " + (int)(rightFront-1.25*rightBack) + "  1.3: " + (int)(rightFront-1.3*rightBack));
+	    int short = shield.digitalRead(0);
+	    System.out.println("short: " + short);
+>>>>>>> Stashed changes
 	    Utils.msleep(100);
 	}
 	
@@ -79,7 +88,11 @@ public class Main{
 	    }*/
 	
 
+<<<<<<< Updated upstream
 	Encoder enc = new Encoder(0,1, false);
+=======
+	/*Encoder enc = new Encoder(0,1, false);
+>>>>>>> Stashed changes
 	for(int i = 0; i < 1000; i++){
 	    System.out.println("count: " + enc.getCount() + "   deriv: " + enc.getDerivative());
 	    Utils.msleep(100);
