@@ -1,6 +1,7 @@
 <project name="RobotCode" basedir="." default="main" xmlns:if="ant:if" xmlns:unless="ant:unless">
   <property name="src.dir"     value="src"/>
 
+  <property name="log.dir"	   value="logs"/>
   <property name="build.dir"   value="build"/>
   <property name="classes.dir" value="${build.dir}/classes"/>
   <property name="jar.dir"     value="${build.dir}/jar"/>
@@ -9,12 +10,13 @@
   <property name="main-class"  value="robot/Robot"/>
 
   <target name="clean">
-    <delete dir="${build.dir}"/>
+	  <delete dir="${build.dir}"/>
   </target>
 
   <target name="compile">
-    <mkdir dir="${classes.dir}"/>
-    <javac srcdir="${src.dir}" destdir="${classes.dir}" classpath="${jmraa.dir}/jmraa.jar"/> 
+	 <mkdir dir="${classes.dir}"/>
+	 <mkdir dir="${log.dir}"/>
+	 <javac srcdir="${src.dir}" destdir="${classes.dir}" classpath="${jmraa.dir}/jmraa.jar"/> 
   </target>
 
   <target name="jar" depends="compile">
