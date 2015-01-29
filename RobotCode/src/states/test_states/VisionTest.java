@@ -7,6 +7,7 @@ public class VisionTest extends StateBase{
 
     public OutputStateVariables output;
     public InputStateVariables input;
+    private long lastUpdate;
 
     public VisionTest(){
 
@@ -19,6 +20,7 @@ public class VisionTest extends StateBase{
 	output.sorterMethod = "doNothing";
 	output.hopperMethod = "doNothing";
 	output.visionMethod = "doNothing";
+	lastUpdate = System.currentTimeMillis();
 
 	stateStartTime = System.currentTimeMillis();
 		
@@ -30,7 +32,14 @@ public class VisionTest extends StateBase{
 	long elapsedTime = System.currentTimeMillis()-stateStartTime;
 
 	System.out.println("sees target: " + input.seesTarget + "  howCentered: " + input.howCentered + "  distance: " + input.boxDistance);
-		
+
+	if(input.boxDistance<0){
+	    output.drivetrainMethod = "stop";
+	}else{
+	    output.drivetrainMethod = "visionTurn";
+	    output.drivetrainSpeed = 0;//input.boxDistance/2;
+	}
+	
 	/*if (elapsedTime<4000){	
 	    output.visionMethod = "senseTarget";
 	}else if (elapsedTime<8000){
