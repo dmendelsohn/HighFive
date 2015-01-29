@@ -12,7 +12,7 @@ public class Robot{
     public StateBase state;
     public static long runTime;
     public InstantiatedSystems systems;
-    //	public RobotLogger logger;
+    public RobotLogger logger;
 
 	public boolean inEnemyZone;
 
@@ -38,46 +38,13 @@ public class Robot{
 			robot = new Robot();
 		} else {
 			//Use first argument to determine test type
-			StateBase startState;
-			switch (args[0]) {
-			case "Main":
-				startState = new WallFollowTest(); //Main behavior
-				break;
-			case "SorterColorTest":
-				startState = new SorterColorTest();
-				break;
-			case "SorterTest":
-				startState = new SorterTest();
-				break;
-			case "HopperTest":
-				startState = new HopperTest();
-				break;
-			case "ConveyorTest":
-				startState = new ConveyorTest();
-				break;
-			case "CaptureTest":
-				startState = new CaptureTest();
-				break;
-			case "WallFollowTest":
-				startState = new WallFollowTest();
-				break;
-			case "DriveTrainTest":
-				startState = new DriveTrainTest();
-				break;
-			case "ReadoutTest":
-			        startState = new ReadoutTest();
-			        break;
-			case "WallFollow":
-			        startState = new WallFollow();
-				break;
-			case "ManualTest":
-				startState = new ManualTest();
-				break;
-			default:
-				startState = new HopperTest(); //This is a nonsense line to get stuff to compile
-				System.out.println("Invalid Start State");
+			StateBase startState = new ManualTest(); //This is to get Java to compile, it will be overwritten...
+			try {
+				startState = (StateBase)Class.forName(args[0]).newInstance();
+			} catch (Exception e) {
+				e.printStackTrace();	
+				System.out.println("Invalid Start State: " + args[0]);
 				System.exit(0);
-				break;
 			}
 			robot = new Robot(startState);
 		}
@@ -93,23 +60,22 @@ public class Robot{
 			output = robot.readState(input);
 			robot.addPassiveOutputs(output, input);
 			robot.processOutput(output, input);
-			/*
+
 			//Logging
 			robot.getLogger().logInputs(input);
 			robot.getLogger().logState(robot.getState());
 			robot.getLogger().logOutputs(output);
-			*/
 			
 			Utils.msleep(10);
 		}
     }
 
-    /*	public RobotLogger getLogger() {
-		return logger;
-		}*/
-
 	public StateBase getState() {
 		return state;
+	}
+
+	public RobotLogger getLogger() {
+		return logger;
 	}
 
     public void addShutdown(){

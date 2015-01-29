@@ -67,8 +67,8 @@ public class RobotLogger {
 			if (isLoggingColorSensor) {
 				StringBuilder sb = new StringBuilder();
 				sb.append("PhotoReading: ").append(input.photoReading).append("\n");
-				COLOR_SENSOR_LOGGER.fine(sb.toString());
-				ANYTHING_LOGGER.fine("[ColorSensor]\n" + sb.toString());
+				COLOR_SENSOR_LOGGER.info(sb.toString());
+				ANYTHING_LOGGER.info("[ColorSensor]\n" + sb.toString());
 			}
 	
 			if (isLoggingCamera) {
@@ -76,8 +76,8 @@ public class RobotLogger {
 				sb.append("Camera sees blocks: ").append(input.seesTarget).append("\n");
 				sb.append("Heading to nearest: ").append(input.howCentered).append("\n");
 				sb.append("Distance to nearest: ").append(input.boxDistance).append("\n");
-				CAMERA_LOGGER.fine(sb.toString());
-				ANYTHING_LOGGER.fine("[Camera]\n" + sb.toString());
+				CAMERA_LOGGER.info(sb.toString());
+				ANYTHING_LOGGER.info("[Camera]\n" + sb.toString());
 			}
 	
 			if (isLoggingIRSensors) {
@@ -85,15 +85,15 @@ public class RobotLogger {
 				sb.append("FrontIRDist: ").append(input.frontIRDist).append("\n");
 				sb.append("RightFrontIRDist: ").append(input.rightFrontIRDist).append("\n");
 				sb.append("RightBackIRDist: ").append(input.rightBackIRDist).append("\n");
-				IR_SENSORS_LOGGER.fine(sb.toString());
-				ANYTHING_LOGGER.fine("[IR]\n" + sb.toString());
+				IR_SENSORS_LOGGER.info(sb.toString());
+				ANYTHING_LOGGER.info("[IR]\n" + sb.toString());
 			}
 	
 			if (isLoggingGyroscope) {
 				StringBuilder sb = new StringBuilder();
 				sb.append("GyroAngle: ").append(input.gyroAngle).append("\n");
-				GYROSCOPE_LOGGER.fine(sb.toString());
-				ANYTHING_LOGGER.fine("[Gyroscope]\n" + sb.toString());
+				GYROSCOPE_LOGGER.info(sb.toString());
+				ANYTHING_LOGGER.info("[Gyroscope]\n" + sb.toString());
 			}
 		}
 	}
@@ -102,47 +102,53 @@ public class RobotLogger {
 		if (isLoggingAnything) {
 			if (isLoggingDriveTrain) {
 				StringBuilder sb = new StringBuilder();
-				sb.append("DriveTrainMethod: ").append(output.driveTrainMethod.name()).append("\n");
+				if (output.driveTrainMethod != null)
+					sb.append("DriveTrainMethod: ").append(output.driveTrainMethod.name()).append("\n");
 				sb.append("DriveTrainSpeed: ").append(output.driveTrainSpeed).append("\n");
-				DRIVE_TRAIN_LOGGER.fine(sb.toString());
-				ANYTHING_LOGGER.fine("[DriveTrain]\n" + sb.toString());
+				DRIVE_TRAIN_LOGGER.info(sb.toString());
+				ANYTHING_LOGGER.info("[DriveTrain]\n" + sb.toString());
 			}
 		
 			if (isLoggingHoppers) {
 				StringBuilder sb = new StringBuilder();
-				sb.append("HopperMethod: ").append(output.hopperMethod.name()).append("\n");
+				if (output.hopperMethod != null)
+					sb.append("HopperMethod: ").append(output.hopperMethod.name()).append("\n");
 				sb.append("HopperLeftOpen: ").append(output.hopperLeftOpen).append("\n");
 				sb.append("HopperRightOpen: ").append(output.hopperRightOpen).append("\n");
-				HOPPERS_LOGGER.fine(sb.toString());
-				ANYTHING_LOGGER.fine("[Hoppers]\n" + sb.toString());
+				HOPPERS_LOGGER.info(sb.toString());
+				ANYTHING_LOGGER.info("[Hoppers]\n" + sb.toString());
 			}
 	
 			if (isLoggingSorter) {
 				StringBuilder sb = new StringBuilder();
-				sb.append("SorterPosition: ").append(output.sorterPosition.name()).append("\n");
-				SORTER_LOGGER.fine(sb.toString());
-				ANYTHING_LOGGER.fine("[Sorter]\n" + sb.toString());
+				if (output.sorterMethod != null)
+					sb.append("SorterMethod: ").append(output.sorterMethod.name()).append("\n");
+				if (output.sorterPosition != null)
+					sb.append("SorterPosition: ").append(output.sorterPosition.name()).append("\n");
+				SORTER_LOGGER.info(sb.toString());
+				ANYTHING_LOGGER.info("[Sorter]\n" + sb.toString());
 			}
 
 			if (isLoggingConveyor) {
 				StringBuilder sb = new StringBuilder();
-				sb.append("ConveyorMethod: ").append(output.conveyorMethod.name()).append("\n");
+				if (output.conveyorMethod != null)
+					sb.append("ConveyorMethod: ").append(output.conveyorMethod.name()).append("\n");
 				sb.append("ConveyorSpeed: ").append(output.conveyorSpeed).append("\n");
-				CONVEYOR_LOGGER.fine(sb.toString());
-				ANYTHING_LOGGER.fine("[Conveyor]\n" + sb.toString());
+				CONVEYOR_LOGGER.info(sb.toString());
+				ANYTHING_LOGGER.info("[Conveyor]\n" + sb.toString());
 			}
 			
-			ANYTHING_LOGGER.fine("[GyroOut] zeroGyro: " + output.zeroGyro);
+			ANYTHING_LOGGER.info("[GyroOut] zeroGyro: " + output.zeroGyro);
 		}
 	}
 
 	public void logState(StateBase state) {
-		if (isLoggingAnything && isLoggingRobotState) {
+		if (state != null && isLoggingAnything && isLoggingRobotState) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Current State: ").append(state.getStateName()).append("\n");
 			sb.append("Time in state: ").append(state.getElapsedTime()).append("\n");
-			ROBOT_STATE_LOGGER.fine(sb.toString());
-			ANYTHING_LOGGER.fine("[State]\n" + sb.toString());
+			ROBOT_STATE_LOGGER.info(sb.toString());
+			ANYTHING_LOGGER.info("[State]\n" + sb.toString());
 		}
 	}
 }
