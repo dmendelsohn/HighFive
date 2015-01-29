@@ -6,7 +6,7 @@ public class RobotMap{
 	//Game Constants
 	public static final BlockColor MY_COLOR = BlockColor.RED;
 	public static final HopperSide MY_HOPPER = HopperSide.LEFT;
-
+	public static final boolean AUTO_SORT = false;
 
     //PWM slots
     public static final int LEFT_MOTOR_PWM = 1;

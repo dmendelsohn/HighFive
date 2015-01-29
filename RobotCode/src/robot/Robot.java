@@ -20,7 +20,7 @@ public class Robot{
 		runTime = System.currentTimeMillis();
 		state = new SorterColorTest();
 		systems = new InstantiatedSystems();
-		//logger = new RobotLogger();
+		logger = new RobotLogger();
 		inEnemyZone = false;
     }
 
@@ -28,7 +28,7 @@ public class Robot{
 		runTime = System.currentTimeMillis();
 		state = startingState;
 		systems = new InstantiatedSystems();
-		//		logger = new RobotLogger();
+		logger = new RobotLogger();
 		inEnemyZone = false;
     }
 
@@ -177,7 +177,7 @@ public class Robot{
 		//Sorting
 		double analogReading = input.photoReading;
 		systems.sorter.addDataPoint(analogReading);
-		if (systems.sorter.hasColorStreak()) {
+		if (RobotMap.AUTO_SORT && systems.sorter.hasColorStreak()) {
 			output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
 			BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
 			output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)

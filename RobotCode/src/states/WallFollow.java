@@ -14,7 +14,6 @@ public class WallFollow extends StateBase{
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	super.run(input); //Boilerplate
 	OutputStateVariables output = getDefaultOutput();	
 	return output;
     }

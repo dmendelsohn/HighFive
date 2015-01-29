@@ -56,6 +56,7 @@ public class RobotLogger {
 				SimpleFormatter sf = new SimpleFormatter();
 				fileHandler.setFormatter(sf);
 				ALL_LOGGERS[i].addHandler(fileHandler);
+				ALL_LOGGERS[i].setUseParentHandlers(false);
 			}
 		} catch (IOException exception) {
             ANYTHING_LOGGER.log(Level.SEVERE, "Error occur in FileHandler.", exception);
