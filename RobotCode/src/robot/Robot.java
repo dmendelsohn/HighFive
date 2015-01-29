@@ -70,10 +70,6 @@ public class Robot{
 		}
     }
 
-    /*	public RobotLogger getLogger() {
-		return logger;
-		}*/
-
 	public StateBase getState() {
 		return state;
 	}
