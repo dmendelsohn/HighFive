@@ -13,15 +13,12 @@ public class Robot{
     public static long runTime;
     public InstantiatedSystems systems;
     public RobotLogger logger;
+	public HomeBaseTracker homeBaseTracker;
 
-    public boolean inEnemyZone;
+    public boolean isInHomeBase;
 
     public Robot(){
-		runTime = System.currentTimeMillis();
-		state = new SorterColorTest();
-		systems = new InstantiatedSystems();
-		logger = new RobotLogger();
-		inEnemyZone = false;
+		this(new ManualTest());
     }
 
     public Robot(StateBase startingState) {
@@ -29,7 +26,8 @@ public class Robot{
 		state = startingState;
 		systems = new InstantiatedSystems();
 		logger = new RobotLogger();
-		inEnemyZone = false;
+		isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
+		homeBaseTracker = new HomeBaseTracker(isInHomeBase);
     }
 
     public static void main(String[] args){
@@ -77,6 +75,10 @@ public class Robot{
     public RobotLogger getLogger() {
 	return logger;
     }
+
+	public HomeBaseTracker getHomeBaseTracker() {
+	return homeBaseTracker;
+	}
 
     public void addShutdown(){
 	Runtime.getRuntime().addShutdownHook(
@@ -191,6 +193,9 @@ public class Robot{
 			}
 		}
 
-		//TODO: Line Following
+		int[] lineReadings = input.lineReadings;
+		HomeBaseTracker homeBaseTracker = getHomeBaseTracker();
+		homeBaseTracker.update(lineReadings);
+		isInHomeBase = homeBaseTracker.isInHomeBase();
 	}
 }

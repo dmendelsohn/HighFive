@@ -7,6 +7,7 @@ public class RobotMap{
 	public static final BlockColor MY_COLOR = BlockColor.RED;
 	public static final HopperSide MY_HOPPER = HopperSide.LEFT;
 	public static final boolean AUTO_SORT = false;
+	public static final boolean STARTS_IN_HOME_BASE = false;
 
     //PWM slots
     public static final int LEFT_MOTOR_PWM = 1;
@@ -28,7 +29,11 @@ public class RobotMap{
     public static final int RIGHT_BACK_IR_INPUT = 0;
     public static final int RIGHT_FRONT_IR_INPUT = 1;
 
-    //IR calibration values
+	public static final int FRONT_LINE_TRACKER = 6;
+	public static final int MID_LINE_TRACKER = 5;
+	public static final int BACK_LINE_TRACKER = 4;
+
+	//IR calibration values
     public static final int FRONT_IR_TRANS = 120;
     public static final int RIGHT_BACK_IR_TRANS = 0;
     public static final int RIGHT_FRONT_IR_TRANS = 0;
