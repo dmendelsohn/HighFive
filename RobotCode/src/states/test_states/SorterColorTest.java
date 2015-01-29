@@ -2,6 +2,7 @@ package states.test_states;
 import states.*;
 import robot.*;
 
+import static robot.Enums.*;
 
 public class SorterColorTest extends StateBase{
 
@@ -14,17 +15,15 @@ public class SorterColorTest extends StateBase{
 
 	output = new OutputStateVariables();
 
-	output.drivetrainMethod = "doNothing";
-	output.conveyorMethod = "doNothing";
+	output.driveTrainMethod = DriveTrainMethod.DO_NOTHING;
+	output.conveyorMethod = ConveyorMethod.DO_NOTHING;
 
-	output.sorterMethod = "setSorterPosition";
-	output.sorterPosition = -.06;
+	output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+	output.sorterPosition = SorterPosition.MIDDLE;
 
-	output.hopperMethod = "hopperOpenBoth";
-	output.hopperOpenLeft = false;
-	output.hopperOpenRight = false;
-
-	output.visionMethod = "doNothing";
+	output.hopperMethod = HopperMethod.MOVE_BOTH;
+	output.hopperLeftOpen = false;
+	output.hopperRightOpen = false;
 
 	output.zeroGyro = false;
 
@@ -34,11 +33,10 @@ public class SorterColorTest extends StateBase{
 
     public OutputStateVariables run(InputStateVariables input){
 	
-	System.out.println("SorterColorTest");
 	long elapsedTime = System.currentTimeMillis()-stateStartTime;
 
 	if (elapsedTime<120000){	
-	    output.sorterMethod = "setSorterPositionColor";
+	    output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
 	}
 	     
 	return output;

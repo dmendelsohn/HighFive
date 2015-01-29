@@ -2,6 +2,7 @@ package states.test_states;
 import states.*;
 import robot.*;
 
+import static robot.Enums.*;
 
 public class VisionTest extends StateBase{
 
@@ -14,32 +15,20 @@ public class VisionTest extends StateBase{
 
 	output = new OutputStateVariables();
 
-	output.drivetrainMethod = "doNothing";
-	output.conveyorMethod = "doNothing";
-	output.sorterMethod = "doNothing";
-	output.hopperMethod = "doNothing";
-	output.visionMethod = "doNothing";
+	output.driveTrainMethod = DriveTrainMethod.DO_NOTHING;
+	output.conveyorMethod = ConveyorMethod.DO_NOTHING;
+	output.sorterMethod = SorterMethod.DO_NOTHING;
+	output.hopperMethod = HopperMethod.DO_NOTHING;
 
 	stateStartTime = System.currentTimeMillis();
 		
     }
 
     public OutputStateVariables run(InputStateVariables input){
-		
-	System.out.println("VisionTest");
 	long elapsedTime = System.currentTimeMillis()-stateStartTime;
+	
+	//TODO: implement	
 		
-	if (elapsedTime<4000){	
-	    output.visionMethod = "senseTarget";
-	}else if (elapsedTime<8000){
-	    output.visionMethod = "getDistance";
-	}else if (elapsedTime<12000){
-	    output.visionMethod = "howCentered";
-	}else{
-	    output.visionMethod = "doNothing";
-	}
-		
-	System.out.println(output.visionMethod);
 	return output;
     }
 

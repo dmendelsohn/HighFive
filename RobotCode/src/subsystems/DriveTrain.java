@@ -2,6 +2,8 @@ package subsystems;
 import robot.*;
 import jmraa.*;
 
+import static robot.Enums.*;
+
 public class DriveTrain{
     
     static{System.loadLibrary("jmraa");}
@@ -30,8 +32,6 @@ public class DriveTrain{
 
     public DriveTrain(I2c i2c){
 
-	System.out.println("Hello DriveTrain!");
-	
 	//MotorController(DIO, i2c, pwm, inverted?)
 	leftMotor = new MotorController(RobotMap.LEFT_MOTOR_DIO, i2c, RobotMap.LEFT_MOTOR_PWM, false);
 	rightMotor = new MotorController(RobotMap.RIGHT_MOTOR_DIO, i2c, RobotMap.RIGHT_MOTOR_PWM, true);
@@ -57,8 +57,6 @@ public class DriveTrain{
 	//System.out.println("deriv:"+derivative);
 	
 	output = kp*error+ki*integral+kd*derivative;
-	System.out.println("output:"+output);
-
 	outputLeftSpeed=leftSpeed+output;
 	outputRightSpeed=rightSpeed-output;
 
@@ -69,7 +67,8 @@ public class DriveTrain{
 	lastTime = System.currentTimeMillis();
 
     }
-    public void pidDriveTwoInputs(String wallDirection, double setPoint, double speed, double currentPositionBack, double currentPositionFront, double kp, double ki, double kd) {
+    public void pidDriveTwoInputs(CloserSide wallDirection, double setPoint, double speed, 
+				double currentPositionBack, double currentPositionFront, double kp, double ki, double kd) {
 
 	leftSpeed = speed;
 	rightSpeed = speed;
@@ -87,15 +86,20 @@ public class DriveTrain{
 	//System.out.println("deriv:"+derivative);
 	
 	output = kp*error+ki*integral+kd*derivative;
-	System.out.println("output:"+output);
 	
-	if (wallDirection.equals("left")){
-	    outputLeftSpeed=leftSpeed-output;
-	    outputRightSpeed=rightSpeed+output;
-	}else{
-	    outputLeftSpeed=leftSpeed+output;
-	    outputRightSpeed=rightSpeed-output;	
-	}
+	switch (wallDirection) {
+		case LEFT:
+		    outputLeftSpeed=leftSpeed-output;
+		    outputRightSpeed=rightSpeed+output;
+			break;
+		case RIGHT:
+	    	outputLeftSpeed=leftSpeed+output;
+	    	outputRightSpeed=rightSpeed-output;
+			break;
+		case NONE:
+			//Do nothing
+			break;
+	}	
 
 	setLeftSpeed(outputLeftSpeed);
 	setRightSpeed(outputRightSpeed);

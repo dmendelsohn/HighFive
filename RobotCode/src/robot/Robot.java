@@ -4,6 +4,7 @@ import states.*;
 import states.test_states.*;
 import jmraa.Utils;
 
+import static robot.Enums.*;
 
 public class Robot{
     static{System.loadLibrary("jmraa");}
@@ -13,11 +14,14 @@ public class Robot{
     public InstantiatedSystems systems;
 	public RobotLogger logger;
 
+	public boolean inEnemyZone;
+
     public Robot(){
 		runTime = System.currentTimeMillis();
 		state = new SorterColorTest();
 		systems = new InstantiatedSystems();
 		logger = new RobotLogger();
+		inEnemyZone = false;
     }
 
     public Robot(StateBase startingState) {
@@ -25,6 +29,7 @@ public class Robot{
 		state = startingState;
 		systems = new InstantiatedSystems();
 		logger = new RobotLogger();
+		inEnemyZone = false;
     }
 
     public static void main(String[] args){
@@ -62,7 +67,7 @@ public class Robot{
 			case "DriveTrainTest":
 				startState = new DriveTrainTest();
 				break;
-			case "ManualTest:
+			case "ManualTest":
 				startState = new ManualTest();
 				break;
 			default:
@@ -83,6 +88,7 @@ public class Robot{
 			input = robot.generateInputStateVariables();
 			robot.setState(input);
 			output = robot.readState(input);
+			robot.addPassiveOutputs(output, input);
 			robot.processOutput(output, input);
 			
 			//Logging
@@ -131,95 +137,98 @@ public class Robot{
 		if(output.zeroGyro){
 			systems.zeroGyro();
 		}
-		switch(output.drivetrainMethod){
-			case "pidDrive":
-				systems.drivetrain.pidDrive(0, output.drivetrainSpeed, input.gyroAngle, RobotMap.KP_PID_DRIVE, RobotMap.KI_PID_DRIVE, RobotMap.KD_PID_DRIVE);
+		switch(output.driveTrainMethod){
+			case PID_DRIVE:
+				systems.driveTrain.pidDrive(0, output.driveTrainSpeed, input.gyroAngle, RobotMap.KP_PID_DRIVE, RobotMap.KI_PID_DRIVE, RobotMap.KD_PID_DRIVE);
 				break;
-			case "pidDriveTwoInputs":
-				if (input.closerSide.equals("left")){
-					systems.drivetrain.pidDriveTwoInputs("left", 0.5,
-						     output.drivetrainSpeed, input.leftBackUltraDist, input.leftFrontUltraDist,
+			case PID_DRIVE_TWO_INPUTS:
+				switch (input.closerSide) {
+					case LEFT:
+						systems.driveTrain.pidDriveTwoInputs(CloserSide.LEFT, 0.5,
+						     output.driveTrainSpeed, input.leftBackUltraDist, input.leftFrontUltraDist,
 						     RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
-				}else{
-					systems.drivetrain.pidDriveTwoInputs("right", 0.5, 
-						     output.drivetrainSpeed, input.rightBackUltraDist, input.rightFrontUltraDist, 
+						break;
+					case RIGHT:
+						systems.driveTrain.pidDriveTwoInputs(CloserSide.RIGHT, 0.5, 
+						     output.driveTrainSpeed, input.rightBackUltraDist, input.rightFrontUltraDist, 
 						     RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
-				}
+						break;
+					case NONE:
+						//TODO: handle
+						break;
+				} 
 				break;
-			case "moveStraightRough":
-				systems.drivetrain.moveStraightRough(output.drivetrainSpeed);	
+			case MOVE_STRAIGHT_ROUGH:
+				systems.driveTrain.moveStraightRough(output.driveTrainSpeed);	
 				break;
-			case "setTurnRough":
-				systems.drivetrain.setTurnRough(output.drivetrainSpeed);
+			case SET_TURN_ROUGH:
+				systems.driveTrain.setTurnRough(output.driveTrainSpeed);
 				break;
-			case "setLeftSpeed":
-				systems.drivetrain.setLeftSpeed(output.drivetrainSpeed);
+			case SET_LEFT_SPEED:
+				systems.driveTrain.setLeftSpeed(output.driveTrainSpeed);
 				break;
-			case "setRightSpeed":
-				systems.drivetrain.setRightSpeed(output.drivetrainSpeed);
+			case SET_RIGHT_SPEED:
+				systems.driveTrain.setRightSpeed(output.driveTrainSpeed);
 				break;
-			case "stop":
-				systems.drivetrain.stop();
+			case STOP:
+				systems.driveTrain.stop();
 				break;
-			case "doNothing":
-				systems.drivetrain.doNothing();
+			case DO_NOTHING:
+				systems.driveTrain.doNothing();
 				break;
 		}
 		
-		switch(output.hopperMethod){
-			case "hopperOpenBoth":
-				systems.hopper.hopperOpenBoth(output.hopperOpenLeft, output.hopperOpenRight);
+		switch(output.hopperMethod) {
+			case MOVE_BOTH:
+				systems.hopper.setBoth(output.hopperLeftOpen, output.hopperRightOpen);
 				break;
-			case "hopperOpenLeft":
-				systems.hopper.hopperOpenLeft(output.hopperOpenLeft);
+			case MOVE_LEFT:
+				systems.hopper.setLeft(output.hopperLeftOpen);
 				//true opens hatch
 				break;
-			case "hopperOpenRight":
-				systems.hopper.hopperOpenRight(output.hopperOpenRight);
+			case MOVE_RIGHT:
+				systems.hopper.setRight(output.hopperRightOpen);
 				//true opens hatch				
 				break;
-			case "doNothing":
+			case DO_NOTHING:
 				systems.hopper.doNothing();
 				break;
 		}	
 
 		switch(output.sorterMethod){
-			case "setSorterPosition":
+			case SET_SORTER_POSITION:
 				systems.sorter.setSorterPosition(output.sorterPosition);
 				break;
-			case "setSorterPositionColor":
-				systems.sorter.setSorterPositionColor(input.photoState);
-				break;
-			case "doNothing":
+			case DO_NOTHING:
 				systems.sorter.doNothing();
 				break;
 		}
 	
 		switch(output.conveyorMethod){
-			case "moveBelt":
+			case MOVE_BELT:
 				systems.conveyor.moveBelt(output.conveyorSpeed);
 				break;
-			case "stopBelt":
+			case STOP_BELT:
 				systems.conveyor.stopBelt();
 				break;
-			case "doNothing":
+			case DO_NOTHING:
 				systems.conveyor.doNothing();
 				break;
 		}
-		
-		switch(output.visionMethod){
-			case "senseTarget":
-				systems.vision.senseTarget();
-				break;
-			case "getDistance":
-				systems.vision.getDistance();
-				break;
-			case "howCentered":
-				systems.vision.howCentered();
-				break;
-			case "doNothing":
-				systems.conveyor.doNothing();
-				break;
-		}	
     }
+
+	private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
+		//Sorting
+		double analogReading = input.photoReading;
+		systems.sorter.addDataPoint(analogReading);
+		if (systems.sorter.hasColorStreak()) {
+			output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+			BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
+			output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
+		} else {
+			output.sorterMethod = SorterMethod.DO_NOTHING;
+		}
+
+		//TODO: Line Following
+	}
 }

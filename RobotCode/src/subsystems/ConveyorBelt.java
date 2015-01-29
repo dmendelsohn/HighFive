@@ -7,7 +7,6 @@ public class ConveyorBelt{
     public MotorController conveyorMotor;	
 
     public ConveyorBelt(I2c i2c){
-	System.out.println("Hello ConveyorBelt!");
 		
 	//MotorController(DIO, i2c, pwm, inverted?)
 	conveyorMotor = new MotorController(RobotMap.CONVEYOR_MOTOR_DIO, i2c, RobotMap.CONVEYOR_MOTOR_PWM, true);

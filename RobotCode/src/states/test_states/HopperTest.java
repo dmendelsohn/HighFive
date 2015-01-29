@@ -2,6 +2,7 @@ package states.test_states;
 import states.*;
 import robot.*;
 
+import static robot.Enums.*;
 
 public class HopperTest extends StateBase{
 
@@ -14,17 +15,13 @@ public class HopperTest extends StateBase{
 
 	output = new OutputStateVariables();
 
-	output.drivetrainMethod = "doNothing";
-	output.conveyorMethod = "doNothing";
+	output.driveTrainMethod = DriveTrainMethod.DO_NOTHING;
+	output.conveyorMethod = ConveyorMethod.DO_NOTHING;
 
-	output.sorterMethod = "setSorterPosition";
-	output.sorterPosition = -0.06;
+	output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+	output.sorterPosition = SorterPosition.MIDDLE;
 
-	output.hopperMethod = "doNothing";
-	output.hopperOpenLeft = false;
-	output.hopperOpenRight = false;
-
-	output.visionMethod = "doNothing";
+	output.hopperMethod = HopperMethod.DO_NOTHING;
 
 	output.zeroGyro = false;
 
@@ -34,21 +31,20 @@ public class HopperTest extends StateBase{
 
     public OutputStateVariables run(InputStateVariables input){
 
-	System.out.println("HopperTest");
 	long elapsedTime = System.currentTimeMillis()-stateStartTime;
 	     
 	if (elapsedTime<5000){
-	    output.hopperMethod = "hopperOpenLeft";
-	    output.hopperOpenLeft = true;
+	    output.hopperMethod = HopperMethod.MOVE_LEFT;
+	    output.hopperLeftOpen = true;
 	}else if (elapsedTime<6000){
-	    output.hopperMethod = "hopperOpenLeft";
-	    output.hopperOpenLeft = false;
+	    output.hopperMethod = HopperMethod.MOVE_LEFT;
+	    output.hopperLeftOpen = false;
 	}else if (elapsedTime<7000){
-	    output.hopperMethod = "hopperOpenRight";
-	    output.hopperOpenRight = true;
+	    output.hopperMethod = HopperMethod.MOVE_RIGHT;
+	    output.hopperRightOpen = true;
 	}else if (elapsedTime<8000){
-	    output.hopperMethod = "hopperOpenRight";
-	    output.hopperOpenRight = false;
+	    output.hopperMethod = HopperMethod.MOVE_RIGHT;
+	    output.hopperRightOpen = false;
 	}
 	return output;
     }

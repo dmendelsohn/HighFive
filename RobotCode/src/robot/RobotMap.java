@@ -1,6 +1,12 @@
 package robot;
 
+import static robot.Enums.*;
+
 public class RobotMap{
+	//Game Constants
+	public static final BlockColor MY_COLOR = BlockColor.RED;
+	public static final HopperSide MY_HOPPER = HopperSide.LEFT;
+
 
     //PWM slots
     public static final int LEFT_MOTOR_PWM = 0;
@@ -67,6 +73,6 @@ public class RobotMap{
     //Color thresholding constants
     public static final double NOTHING_GREEN_COLOR_BOUNDARY = 210.0;
     public static final double GREEN_RED_COLOR_BOUNDARY = 380.0;
- 
+	
 }
 

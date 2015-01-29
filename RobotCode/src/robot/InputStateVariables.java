@@ -1,6 +1,7 @@
 package robot;
 
 import jmraa.Utils;
+import robot.Enums.*;
 
 public class InputStateVariables{
 
@@ -12,14 +13,13 @@ public class InputStateVariables{
     public double rightBackUltraDist;
     public double rightFrontUltraDist;
 
-    public String closerSide;
+    public CloserSide closerSide;
 
     public boolean seesTarget; //vision
     public double howCentered; //vision
     public double boxDistance; //vision
 
     public double photoReading;
-    public String photoState;
 
     public InputStateVariables(InstantiatedSystems systems){
 	//give values to different values using systems
@@ -53,23 +53,12 @@ public class InputStateVariables{
 	//System.out.println("rightFront:"+ rightFrontUltraDist);
 
 	if((leftBackUltraDist+leftFrontUltraDist)<(rightBackUltraDist+rightFrontUltraDist)){
-	    closerSide = "left";
+	    closerSide = CloserSide.LEFT;
 	}else{
-	    closerSide = "right";
+	    closerSide = CloserSide.RIGHT;
 	}
-	//System.out.println(closerSide);
 	
 	photoReading = systems.colorSensor.read();
-	//System.out.println("color reading:"+photoReading);
-	
-	if (photoReading < RobotMap.GREEN_RED_COLOR_BOUNDARY && photoReading >  RobotMap.NOTHING_GREEN_COLOR_BOUNDARY){
-	    photoState = "green";
-	}else if (photoReading > RobotMap.GREEN_RED_COLOR_BOUNDARY){
-	    photoState = "red";
-	}else{
-	    photoState = "none";
-	}	
-	//System.out.println("color:" + photoState);
     }
 
 }

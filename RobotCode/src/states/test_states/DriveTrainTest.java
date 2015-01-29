@@ -2,6 +2,7 @@ package states.test_states;
 import states.*;
 import robot.*;
 
+import robot.Enums.*;
 
 public class DriveTrainTest extends StateBase{
 
@@ -14,12 +15,11 @@ public class DriveTrainTest extends StateBase{
 
 	output = new OutputStateVariables();
 
-	output.drivetrainMethod = "stop";
+	output.driveTrainMethod = DriveTrainMethod.STOP;
 
-	output.conveyorMethod = "doNothing";
-	output.sorterMethod = "doNothing";
-	output.hopperMethod = "doNothing";
-	output.visionMethod = "doNothing";
+	output.conveyorMethod = ConveyorMethod.DO_NOTHING;
+	output.sorterMethod = SorterMethod.DO_NOTHING;
+	output.hopperMethod = HopperMethod.DO_NOTHING;
 
 	output.zeroGyro = true;
 
@@ -30,15 +30,14 @@ public class DriveTrainTest extends StateBase{
     public OutputStateVariables run(InputStateVariables input){
 	output.zeroGyro = false;
 
-	System.out.println("DriveTrainTest");
 	long elapsedTime = System.currentTimeMillis()-stateStartTime;
 
 	if (elapsedTime<5000){
-	    output.drivetrainMethod = "moveStraightRough";
-	    output.drivetrainSpeed = 0.2;
+	    output.driveTrainMethod = DriveTrainMethod.MOVE_STRAIGHT_ROUGH;
+	    output.driveTrainSpeed = 0.2;
 	}else{
-	    output.drivetrainMethod = "moveStraightRough";
-	    output.drivetrainSpeed = 0;
+	    output.driveTrainMethod = DriveTrainMethod.MOVE_STRAIGHT_ROUGH;
+	    output.driveTrainSpeed = 0;
 	}
 	/*
 	if (elapsedTime<2000){	
@@ -69,7 +68,6 @@ public class DriveTrainTest extends StateBase{
 	    output.drivetrainMethod = "stop";
 	}
 	*/
-	System.out.println(output.drivetrainMethod);
 	return output;
     }
 
