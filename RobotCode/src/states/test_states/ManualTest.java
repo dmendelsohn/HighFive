@@ -9,33 +9,16 @@ import java.io.IOException;
 import static robot.Enums.*;
 
 public class ManualTest extends StateBase{
-
-    public OutputStateVariables output;
-    public InputStateVariables input;
-
 	private BufferedReader bufferedReader;
 
     public ManualTest(){
 		super();
-
 		InputStreamReader fileInputStream=new InputStreamReader(System.in);
 		bufferedReader=new BufferedReader(fileInputStream);
-		/*output = new OutputStateVariables();
-		output.drivetrainMethod = "pidDrive";
-		output.drivetrainPIDType = "Gyroscope";
-		output.drivetrainSpeed = 0.2;
-
-		output.conveyorMethod = "doNothing";
-		output.hopperMethod = "doNothing";
-		output.visionMethod = "doNothing";
-
-		output.zeroGyro = true;*/
     }
 
     public OutputStateVariables run(InputStateVariables input) {
-		long elapsedTime = System.currentTimeMillis()-stateStartTime;
-		
-		output = noAction();
+		OutputStateVariables output = getDefaultOutput();
 		try {
 			if (bufferedReader.ready()) { //Check for keyboard input
 				char c = (char)bufferedReader.read();	// Grab it as a char
@@ -78,16 +61,6 @@ public class ManualTest extends StateBase{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return output;
-	}
-
-	public OutputStateVariables noAction() {
-		output = new OutputStateVariables();
-		output.driveTrainMethod = DriveTrainMethod.DO_NOTHING;
-		output.conveyorMethod = ConveyorMethod.DO_NOTHING;
-		output.hopperMethod = HopperMethod.DO_NOTHING;
-		output.sorterMethod = SorterMethod.DO_NOTHING;
-		output.zeroGyro = false;
 		return output;
 	}
 

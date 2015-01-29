@@ -5,7 +5,6 @@ import static robot.Enums.*;
 
 public abstract class StateBase{
     protected long stateStartTime;
-	protected long elapsedTime;
 
     public StateBase(){	
 		stateStartTime = System.currentTimeMillis();
@@ -29,13 +28,6 @@ public abstract class StateBase{
 		return output;
 	}
 
-    public OutputStateVariables run(InputStateVariables input) {
-		elapsedTime = System.currentTimeMillis();
-		return getDefaultOutput();
-	}
-
-    public StateBase getNext(InputStateVariables input) {
-		return this;
-	}
-		
+    public abstract OutputStateVariables run(InputStateVariables input);
+    public abstract StateBase getNext(InputStateVariables input);
 }

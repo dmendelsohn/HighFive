@@ -5,10 +5,6 @@ import robot.*;
 import static robot.Enums.*;
 
 public class CaptureTest extends StateBase{
-    public CaptureTest() {
-		super();
-    }
-
 	@Override
 	public OutputStateVariables getDefaultOutput() {
 		OutputStateVariables output = super.getDefaultOutput();
@@ -26,9 +22,8 @@ public class CaptureTest extends StateBase{
 
 	@Override
     public OutputStateVariables run(InputStateVariables input){
-		super.run(input); //Updates elapsed time, ignore the return value
 		OutputStateVariables output = super.getDefaultOutput();
-		if (elapsedTime<15000){
+		if (getElapsedTime() < 15000){
 			//Do nothing
 		} else {
 	    	output.conveyorMethod = ConveyorMethod.STOP_BELT;

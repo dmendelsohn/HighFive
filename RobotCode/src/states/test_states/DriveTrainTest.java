@@ -5,10 +5,6 @@ import robot.*;
 import robot.Enums.*;
 
 public class DriveTrainTest extends StateBase{
-    public DriveTrainTest(){
-		super();
-	}
-
 	@Override
 	protected OutputStateVariables getDefaultOutput() {
 		OutputStateVariables output = super.getDefaultOutput();
@@ -18,9 +14,8 @@ public class DriveTrainTest extends StateBase{
 	}
 
     public OutputStateVariables run(InputStateVariables input){
-		super.run(input); //Boilerplate
 		OutputStateVariables output = getDefaultOutput();
-		if (elapsedTime<5000){
+		if (getElapsedTime() < 5000){
 			//Use default
 		} else{
 			output.driveTrainSpeed = 0;

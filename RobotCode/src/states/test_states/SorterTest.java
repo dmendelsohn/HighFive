@@ -5,10 +5,6 @@ import robot.*;
 import static robot.Enums.*;
 
 public class SorterTest extends StateBase{
-    public SorterTest(){
-		super();
-	}
-
 	@Override
 	protected OutputStateVariables getDefaultOutput() {
 		OutputStateVariables output = super.getDefaultOutput();
@@ -18,15 +14,14 @@ public class SorterTest extends StateBase{
 	}
 		
     public OutputStateVariables run(InputStateVariables input){
-		super.run(input); //Boilerplate
 		OutputStateVariables output = getDefaultOutput();	
-		if (elapsedTime<5000){	
+		if (getElapsedTime() < 5000){	
 			output.sorterPosition = SorterPosition.LEFT;
-		} else if (elapsedTime<6000){
+		} else if (getElapsedTime() < 6000){
 			output.sorterPosition = SorterPosition.MIDDLE;
-		} else if (elapsedTime<7000){
+		} else if (getElapsedTime() < 7000){
 			output.sorterPosition = SorterPosition.RIGHT;
-		} else if (elapsedTime<8000){
+		} else if (getElapsedTime() < 8000){
 			output.sorterPosition = SorterPosition.MIDDLE;
 		} 
 		return output;
