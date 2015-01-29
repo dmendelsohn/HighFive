@@ -29,6 +29,21 @@ public class Sorter{
 		sorterServo = new Servo(i2c,RobotMap.SORTER_SERVO_PWM, RobotMap.SORTER_LOWER_BOUND, RobotMap.SORTER_UPPER_BOUND);
 	}
 
+    public void setSorterPositionRefined(SorterPosition position, long sortTime){
+		switch (position) {
+			case LEFT:
+				sorterServo.setPosition(LEFT_VAL);
+				break;
+			case RIGHT:
+				sorterServo.setPosition(RIGHT_VAL);
+				break;
+			case MIDDLE:
+				sorterServo.setPosition(MIDDLE_VAL);
+				break;
+		}
+		lastMovement = System.currentTimeMillis();
+    }
+
     public void setSorterPosition(SorterPosition position){
 		switch (position) {
 			case LEFT:
