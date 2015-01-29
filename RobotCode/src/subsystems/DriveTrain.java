@@ -85,6 +85,7 @@ public class DriveTrain{
 	//System.out.println("deriv:"+derivative);
 	
 	output = kp*error+ki*integral+kd*derivative;
+	System.out.println("output: " + output);
 
 	outputLeftSpeed=leftSpeed+output;
 	outputRightSpeed=rightSpeed-output;

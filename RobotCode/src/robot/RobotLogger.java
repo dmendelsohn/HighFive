@@ -105,7 +105,6 @@ public class RobotLogger {
 				sb.append("DriveTrainMethod: ").append(output.driveTrainMethod.name()).append("\n");
 				sb.append("DriveTrainPIDType: ").append(output.driveTrainPidType.name()).append("\n");
 				sb.append("DriveTrainSpeed: ").append(output.driveTrainSpeed).append("\n");
-				sb.append("pidSide: ").append(output.pidSide.name()).append("\n");
 				DRIVE_TRAIN_LOGGER.fine(sb.toString());
 				ANYTHING_LOGGER.fine("[DriveTrain]\n" + sb.toString());
 			}

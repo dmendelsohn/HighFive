@@ -29,12 +29,12 @@ public class RobotMap{
     public static final int RIGHT_FRONT_IR_INPUT = 1;
 
     //IR calibration values
-    public static final int FRONT_IR_TRANS = 0;
-    public static final int RIGHT_BACK_IR_TRANS = 120;
+    public static final int FRONT_IR_TRANS = 120;
+    public static final int RIGHT_BACK_IR_TRANS = 0;
     public static final int RIGHT_FRONT_IR_TRANS = 0;
 
-    public static final double FRONT_IR_SCALE = 1;
-    public static final double RIGHT_BACK_IR_SCALE = 1.2;
+    public static final double FRONT_IR_SCALE = 1.2;
+    public static final double RIGHT_BACK_IR_SCALE = 1;
     public static final double RIGHT_FRONT_IR_SCALE = 1;
 
     //Analogs

@@ -20,9 +20,6 @@ public class WallFollowTest extends StateBase{
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	if (System.currentTimeMillis()-stateStartTime>10000){
-	    output.driveTrainMethod = DriveTrainMethod.STOP;
-	}	
 	return output;
     }
 

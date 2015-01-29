@@ -1,18 +1,19 @@
-package states;
+package states.test_states;
+import states.*;
 import robot.*;
 
 import static robot.Enums.*;
 
-public class WallFollow extends StateBase{
+public class ReadoutTest extends StateBase{
 
     public OutputStateVariables output;
     public InputStateVariables input;
 
-    public WallFollow(){
+    public ReadoutTest(){
 	super();
 	output = new OutputStateVariables();
-	output.driveTrainMethod = DriveTrainMethod.PID_DRIVE_TWO_INPUTS;
-	output.driveTrainSpeed = 0.2;
+	output.driveTrainMethod = DriveTrainMethod.DO_NOTHING;
+	output.driveTrainSpeed = 0;
 	output.sorterMethod = SorterMethod.DO_NOTHING;
 	output.hopperMethod = HopperMethod.DO_NOTHING;
 	output.conveyorMethod = ConveyorMethod.DO_NOTHING;
@@ -23,15 +24,6 @@ public class WallFollow extends StateBase{
     }
 
     public StateBase getNext(InputStateVariables input){
-	//if(input.seesTarget){
-	if(false){
-	    return new BoxFollow();
-	}else if(System.currentTimeMillis()-stateStartTime > 4000.){
-	    return new BoxSearch();
-	}else if(input.frontUltraDist<0.1){
-	    return new WallTurn();
-	}else{
-	    return this;
-	}
+	return this;
     }
 }
