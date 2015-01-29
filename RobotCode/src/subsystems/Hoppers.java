@@ -4,16 +4,12 @@ import java.util.Arrays;
 import jmraa.*;
 
 public class Hoppers{
-	
-    public Servo hopperServo;
-
     public Servo leftReleaseServo;
     public Servo rightReleaseServo;
     
     public long startTime;
     
     public Hoppers(I2c i2c){
-	System.out.println("Hello Hoppers!");
 
 	Pwm.initPwm(i2c);
 
@@ -23,29 +19,30 @@ public class Hoppers{
     }
 
     public void kill(){
-	hopperOpenLeft(true);
-        hopperOpenRight(true);
+		setLeft(true);
+        setRight(true);
     }
-    //put this into robot/Robot.java
-    //use same release
-    public void hopperOpenBoth(boolean leftRelease, boolean rightRelease){
-	hopperOpenLeft(leftRelease);
-        hopperOpenRight(rightRelease);
+
+    public void setBoth(boolean leftRelease, boolean rightRelease){
+		setLeft(leftRelease);
+        setRight(rightRelease);
     }
 	
-    public void hopperOpenLeft(boolean release){
-	if (release == true){
-	    leftReleaseServo.setPosition(0.8);
-	}else{
-	    leftReleaseServo.setPosition(-0.9);
-	}
+    public void setLeft(boolean release){
+		if (release == true){
+		    leftReleaseServo.setPosition(0.8);
+		}else{
+		    leftReleaseServo.setPosition(-0.9);
+		}
     }
-    public void hopperOpenRight(boolean release){
-	if (release == true){
-	    rightReleaseServo.setPosition(-0.9);
-	}else{
-	    rightReleaseServo.setPosition(0.9);
-	}
+    public void setRight(boolean release){
+		if (release == true){
+			System.out.println("Commanding servo to open right hatch");
+		    rightReleaseServo.setPosition(-0.9);
+		}else{
+			System.out.println("Commanding servo to close right hatch");
+		    rightReleaseServo.setPosition(0.9);
+		}
     }
     public void doNothing(){
     }

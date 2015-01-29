@@ -1,10 +1,16 @@
 package robot;
 
+import static robot.Enums.*;
+
 public class RobotMap{
+	//Game Constants
+	public static final BlockColor MY_COLOR = BlockColor.RED;
+	public static final HopperSide MY_HOPPER = HopperSide.LEFT;
+	public static final boolean AUTO_SORT = false;
 
     //PWM slots
-    public static final int LEFT_MOTOR_PWM = 0;
-    public static final int RIGHT_MOTOR_PWM = 1;
+    public static final int LEFT_MOTOR_PWM = 1;
+    public static final int RIGHT_MOTOR_PWM = 0;
     public static final int CONVEYOR_MOTOR_PWM = 2;
 
     public static final int SORTER_SERVO_PWM = 13;
@@ -18,17 +24,21 @@ public class RobotMap{
 
     //MUX Shield slots
     //Inputs
-    //public static final int FRONT_ULTRASONIC_INPUT = 7;
-    public static final int LEFT_BACK_ULTRASONIC_INPUT = 3;
-    public static final int LEFT_FRONT_ULTRASONIC_INPUT = 5;
-    public static final int RIGHT_BACK_ULTRASONIC_INPUT = 1;
-    public static final int RIGHT_FRONT_ULTRASONIC_INPUT = 9;
-    //Outputs
-    //public static final int FRONT_ULTRASONIC_OUTPUT = 7;
-    public static final int LEFT_BACK_ULTRASONIC_OUTPUT = 3;
-    public static final int LEFT_FRONT_ULTRASONIC_OUTPUT = 5;
-    public static final int RIGHT_BACK_ULTRASONIC_OUTPUT = 1;
-    public static final int RIGHT_FRONT_ULTRASONIC_OUTPUT = 9;
+    public static final int FRONT_IR_INPUT = 2;
+    public static final int RIGHT_BACK_IR_INPUT = 0;
+    public static final int RIGHT_FRONT_IR_INPUT = 1;
+
+    //IR calibration values
+    public static final int FRONT_IR_TRANS = 120;
+    public static final int RIGHT_BACK_IR_TRANS = 0;
+    public static final int RIGHT_FRONT_IR_TRANS = 0;
+
+    public static final double FRONT_IR_SCALE = 1.2;
+    public static final double RIGHT_BACK_IR_SCALE = 1;
+    public static final double RIGHT_FRONT_IR_SCALE = 1;
+
+    public static final int FRONT_IR_UPPER_THRESHOLD = 250;
+    public static final int FRONT_IR_LOWER_THRESHOLD = 175;
 
     //Analogs
     public static final int SORTER_INPUT_AI = 0;
@@ -46,8 +56,8 @@ public class RobotMap{
     public static final int I2C_PORT = 6;
 
     //Bounding Constants
-    public static final double SORTER_LOWER_BOUND = 0.032;
-    public static final double SORTER_UPPER_BOUND = 0.0917;
+    public static final double SORTER_LOWER_BOUND = 0.031;
+    public static final double SORTER_UPPER_BOUND = 0.0932;
 
     public static final double LEFT_RELEASE_LOWER_BOUND = 0.033;
     public static final double LEFT_RELEASE_UPPER_BOUND = 0.08;
@@ -56,17 +66,21 @@ public class RobotMap{
     public static final double RIGHT_RELEASE_UPPER_BOUND = 0.085;
 
     //PID constants
-    public static final double KP_PID_DRIVE = .1/45.0;
+    public static final double KP_PID_DRIVE = -.1/45.0;
     public static final double KI_PID_DRIVE = 0;
     public static final double KD_PID_DRIVE = 0;
 
-    public static final double KP_DOUBLE_PID_DRIVE = .2/.2;
+    public static final double KP_DOUBLE_PID_DRIVE = -.1/200;
     public static final double KI_DOUBLE_PID_DRIVE = 0;
     public static final double KD_DOUBLE_PID_DRIVE = 0;
+    public static final double DIFF_WEIGHT_DOUBLE_PID_DRIVE = 1.0;
+    public static final double DIST_WEIGHT_DOUBLE_PID_DRIVE = 0.5;
 
     //Color thresholding constants
     public static final double NOTHING_GREEN_COLOR_BOUNDARY = 210.0;
     public static final double GREEN_RED_COLOR_BOUNDARY = 380.0;
- 
+
+    //Time Constants
+    public static final long TOTAL_SORT_TIME = 1500;
 }
 

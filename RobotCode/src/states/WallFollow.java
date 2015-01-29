@@ -1,36 +1,27 @@
 package states;
+import states.*;
 import robot.*;
 
+import static robot.Enums.*;
+
 public class WallFollow extends StateBase{
-
-    public OutputStateVariables output;
-    public InputStateVariables input;
-
-    public WallFollow(){
-	super();
-	output = new OutputStateVariables();
-	output.drivetrainMethod = "pidDriveTwoInputs";
-	output.drivetrainSpeed = 0.2;
-	output.sorterMethod = "doNothing";
-	output.hopperMethod = "doNothing";
-	output.conveyorMethod = "doNothing";
-	output.visionMethod = "senseTarget";
+    @Override
+    public OutputStateVariables getDefaultOutput() {
+	OutputStateVariables output = super.getDefaultOutput();
+	output.driveTrainMethod = DriveTrainMethod.PID_DRIVE_TWO_INPUTS;
+	output.driveTrainSpeed = 0.2;
+	return output;
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	System.out.println("WallFollow");
+	OutputStateVariables output = getDefaultOutput();	
 	return output;
     }
 
     public StateBase getNext(InputStateVariables input){
-	//if(input.seesTarget){
-	if(false){
-	    return new BoxFollow();
-	}else if(System.currentTimeMillis()-stateStartTime > 4000.){
-	    return new BoxSearch();
-	}else if(input.frontUltraDist<0.1){
+	if(input.frontIRDist > RobotMap.FRONT_IR_UPPER_THRESHOLD){
 	    return new WallTurn();
-	}else{
+	} else{
 	    return this;
 	}
     }

@@ -2,59 +2,32 @@ package states.test_states;
 import states.*;
 import robot.*;
 
+import static robot.Enums.*;
 
 public class SorterTest extends StateBase{
-
-    public OutputStateVariables output;
-    public InputStateVariables input;
-
-    public SorterTest(){
-
-	super();
-
-	output = new OutputStateVariables();
-
-	output.drivetrainMethod = "doNothing";
-	output.conveyorMethod = "doNothing";
-
-	output.sorterMethod = "setSorterPosition";
-	output.sorterPosition = -0.03;
-
-	output.hopperMethod = "hopperOpenBoth";
-	output.hopperOpenLeft = false;
-	output.hopperOpenRight = false;
-
-	output.visionMethod = "doNothing";
-
-	output.zeroGyro = false;
-
-	stateStartTime = System.currentTimeMillis();
+	@Override
+	protected OutputStateVariables getDefaultOutput() {
+		OutputStateVariables output = super.getDefaultOutput();
+		output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+		output.sorterPosition = SorterPosition.MIDDLE;
+		return output;
+	}
 		
-    }
-
     public OutputStateVariables run(InputStateVariables input){
-	output.hopperMethod = "doNothing";
-
-	System.out.println("SorterTest");
-	long elapsedTime = System.currentTimeMillis()-stateStartTime;
-	
-	if (elapsedTime<5000){	
-	    output.sorterMethod = "setSorterPosition";
-	    output.sorterPosition = -1.0;
-	}else if (elapsedTime<6000){
-	    output.sorterMethod = "setSorterPosition";
-	    output.sorterPosition = -0.03;
-	}else if (elapsedTime<7000){
-	    output.sorterMethod = "setSorterPosition";
-	    output.sorterPosition = 1.0;
-	}else if (elapsedTime<8000){
-	    output.sorterMethod = "setSorterPosition";
-	    output.sorterPosition = -0.03;
-	} 
-	return output;
+		OutputStateVariables output = getDefaultOutput();	
+		if (getElapsedTime() < 5000){	
+			output.sorterPosition = SorterPosition.LEFT;
+		} else if (getElapsedTime() < 6000){
+			output.sorterPosition = SorterPosition.MIDDLE;
+		} else if (getElapsedTime() < 7000){
+			output.sorterPosition = SorterPosition.RIGHT;
+		} else if (getElapsedTime() < 8000){
+			output.sorterPosition = SorterPosition.MIDDLE;
+		} 
+		return output;
     }
 
     public StateBase getNext(InputStateVariables input){
-	return this;
+		return this;
     }
 }

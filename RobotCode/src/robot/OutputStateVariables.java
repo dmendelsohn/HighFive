@@ -1,34 +1,25 @@
 package robot;
 
+import static robot.Enums.*;
+
 public class OutputStateVariables{
+    public DriveTrainMethod driveTrainMethod;
+    public double driveTrainSpeed;
 
-    public boolean hasFuckedStevensMom;
+    public SorterMethod sorterMethod;
+    public SorterPosition sorterPosition;
 
+    public HopperMethod hopperMethod;
+    public boolean hopperLeftOpen = false;
+    public boolean hopperRightOpen = false;
 
-    public String drivetrainMethod;
-    public String drivetrainPIDType;
-    public double drivetrainSpeed;
-    public String pidSide;
-
-    public String sorterMethod;
-    public double sorterPosition;
-
-    public String hopperMethod;
-    public boolean hopperOpenLeft = false;
-    public boolean hopperOpenRight = false;
-
-    public String conveyorMethod;
+    public ConveyorMethod conveyorMethod;
     public double conveyorSpeed;
     
-    public String visionMethod;
-
     public boolean zeroGyro = false;
 
     public OutputStateVariables(){
-
-	hasFuckedStevensMom = true;
-	System.out.println("OutputVars");
-
+		//Do nothing, fields must be set manually
     }
 
 }

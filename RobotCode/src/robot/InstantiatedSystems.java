@@ -4,7 +4,7 @@ import jmraa.*;
 
 public class InstantiatedSystems{
 
-    public DriveTrain drivetrain;
+    public DriveTrain driveTrain;
     public Sorter sorter;
     public Hoppers hopper;
     public ConveyorBelt conveyor;
@@ -31,12 +31,12 @@ public class InstantiatedSystems{
     public InstantiatedSystems(){
 	i2c = new I2c(6);
 	Pwm.initPwm(i2c);
-	drivetrain = new DriveTrain(i2c);
+	driveTrain = new DriveTrain(i2c);
 	sorter = new Sorter(i2c);
 	hopper = new Hoppers(i2c);
 	conveyor = new ConveyorBelt(i2c);
 	vision = new Vision();
-	//shield = new MuxShield(0,1,2,3,4,5,6);
+	shield = new MuxShield(0,1,2,3,4,5,6,1);
 
 
 	/*
@@ -66,7 +66,7 @@ public class InstantiatedSystems{
     }
 
     public void kill(){
-	drivetrain.kill();
+	driveTrain.kill();
 	sorter.kill();
 	hopper.kill();
 	conveyor.kill();
@@ -103,37 +103,15 @@ public class InstantiatedSystems{
 	return gyro.getDegrees();	
     }
 
-    public double readFrontUltraDist(){
-	//return Ultrasonic.asMeters(frontUltrasonic.ping());
-	return 6.0;
+    public int readFrontIRDist(){
+	return RobotMap.FRONT_IR_TRANS+(int)(shield.analogRead(RobotMap.FRONT_IR_INPUT)*RobotMap.FRONT_IR_SCALE);
     }
 
-    public double readLeftBackUltraDist(){
-	//return Ultrasonic.asMeters(leftBackUltrasonic.ping());
-	return 0;
+    public int readRightBackIRDist(){
+	return RobotMap.RIGHT_BACK_IR_TRANS+(int)(shield.analogRead(RobotMap.RIGHT_BACK_IR_INPUT)*RobotMap.RIGHT_BACK_IR_SCALE);
     }
 
-    public double readLeftFrontUltraDist(){
-	//return Ultrasonic.asMeters(leftFrontUltrasonic.ping());
-	return 0;
+    public int readRightFrontIRDist(){
+	return RobotMap.RIGHT_FRONT_IR_TRANS+(int)(shield.analogRead(RobotMap.RIGHT_FRONT_IR_INPUT)*RobotMap.RIGHT_FRONT_IR_SCALE);
     }
-
-    public double readRightBackUltraDist(){
-	//return Ultrasonic.asMeters(rightBackUltrasonic.ping());
-	return 0;
-    }
-
-    public double readRightFrontUltraDist(){
-	//return Ultrasonic.asMeters(rightFrontUltrasonic.ping());
-	return 0;
-    }
-    /*
-      public double readRightEncoderCount(){
-      return rightMotorEncoder.getCount()
-      }	
-      public double readConveyorEncoderCount(){
-      //return conveyorMotorEncoder.getCount();
-      return 6.0;
-      }
-    */
 }

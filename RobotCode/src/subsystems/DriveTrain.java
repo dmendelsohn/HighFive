@@ -2,6 +2,8 @@ package subsystems;
 import robot.*;
 import jmraa.*;
 
+import static robot.Enums.*;
+
 public class DriveTrain{
     
     static{System.loadLibrary("jmraa");}
@@ -30,8 +32,6 @@ public class DriveTrain{
 
     public DriveTrain(I2c i2c){
 
-	System.out.println("Hello DriveTrain!");
-	
 	//MotorController(DIO, i2c, pwm, inverted?)
 	leftMotor = new MotorController(RobotMap.LEFT_MOTOR_DIO, i2c, RobotMap.LEFT_MOTOR_PWM, false);
 	rightMotor = new MotorController(RobotMap.RIGHT_MOTOR_DIO, i2c, RobotMap.RIGHT_MOTOR_PWM, true);
@@ -57,8 +57,6 @@ public class DriveTrain{
 	//System.out.println("deriv:"+derivative);
 	
 	output = kp*error+ki*integral+kd*derivative;
-	System.out.println("output:"+output);
-
 	outputLeftSpeed=leftSpeed+output;
 	outputRightSpeed=rightSpeed-output;
 
@@ -69,14 +67,14 @@ public class DriveTrain{
 	lastTime = System.currentTimeMillis();
 
     }
-    public void pidDriveTwoInputs(String wallDirection, double setPoint, double speed, double currentPositionBack, double currentPositionFront, double kp, double ki, double kd) {
+    public void pidDriveTwoInputs(double setPoint, double speed, double currentPositionBack, double currentPositionFront, double kp, double ki, double kd) {
 
 	leftSpeed = speed;
 	rightSpeed = speed;
 
 	//constants for how to weigh errors relative to each other
-	error1 = (-1.0)*(currentPositionFront-currentPositionBack);
-        error2 = (-1.0)*((currentPositionFront+currentPositionBack)/2.0 - setPoint);
+	error1 = (RobotMap.DIFF_WEIGHT_DOUBLE_PID_DRIVE)*(currentPositionFront-currentPositionBack);
+        error2 = (RobotMap.DIST_WEIGHT_DOUBLE_PID_DRIVE)*((currentPositionFront+currentPositionBack)/2.0 - setPoint);
 	error = error1 + error2;
 
 	long dt = System.currentTimeMillis() - lastTime;
@@ -87,15 +85,10 @@ public class DriveTrain{
 	//System.out.println("deriv:"+derivative);
 	
 	output = kp*error+ki*integral+kd*derivative;
-	System.out.println("output:"+output);
-	
-	if (wallDirection.equals("left")){
-	    outputLeftSpeed=leftSpeed-output;
-	    outputRightSpeed=rightSpeed+output;
-	}else{
-	    outputLeftSpeed=leftSpeed+output;
-	    outputRightSpeed=rightSpeed-output;	
-	}
+	System.out.println("output: " + output);
+
+	outputLeftSpeed=leftSpeed+output;
+	outputRightSpeed=rightSpeed-output;
 
 	setLeftSpeed(outputLeftSpeed);
 	setRightSpeed(outputRightSpeed);

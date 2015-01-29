@@ -20,19 +20,24 @@ public class MuxShield {
     public Gpio outmd;
     public Gpio io1;
     public Gpio io2;
-    public Gpio io3;
+    public Aio io3;
 
-    public MuxShield(int S0, int S1, int S2, int S3, int OUTMD, int IO1, int IO2){
+    public MuxShield(int S0, int S1, int S2, int S3, int OUTMD, int IO1, int IO2, int IO3){
 
 	shiftReg = new int[16];
-
-	s0 = new Gpio(S0);
-	s1 = new Gpio(S1);
-	s2 = new Gpio(S2);
-	s3 = new Gpio(S3);
-	outmd = new Gpio(OUTMD);
-	io1 = new Gpio(IO1);
-	io2 = new Gpio(IO2);
+	try{
+	    s0 = new Gpio(S0);
+	    s1 = new Gpio(S1);
+	    s2 = new Gpio(S2);
+	    s3 = new Gpio(S3);
+	    outmd = new Gpio(OUTMD);
+	    io1 = new Gpio(IO1);
+	    io2 = new Gpio(IO2);
+	    io3 = new Aio(IO3);
+	} catch(Exception e){
+	    //pls no
+	    System.out.println(e.getMessage());
+	}
 	//public Gpio io3 = new Gpio(IO3);  
 
 	s0.dir(Utils.Dir.DIR_OUT);
@@ -43,11 +48,9 @@ public class MuxShield {
 	outmd.write(0);
 	io1.dir(Utils.Dir.DIR_IN);
 	io2.dir(Utils.Dir.DIR_OUT);
-	//io3.dir(Utils.Dir.DIR_IN);
-
     }
 
-    public void digitalWriteMS(int chan, int val){
+    public void digitalWrite(int chan, int val){
 	if (chan < 0 && chan > 15){
 	    return;
 	}
@@ -68,7 +71,7 @@ public class MuxShield {
 	System.out.println("vals: " + Arrays.toString(shiftReg));
     }
 
-    public int digitalReadMS(int chan){
+    public int digitalRead(int chan){
 	if (chan < 0 && chan > 15){
 	    return -1;
 	}
@@ -85,20 +88,20 @@ public class MuxShield {
 	
  
     }
-    /*
-      public int analogReadMS(int chan){
-      outmd.write(0);
-      int val;
+    
+    public int analogRead(int chan){
+	outmd.write(0);
+	int val;
 
-      s0.write(chan&1);    
-      s1.write((chan&3)>>1); 
-      s2.write((chan&7)>>2); 
-      s3.write((chan&15)>>3); 
+	s0.write(chan&1);    
+	s1.write((chan&3)>>1); 
+	s2.write((chan&7)>>2); 
+	s3.write((chan&15)>>3); 
        
-      val = io3.read(); 
+	val = io3.read(); 
 
-      return val;
-      }
-    */
+	return val;
+    }
+    
 	
 }
