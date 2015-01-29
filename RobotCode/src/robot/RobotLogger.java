@@ -103,7 +103,6 @@ public class RobotLogger {
 			if (isLoggingDriveTrain) {
 				StringBuilder sb = new StringBuilder();
 				sb.append("DriveTrainMethod: ").append(output.driveTrainMethod.name()).append("\n");
-				sb.append("DriveTrainPIDType: ").append(output.driveTrainPidType.name()).append("\n");
 				sb.append("DriveTrainSpeed: ").append(output.driveTrainSpeed).append("\n");
 				DRIVE_TRAIN_LOGGER.fine(sb.toString());
 				ANYTHING_LOGGER.fine("[DriveTrain]\n" + sb.toString());
@@ -141,7 +140,7 @@ public class RobotLogger {
 		if (isLoggingAnything && isLoggingRobotState) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Current State: ").append(state.getStateName()).append("\n");
-			sb.append("Time in state: ").append(System.currentTimeMillis()-state.stateStartTime).append("\n");
+			sb.append("Time in state: ").append(state.getElapsedTime()).append("\n");
 			ROBOT_STATE_LOGGER.fine(sb.toString());
 			ANYTHING_LOGGER.fine("[State]\n" + sb.toString());
 		}

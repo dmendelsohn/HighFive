@@ -29,9 +29,6 @@ public class Enums {
 		DO_NOTHING
 	}
 
-	public enum DriveTrainPidType {
-		GYROSCOPE	
-	}
 
 	public enum SorterMethod {
 		SET_SORTER_POSITION,
