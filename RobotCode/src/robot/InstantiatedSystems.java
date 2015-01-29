@@ -104,26 +104,13 @@ public class InstantiatedSystems{
 
     public int readFrontIRDist(){
 	return RobotMap.FRONT_IR_TRANS+(int)(shield.analogRead(RobotMap.FRONT_IR_INPUT)*RobotMap.FRONT_IR_SCALE);
-	//return 6.0;
     }
 
     public int readRightBackIRDist(){
 	return RobotMap.RIGHT_BACK_IR_TRANS+(int)(shield.analogRead(RobotMap.RIGHT_BACK_IR_INPUT)*RobotMap.RIGHT_BACK_IR_SCALE);
-	//return 0;
     }
 
     public int readRightFrontIRDist(){
 	return RobotMap.RIGHT_FRONT_IR_TRANS+(int)(shield.analogRead(RobotMap.RIGHT_FRONT_IR_INPUT)*RobotMap.RIGHT_FRONT_IR_SCALE);
-	//return 0;
     }
-
-    /*
-      public double readRightEncoderCount(){
-      return rightMotorEncoder.getCount()
-      }	
-      public double readConveyorEncoderCount(){
-      //return conveyorMotorEncoder.getCount();
-      return 6.0;
-      }
-    */
 }

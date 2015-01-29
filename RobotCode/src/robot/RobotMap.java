@@ -79,6 +79,8 @@ public class RobotMap{
     //Color thresholding constants
     public static final double NOTHING_GREEN_COLOR_BOUNDARY = 210.0;
     public static final double GREEN_RED_COLOR_BOUNDARY = 380.0;
-	
+
+    //Time Constants
+    public static final long TOTAL_SORT_TIME = 1500;
 }
 
