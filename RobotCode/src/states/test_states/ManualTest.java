@@ -69,7 +69,7 @@ public class ManualTest extends StateBase{
 						break;
 					case '7': //Close right hopper
 						output.hopperMethod = HopperMethod.MOVE_RIGHT;
-						output.hopperRightOpen = true;
+						output.hopperRightOpen = false;
 						break;
 					case 'z': //Zero the gyro
 						output.zeroGyro = true;

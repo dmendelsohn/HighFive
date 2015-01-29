@@ -37,8 +37,10 @@ public class Hoppers{
     }
     public void setRight(boolean release){
 		if (release == true){
+			System.out.println("Commanding servo to open right hatch");
 		    rightReleaseServo.setPosition(-0.9);
 		}else{
+			System.out.println("Commanding servo to close right hatch");
 		    rightReleaseServo.setPosition(0.9);
 		}
     }

@@ -136,13 +136,16 @@ public class Robot{
 		
 	switch(output.hopperMethod) {
 	case MOVE_BOTH:
+		System.out.println("Move both hoppers, (left right) = " + output.hopperLeftOpen + " " + output.hopperRightOpen);
 	    systems.hopper.setBoth(output.hopperLeftOpen, output.hopperRightOpen);
 	    break;
 	case MOVE_LEFT:
+		System.out.println("Move left hopper, open = " + output.hopperLeftOpen);
 	    systems.hopper.setLeft(output.hopperLeftOpen);
 	    //true opens hatch
 	    break;
 	case MOVE_RIGHT:
+		System.out.println("Move right hopper, open = " + output.hopperRightOpen);
 	    systems.hopper.setRight(output.hopperRightOpen);
 	    //true opens hatch				
 	    break;
