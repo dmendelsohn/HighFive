@@ -67,6 +67,9 @@ public class Robot{
 			case "ReadoutTest":
 			        startState = new ReadoutTest();
 			        break;
+			case "WallFollow":
+			        startState = new WallFollow();
+				break;
 			case "ManualTest":
 				startState = new ManualTest();
 				break;

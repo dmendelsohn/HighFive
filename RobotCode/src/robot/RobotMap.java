@@ -37,6 +37,9 @@ public class RobotMap{
     public static final double RIGHT_BACK_IR_SCALE = 1;
     public static final double RIGHT_FRONT_IR_SCALE = 1;
 
+    public static final int FRONT_IR_UPPER_THRESHOLD = 250;
+    public static final int FRONT_IR_LOWER_THRESHOLD = 175;
+
     //Analogs
     public static final int SORTER_INPUT_AI = 0;
     public static final int LEFT_LINE_AI = 1;
