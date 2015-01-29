@@ -69,14 +69,14 @@ public class DriveTrain{
 	lastTime = System.currentTimeMillis();
 
     }
-    public void pidDriveTwoInputs(String wallDirection, double setPoint, double speed, double currentPositionBack, double currentPositionFront, double kp, double ki, double kd) {
+    public void pidDriveTwoInputs(double setPoint, double speed, double currentPositionBack, double currentPositionFront, double kp, double ki, double kd) {
 
 	leftSpeed = speed;
 	rightSpeed = speed;
 
 	//constants for how to weigh errors relative to each other
-	error1 = (-1.0)*(currentPositionFront-currentPositionBack);
-        error2 = (-1.0)*((currentPositionFront+currentPositionBack)/2.0 - setPoint);
+	error1 = (RobotMap.DIFF_WEIGHT_DOUBLE_PID_DRIVE)*(currentPositionFront-currentPositionBack);
+        error2 = (RobotMap.DIST_WEIGHT_DOUBLE_PID_DRIVE)*((currentPositionFront+currentPositionBack)/2.0 - setPoint);
 	error = error1 + error2;
 
 	long dt = System.currentTimeMillis() - lastTime;
@@ -89,13 +89,11 @@ public class DriveTrain{
 	output = kp*error+ki*integral+kd*derivative;
 	System.out.println("output:"+output);
 	
-	if (wallDirection.equals("left")){
-	    outputLeftSpeed=leftSpeed-output;
-	    outputRightSpeed=rightSpeed+output;
-	}else{
-	    outputLeftSpeed=leftSpeed+output;
-	    outputRightSpeed=rightSpeed-output;	
-	}
+	outputLeftSpeed=leftSpeed+output;
+	outputRightSpeed=rightSpeed-output;	
+ 
+	System.out.println("leftSpeed: " + outputLeftSpeed);
+	System.out.println("rightSpeed: " + outputRightSpeed);
 
 	setLeftSpeed(outputLeftSpeed);
 	setRightSpeed(outputRightSpeed);

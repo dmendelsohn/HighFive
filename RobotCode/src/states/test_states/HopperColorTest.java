@@ -18,9 +18,9 @@ public class HopperColorTest extends StateBase{
 	output.conveyorMethod = "doNothing";
 
 	output.hopperMethod = "setSorterPosition";
-	output.hopperPosition = -.1;
-	output.leftHatchOpen = false;
-	output.rightHatchOpen = false;
+	output.sorterPosition = -.1;
+	output.hopperOpenLeft = false;
+	output.hopperOpenRight = false;
 
 	output.visionMethod = "doNothing";
 

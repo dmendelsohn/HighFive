@@ -9,11 +9,11 @@ public abstract class StateBase{
 	stateStartTime = System.currentTimeMillis();
     }
 
-	public String getStateName() {
-		return this.getClass().getName();
-	}
     public abstract OutputStateVariables run(InputStateVariables input);
 
     public abstract StateBase getNext(InputStateVariables input);
-		
+
+    public String getStateName(){
+	return "StateBase";
+    }
 }

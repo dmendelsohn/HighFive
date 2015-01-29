@@ -20,9 +20,9 @@ public class WallFollowTest extends StateBase{
 
     public OutputStateVariables run(InputStateVariables input){
 	System.out.println("WallFollowTest");
-	if (System.currentTimeMillis()-stateStartTime>10000){
+	/*if (System.currentTimeMillis()-stateStartTime>10000){
 	    output.drivetrainMethod = "stop";
-	}	
+	    }*/	
 	return output;
     }
 
