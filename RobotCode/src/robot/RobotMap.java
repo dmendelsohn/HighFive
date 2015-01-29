@@ -9,8 +9,8 @@ public class RobotMap{
 
 
     //PWM slots
-    public static final int LEFT_MOTOR_PWM = 0;
-    public static final int RIGHT_MOTOR_PWM = 1;
+    public static final int LEFT_MOTOR_PWM = 1;
+    public static final int RIGHT_MOTOR_PWM = 0;
     public static final int CONVEYOR_MOTOR_PWM = 2;
 
     public static final int SORTER_SERVO_PWM = 13;
@@ -24,17 +24,18 @@ public class RobotMap{
 
     //MUX Shield slots
     //Inputs
-    //public static final int FRONT_ULTRASONIC_INPUT = 7;
-    public static final int LEFT_BACK_ULTRASONIC_INPUT = 3;
-    public static final int LEFT_FRONT_ULTRASONIC_INPUT = 5;
-    public static final int RIGHT_BACK_ULTRASONIC_INPUT = 1;
-    public static final int RIGHT_FRONT_ULTRASONIC_INPUT = 9;
-    //Outputs
-    //public static final int FRONT_ULTRASONIC_OUTPUT = 7;
-    public static final int LEFT_BACK_ULTRASONIC_OUTPUT = 3;
-    public static final int LEFT_FRONT_ULTRASONIC_OUTPUT = 5;
-    public static final int RIGHT_BACK_ULTRASONIC_OUTPUT = 1;
-    public static final int RIGHT_FRONT_ULTRASONIC_OUTPUT = 9;
+    public static final int FRONT_IR_INPUT = 2;
+    public static final int RIGHT_BACK_IR_INPUT = 0;
+    public static final int RIGHT_FRONT_IR_INPUT = 1;
+
+    //IR calibration values
+    public static final int FRONT_IR_TRANS = 120;
+    public static final int RIGHT_BACK_IR_TRANS = 0;
+    public static final int RIGHT_FRONT_IR_TRANS = 0;
+
+    public static final double FRONT_IR_SCALE = 1.2;
+    public static final double RIGHT_BACK_IR_SCALE = 1;
+    public static final double RIGHT_FRONT_IR_SCALE = 1;
 
     //Analogs
     public static final int SORTER_INPUT_AI = 0;
@@ -62,13 +63,15 @@ public class RobotMap{
     public static final double RIGHT_RELEASE_UPPER_BOUND = 0.085;
 
     //PID constants
-    public static final double KP_PID_DRIVE = .1/45.0;
+    public static final double KP_PID_DRIVE = -.1/45.0;
     public static final double KI_PID_DRIVE = 0;
     public static final double KD_PID_DRIVE = 0;
 
-    public static final double KP_DOUBLE_PID_DRIVE = .2/.2;
+    public static final double KP_DOUBLE_PID_DRIVE = -.1/200;
     public static final double KI_DOUBLE_PID_DRIVE = 0;
     public static final double KD_DOUBLE_PID_DRIVE = 0;
+    public static final double DIFF_WEIGHT_DOUBLE_PID_DRIVE = 1.0;
+    public static final double DIST_WEIGHT_DOUBLE_PID_DRIVE = 0.5;
 
     //Color thresholding constants
     public static final double NOTHING_GREEN_COLOR_BOUNDARY = 210.0;

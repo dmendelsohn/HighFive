@@ -12,7 +12,7 @@ public class Robot{
     public StateBase state;
     public static long runTime;
     public InstantiatedSystems systems;
-	public RobotLogger logger;
+    //	public RobotLogger logger;
 
 	public boolean inEnemyZone;
 
@@ -20,7 +20,7 @@ public class Robot{
 		runTime = System.currentTimeMillis();
 		state = new SorterColorTest();
 		systems = new InstantiatedSystems();
-		logger = new RobotLogger();
+		//logger = new RobotLogger();
 		inEnemyZone = false;
     }
 
@@ -28,7 +28,7 @@ public class Robot{
 		runTime = System.currentTimeMillis();
 		state = startingState;
 		systems = new InstantiatedSystems();
-		logger = new RobotLogger();
+		//		logger = new RobotLogger();
 		inEnemyZone = false;
     }
 
@@ -64,6 +64,9 @@ public class Robot{
 			case "DriveTrainTest":
 				startState = new DriveTrainTest();
 				break;
+			case "ReadoutTest":
+			        startState = new ReadoutTest();
+			        break;
 			case "ManualTest":
 				startState = new ManualTest();
 				break;
@@ -87,19 +90,20 @@ public class Robot{
 			output = robot.readState(input);
 			robot.addPassiveOutputs(output, input);
 			robot.processOutput(output, input);
-			
+			/*
 			//Logging
 			robot.getLogger().logInputs(input);
 			robot.getLogger().logState(robot.getState());
 			robot.getLogger().logOutputs(output);
+			*/
 			
 			Utils.msleep(10);
 		}
     }
 
-	public RobotLogger getLogger() {
+    /*	public RobotLogger getLogger() {
 		return logger;
-	}
+		}*/
 
 	public StateBase getState() {
 		return state;
@@ -139,21 +143,7 @@ public class Robot{
 				systems.driveTrain.pidDrive(0, output.driveTrainSpeed, input.gyroAngle, RobotMap.KP_PID_DRIVE, RobotMap.KI_PID_DRIVE, RobotMap.KD_PID_DRIVE);
 				break;
 			case PID_DRIVE_TWO_INPUTS:
-				switch (input.closerSide) {
-					case LEFT:
-						systems.driveTrain.pidDriveTwoInputs(CloserSide.LEFT, 0.5,
-						     output.driveTrainSpeed, input.leftBackUltraDist, input.leftFrontUltraDist,
-						     RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
-						break;
-					case RIGHT:
-						systems.driveTrain.pidDriveTwoInputs(CloserSide.RIGHT, 0.5, 
-						     output.driveTrainSpeed, input.rightBackUltraDist, input.rightFrontUltraDist, 
-						     RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
-						break;
-					case NONE:
-						//TODO: handle
-						break;
-				} 
+						systems.driveTrain.pidDriveTwoInputs(500, output.driveTrainSpeed, input.rightBackIRDist, input.rightFrontIRDist, RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
 				break;
 			case MOVE_STRAIGHT_ROUGH:
 				systems.driveTrain.moveStraightRough(output.driveTrainSpeed);	

@@ -29,11 +29,6 @@ public class Enums {
 		DO_NOTHING
 	}
 
-	public enum CloserSide {
-		LEFT,
-		RIGHT,
-		NONE
-	}
 
 	public enum SorterMethod {
 		SET_SORTER_POSITION,
