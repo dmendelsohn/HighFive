@@ -153,6 +153,7 @@ public class Robot{
 
 	switch(output.sorterMethod){
 	case SET_SORTER_POSITION:
+		System.out.println("Setting sorter position to: " + output.sorterPosition.name());
 	    systems.sorter.setSorterPosition(output.sorterPosition);
 	    break;
 	case DO_NOTHING:
@@ -177,12 +178,14 @@ public class Robot{
 		//Sorting
 		double analogReading = input.photoReading;
 		systems.sorter.addDataPoint(analogReading);
-		if (RobotMap.AUTO_SORT && systems.sorter.hasColorStreak()) {
-			output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
-			BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
-			output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
-		} else {
-			output.sorterMethod = SorterMethod.DO_NOTHING;
+		if (RobotMap.AUTO_SORT) {
+			if (systems.sorter.hasColorStreak()) {
+					output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+				BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
+				output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
+			} else {
+				output.sorterMethod = SorterMethod.DO_NOTHING;
+			}
 		}
 
 		//TODO: Line Following
