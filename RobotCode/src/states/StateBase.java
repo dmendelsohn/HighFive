@@ -15,6 +15,10 @@ public abstract class StateBase{
 		return this.getClass().getName();
 	}
 
+	public long getElapsedTime() {
+		return System.currentTimeMillis() - stateStartTime;
+	}
+
 	protected OutputStateVariables getDefaultOutput() {
 		OutputStateVariables output = new OutputStateVariables();
 		output.driveTrainMethod = DriveTrainMethod.DO_NOTHING;

@@ -29,10 +29,6 @@ public class Enums {
 		DO_NOTHING
 	}
 
-	public enum DriveTrainPidType {
-		GYROSCOPE	
-	}
-
 	public enum CloserSide {
 		LEFT,
 		RIGHT,

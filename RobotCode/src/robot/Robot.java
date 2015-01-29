@@ -41,7 +41,7 @@ public class Robot{
 			StateBase startState;
 			switch (args[0]) {
 			case "Main":
-				startState = new BoxSearch();
+				startState = new WallFollowTest(); //Main behavior
 				break;
 			case "SorterColorTest":
 				startState = new SorterColorTest();
@@ -57,9 +57,6 @@ public class Robot{
 				break;
 			case "CaptureTest":
 				startState = new CaptureTest();
-				break;
-			case "VisionTest":
-				startState = new VisionTest();
 				break;
 			case "WallFollowTest":
 				startState = new WallFollowTest();
