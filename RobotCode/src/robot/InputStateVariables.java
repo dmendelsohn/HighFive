@@ -51,23 +51,25 @@ public class InputStateVariables{
 	//System.out.println("right front");
 	rightFrontUltraDist = systems.readRightFrontUltraDist();
 
-	System.out.println("front:"+ frontUltraDist);
-	System.out.println("leftback:"+ leftBackUltraDist);
-	System.out.println("leftfront:"+ leftFrontUltraDist);
-	System.out.println("rightBack:"+ rightBackUltraDist);
-	System.out.println("rightFront:"+ rightFrontUltraDist);
+	//System.out.println("front:"+ frontUltraDist);
+	//System.out.println("leftback:"+ leftBackUltraDist);
+	//System.out.println("leftfront:"+ leftFrontUltraDist);
+	//System.out.println("rightBack:"+ rightBackUltraDist);
+	//System.out.println("rightFront:"+ rightFrontUltraDist);
 
 	if((leftBackUltraDist+leftFrontUltraDist)<(rightBackUltraDist+rightFrontUltraDist)){
 	    closerSide = "left";
 	}else{
 	    closerSide = "right";
 	}
-	System.out.println(closerSide);
-
+	//System.out.println(closerSide);
+	
 	photoReading = systems.colorSensor.read();
-	if (photoReading < 400 && photoReading > 300){
+	//System.out.println("color reading:"+photoReading);
+	
+	if (photoReading < RobotMap.GREEN_RED_COLOR_BOUNDARY && photoReading >  RobotMap.NOTHING_GREEN_COLOR_BOUNDARY){
 	    photoState = "green";
-	}else if (photoReading > 450){
+	}else if (photoReading > RobotMap.GREEN_RED_COLOR_BOUNDARY){
 	    photoState = "red";
 	}else{
 	    photoState = "none";

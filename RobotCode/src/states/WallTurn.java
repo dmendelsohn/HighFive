@@ -17,7 +17,7 @@ public class WallTurn extends StateBase{
 	}else{
 	    output.drivetrainSpeed = -0.2;
 	}
-		
+	output.sorterMethod = "doNothing";	
 	output.hopperMethod = "doNothing";
 	output.conveyorMethod = "doNothing";
 

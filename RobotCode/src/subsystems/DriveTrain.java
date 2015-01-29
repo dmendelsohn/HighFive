@@ -28,12 +28,10 @@ public class DriveTrain{
     public double outputLeftSpeed;
     public double outputRightSpeed;
 
-    public DriveTrain(){
+    public DriveTrain(I2c i2c){
 
 	System.out.println("Hello DriveTrain!");
 	
-	I2c i2c = new I2c(RobotMap.I2C_PORT);
-	Pwm.initPwm(i2c);
 	//MotorController(DIO, i2c, pwm, inverted?)
 	leftMotor = new MotorController(RobotMap.LEFT_MOTOR_DIO, i2c, RobotMap.LEFT_MOTOR_PWM, false);
 	rightMotor = new MotorController(RobotMap.RIGHT_MOTOR_DIO, i2c, RobotMap.RIGHT_MOTOR_PWM, true);
@@ -77,8 +75,8 @@ public class DriveTrain{
 	rightSpeed = speed;
 
 	//constants for how to weigh errors relative to each other
-	error1 = (0.2)*(currentPositionFront-currentPositionBack);
-        error2 = (0.8)*((currentPositionFront+currentPositionBack)/2.0 - setPoint);
+	error1 = (-1.0)*(currentPositionFront-currentPositionBack);
+        error2 = (-1.0)*((currentPositionFront+currentPositionBack)/2.0 - setPoint);
 	error = error1 + error2;
 
 	long dt = System.currentTimeMillis() - lastTime;
@@ -112,10 +110,11 @@ public class DriveTrain{
     }
 
     public void setRightSpeed(double speed){
-	rightMotor.setSpeed(speed);
+        rightMotor.setSpeed(speed);
     }
 
     public void moveStraightRough(double speed){
+	System.out.println("speed:"+speed);
 	setLeftSpeed(speed);
 	setRightSpeed(speed);
     }

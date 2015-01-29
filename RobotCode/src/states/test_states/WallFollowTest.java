@@ -1,4 +1,5 @@
-package states;
+package states.test_states;
+import states.*;
 import robot.*;
 
 public class WallFollowTest extends StateBase{
@@ -10,7 +11,8 @@ public class WallFollowTest extends StateBase{
 	super();
 	output = new OutputStateVariables();
 	output.drivetrainMethod = "pidDriveTwoInputs";
-	output.drivetrainSpeed = 0.2;		
+	output.drivetrainSpeed = 0.2;
+	output.sorterMethod = "doNothing";
 	output.hopperMethod = "doNothing";
 	output.conveyorMethod = "doNothing";
 	output.visionMethod = "senseTarget";

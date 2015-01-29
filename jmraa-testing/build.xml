@@ -7,7 +7,7 @@
   <property name="jni.lib.name" value="jmraa"/>
   <property name="classes.dir" value="classes"/>
   <!-- This class contains the native calls -->
-  <property name="jni.class" value="jmraa.Gpio jmraa.I2c jmraa.Aio jmraa.Spi jmraa.Utils jmraa.Encoder"/>
+  <property name="jni.class" value="jmraa.Gpio jmraa.I2c jmraa.Aio jmraa.Spi jmraa.Utils jmraa.Encoder jmraa.Ultrasonic"/>
   <!-- Generated JAR file name -->
   <property name="jar.file" value="${ant.project.name}.jar"/>
 

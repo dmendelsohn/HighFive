@@ -9,7 +9,13 @@ public class Main{
     public static void main(String[] args){
 	System.out.println("hello");
 	
-
+	/*Ultrasonic ultra = new Ultrasonic(8,9);
+	for(int i = 0; i < 10000; i++){
+	    ultra.ping();
+	    System.out.println("meters: " + ultra.getMeters());
+	    Utils.msleep(100);
+	    }*/
+	
 	/*MuxShield shield = new MuxShield(0,1,2,3,4,5,6);
 
 	Ultrasonic ultra = new Ultrasonic(shield, 1, 1);
@@ -20,11 +26,11 @@ public class Main{
 	    Utils.msleep(100);
 	}*/
 
-	Aio color = new Aio(0);
+	/*Aio color = new Aio(0);
 	for(int i = 0; i < 10000; i++){
 	    System.out.println("read: " + color.read());
 	    Utils.msleep(100);
-	}
+	    }*/
 
 	/*I2c i2c = new I2c(6);
 	Pwm.initPwm(i2c);
@@ -73,11 +79,11 @@ public class Main{
 	    }*/
 	
 
-	/*Encoder enc = new Encoder(8, 6, false);
-	for(int i = 0; i < 100; i++){
+	Encoder enc = new Encoder(0,1, false);
+	for(int i = 0; i < 1000; i++){
 	    System.out.println("count: " + enc.getCount() + "   deriv: " + enc.getDerivative());
 	    Utils.msleep(100);
-	    }*/
+	}
 	
 
 	/*Gyro gyro = new Gyro(0, 10);
