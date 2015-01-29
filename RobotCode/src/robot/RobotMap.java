@@ -70,6 +70,9 @@ public class RobotMap{
     public static final double RIGHT_RELEASE_LOWER_BOUND = 0.04;
     public static final double RIGHT_RELEASE_UPPER_BOUND = 0.085;
 
+	public static final double MAX_MOTOR_SPEED = 0.5;
+	public static final double MIN_MOTOR_SPEED = -0.5;
+
     //PID constants
     public static final double KP_PID_DRIVE = -.1/45.0;
     public static final double KI_PID_DRIVE = 0;
