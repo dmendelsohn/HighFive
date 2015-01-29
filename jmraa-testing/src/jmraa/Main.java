@@ -16,21 +16,21 @@ public class Main{
 	    Utils.msleep(100);
 	    }*/
 	
-	/*MuxShield shield = new MuxShield(0,1,2,3,4,5,6);
-
-	Ultrasonic ultra = new Ultrasonic(shield, 1, 1);
+	  MuxShield shield = new MuxShield(0,1,2,3,4,5,6,1);
 
 	for(int i = 0; i < 10000; i++){
-	    long read = ultra.ping();
-	    System.out.println("read: " + read + " meters: " + Ultrasonic.asMeters(read));
+	    int rightFront = shield.analogRead(1);
+	    int front = shield.analogRead(2);
+	    int rightBack = (shield.analogRead(0));
+	    System.out.println("1.2: " + (int)(rightFront-1.2*rightBack) + "  1.25: " + (int)(rightFront-1.25*rightBack) + "  1.3: " + (int)(rightFront-1.3*rightBack));
 	    Utils.msleep(100);
-	}*/
-
+	}
+	
 	/*Aio color = new Aio(0);
 	for(int i = 0; i < 10000; i++){
 	    System.out.println("read: " + color.read());
 	    Utils.msleep(100);
-	    }*/
+	}*/
 
 	/*I2c i2c = new I2c(6);
 	Pwm.initPwm(i2c);
