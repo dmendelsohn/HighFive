@@ -19,7 +19,7 @@ public class WallTurn extends StateBase{
     }
 
     public StateBase getNext(InputStateVariables input){
-	if(input.frontShortIRVal == 0 || input.frontIRDist < RobotMap.FRONT_IR_LOWER_THRESHOLD){
+	if(input.frontShortIRVal == 1 && input.frontIRDist < RobotMap.FRONT_IR_LOWER_THRESHOLD){
 	    return new WallFollow();
 	} else{
 	    return this;

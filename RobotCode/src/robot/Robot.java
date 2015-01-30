@@ -195,17 +195,21 @@ public class Robot{
 
     private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
 	if(RobotMap.AUTO_SORT){
-	    boolean irReading = input.blockIRBoolean;
+	    //boolean irReading = input.blockIRBoolean;
 
-		if (System.currentTimeMillis() - systems.sorter.getLastMovementTime() > 0.5*RobotMap.TOTAL_SORT_TIME) {
+		if (System.currentTimeMillis() - systems.sorter.getLastMovementTime() > RobotMap.THERE_SORT_TIME) {
 			output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
-			output.sorterPosition = SorterPosition.MIDDLE;		
+			output.sorterPosition = SorterPosition.MIDDLE;
+		}
+		if(System.currentTimeMillis() - systems.sorter.getLastMovementTime() > RobotMap.TOTAL_SORT_TIME){
+			output.conveyorMethod = ConveyorMethod.MOVE_BELT;
+			output.conveyorSpeed = .12;
 		}else{
 		    output.conveyorMethod = ConveyorMethod.STOP_BELT;
 		}
 		
 
-	    if (!colorReadingFlag) {
+		/*if (!colorReadingFlag) {
 			systems.sorter.addIRDataPoint(irReading);
 			if(systems.sorter.hasIRStreak()){
 			    colorReadingFlag = true;
@@ -213,7 +217,7 @@ public class Robot{
 		    	systems.sorter.clearColorReadings();
 		   		systems.sorter.clearIRReadings();
 			}
-		} else { //We've got a block, got to determine color
+			} else { //We've got a block, got to determine color*/
 	    
 			double analogReading = input.photoReading;
 			systems.sorter.addColorDataPoint(analogReading);
@@ -223,15 +227,15 @@ public class Robot{
 				BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
 				System.out.println("Color streak of color: " + color.name());
 				output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
-				colorReadingFlag = false;
+				//colorReadingFlag = false;
 				//clear readings
-				systems.sorter.clearColorReadings();
-				systems.sorter.clearIRReadings();
+				//systems.sorter.clearColorReadings();
+				//systems.sorter.clearIRReadings();
 			} else {
 				output.sorterMethod = SorterMethod.DO_NOTHING;
 			}
 
-		}
+			//}
 	}
 
 

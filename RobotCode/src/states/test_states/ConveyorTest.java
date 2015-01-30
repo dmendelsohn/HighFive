@@ -15,11 +15,11 @@ public class ConveyorTest extends StateBase{
 
     public OutputStateVariables run(InputStateVariables input){
 		OutputStateVariables output = getDefaultOutput();
-		if (getElapsedTime() < 25000){	
+		/*if (getElapsedTime() < 25000){	
 			//Default behavior, move belt
 		}else{
 		    output.conveyorMethod = ConveyorMethod.STOP_BELT;
-		}
+		    }*/
 		return output;
     }
 

@@ -60,6 +60,10 @@ public class InstantiatedSystems{
 	return gyro.getDegrees();	
     }
 
+    public int readPhotoVal(){
+	return shield.analogRead(RobotMap.PHOTO_INPUT);
+    }
+
     public int readFrontIRDist(){
 	return RobotMap.FRONT_IR_TRANS+(int)(shield.analogRead(RobotMap.FRONT_IR_INPUT)*RobotMap.FRONT_IR_SCALE);
     }

@@ -77,9 +77,11 @@ public class Sorter{
 
     private BlockColor getBlockColor(double photoReading){
 		if(photoReading<RobotMap.GREEN_RED_COLOR_BOUNDARY){
-		    return BlockColor.GREEN;
-		} else {
 		    return BlockColor.RED;
+		} else if(photoReading < RobotMap.NOTHING_GREEN_COLOR_BOUNDARY){
+		    return BlockColor.GREEN;
+		} else{
+		    return BlockColor.NONE;
 		}
     }
 

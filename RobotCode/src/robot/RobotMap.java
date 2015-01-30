@@ -32,6 +32,7 @@ public class RobotMap{
     public static final int FRONT_IR_INPUT = 2;
     public static final int RIGHT_BACK_IR_INPUT = 0;
     public static final int RIGHT_FRONT_IR_INPUT = 1;
+    public static final int PHOTO_INPUT = 3;
     //Digital
     public static final int BLOCK_IR_INPUT = 1; 
     public static final int FRONT_SHORT_IR_INPUT = 2;
@@ -98,8 +99,8 @@ public class RobotMap{
     public static final double KD_PID_TURN = 0;
 
     //Color thresholding constants
-    public static final double NOTHING_GREEN_COLOR_BOUNDARY = 210.0;
-    public static final double GREEN_RED_COLOR_BOUNDARY = 99.0;
+    public static final double NOTHING_GREEN_COLOR_BOUNDARY = 630.0;
+    public static final double GREEN_RED_COLOR_BOUNDARY = 510.0;
 	public static final double LINE_IR_THRESHHOLD = 800.0;
 
 	public static final int IR_BLOCK_THRESHHOLD = 2;	//Two IR positive readings to determine if block is present
@@ -109,7 +110,8 @@ public class RobotMap{
 
 
     //Time Constants
-    public static final long TOTAL_SORT_TIME = 1500;
+    public static final long THERE_SORT_TIME = 600;
+    public static final long TOTAL_SORT_TIME = 1300;
 
 }
 
