@@ -1,7 +1,7 @@
-<project name="Main" basedir="." default="rebuild-run">
+<project name="Vision" basedir="." default="jar">
 	<property name="src.dir"				value="src"/>
 	<property name="build.dir"				value="build"/>
-	<property name="lib.dir"     value="../vision-lib/"/>
+	<property name="lib.dir"     			value="../vision-lib/"/>
 	<path id="classpath">
           <fileset dir="${lib.dir}" includes="**/*.jar"/>
 	</path>
@@ -9,7 +9,6 @@
 	<property name="classes.dir"			value="${build.dir}/classes"/>
 	<property name="jar.dir"				value="${build.dir}/jar"/>
 	
-	<property name="main-class"				value="${ant.project.name}"/>
 	<property name="filter-class"			value="FilterImage"/>
 	<property name="blob-labeling-class"	value="BlobLabeling"/> <!-- Creates a byte array with color values replaced by blob labels, + info file -->
 	<property name="blob-analysis-class"	value="BlobAnalysis"/> <!--Finds bounding box, centroid, and deletes blobs that are too small -->
@@ -66,68 +65,9 @@
 
 	<target name="jar" depends="compile">
 		<mkdir dir="${jar.dir}"/>
-		<jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
-			<manifest>
-				<attribute name="Main-Class" value="${main-class}"/>
-			</manifest>
-		</jar>
+		<jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}"/>
 	</target>
 
-	<target name="run-filter" depends="jar">
-		<java fork="true" classname="${filter-class}">
-			<classpath>
-				<path refid="classpath"/>
-				<pathelement location="${jar.dir}/${ant.project.name}.jar"/>
-			</classpath>
-			<arg value="${input-file}"/>
-			<arg value="${filter-img-file}"/>
-			<arg value="${filter-raw-file}"/>
-			<arg value="${filter-info-file}"/>
-		</java>
-	</target>
 
-	<target name="run-blob-labeling" depends="run-filter">
-		<java fork="true" classname="${blob-labeling-class}">
-			<classpath>
-				<path refid="classpath"/>
-				<pathelement location="${jar.dir}/${ant.project.name}.jar"/>
-			</classpath>
-			<arg value="${filter-raw-file}"/> <!-- this is the raw byte by byte input with GameColors as the pixel type -->
-			<arg value="${filter-info-file}"/> <!-- this has the height and width info that we require -->
-			<arg value="${label-raw-file}"/> <!-- this is where the int array with GameColor replaced by labels goes -->
-			<arg value="${label-info-file}"/> <!-- this is where the txt file mapping labels to game colors goes -->
-		</java>
-	</target>
-
-	<target name="run-blob-analysis" depends="run-blob-labeling">
-		<java fork="true" classname="${blob-analysis-class}">
-			<classpath>
-				<path refid="classpath"/>
-				<pathelement location="${jar.dir}/${ant.project.name}.jar"/>
-			</classpath>
-			<arg value="${label-raw-file}"/>	<!-- This is where the label int array comes from -->
-			<arg value="${label-info-file}"/>	<!-- This gives us image dimensions and label->color mappings -->
-			<arg value="${analysis-raw-file}"/>	<!-- This is label-raw-file, cleaned of blobs we don't want -->
-			<arg value="${analysis-img-file}"/>	<!-- human viewable output of the analysis -->
-			<arg value="${analysis-info-file}"/>	<!-- txt file w/ dimenions, label->color map, and BlobInfo objects-->
-		</java>
-	</target>
-
-	<target name="run" depends="jar">
-		<java fork="true" classname="${main-class}" >
-		        <sysproperty key="java.library.path" path="${lib.dir}"/>
-			<classpath>
-				<path refid="classpath"/>
-				<pathelement location="${jar.dir}/${ant.project.name}.jar"/>
-			</classpath>
-			<arg value="${input-file}"/>		<!-- source image path -->
-			<arg value="${analysis-info-file}"/> <!-- dest path to output text file -->
-			<arg value="${analysis-img-file}" /> 	<!-- if vis-value is true, then a jpg of the analysis will be put here -->
-			<arg value="${vis-value}" />
-			<arg value="${debug-value}"/>
-		</java>
-	</target>
-
-	<target name="rebuild-run" depends="clean,run"/>
 </project>
 

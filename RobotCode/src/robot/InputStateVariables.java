@@ -40,6 +40,10 @@ public class InputStateVariables{
 //	System.out.println("front: " + frontIRDist);
 //	System.out.println("rightBack: " + rightBackIRDist);
 //	System.out.println("rightFront: " + rightFrontIRDist);
+
+	//	System.out.println("front: " + frontIRDist);
+	//	System.out.println("rightBack: " + rightBackIRDist);
+	//	System.out.println("rightFront: " + rightFrontIRDist);
 	
 	photoReading = systems.colorSensor.read();
 

@@ -1,24 +1,31 @@
 package subsystems;
 import robot.RobotMap;
-//import opencv
+
+import vision.VisionThread;
 
 
 public class Vision{
+    VisionThread visionThread;
+
     public Vision(){
 	System.out.println("Hello Vision!");
+	visionThread = new VisionThread(0);
+	visionThread.start();
     }
+
     public boolean senseTarget(){
-	//true return if sees block
-	return true;
+	return visionThread.isBlockSeen();
     }
+
     public double getDistance(){
-	//get distance to nearest target
-	return 5.0;
+	return visionThread.getDistanceToNearestBlock();
     }
     public double howCentered(){
 	//-1 for to left, 0 to middle, 1 to right , 2 if non-existent
-	return 0;
+	return visionThread.getHeadingToNearestBlock();
     }
+
     public void doNothing(){
+	//Empty function body
     }
 }

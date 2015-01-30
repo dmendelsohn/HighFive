@@ -136,6 +136,9 @@ public class Robot{
 	case PID_DRIVE_TWO_INPUTS:
 	    systems.driveTrain.pidDriveTwoInputs(500, output.driveTrainSpeed, input.rightBackIRDist, input.rightFrontIRDist, RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
 	    break;
+	case VISION_TURN:
+	    systems.driveTrain.pidDrive(input.howCentered*30, output.driveTrainSpeed, input.gyroAngle, RobotMap.KP_PID_TURN, RobotMap.KI_PID_TURN, RobotMap.KD_PID_TURN);
+	    break;
 	case MOVE_STRAIGHT_ROUGH:
 	    systems.driveTrain.moveStraightRough(output.driveTrainSpeed);	
 	    break;
