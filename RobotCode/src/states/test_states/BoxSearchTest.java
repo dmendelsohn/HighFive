@@ -27,7 +27,8 @@ public class BoxSearchTest extends StateBase{
 	}else if(input.gyroAngle>360.){
 	    return new FindWallTest();
 	}else if(super.getElapsedTime()>2500){
-	    return new FindBoxTest();
+		return this; //Bad code below was in git, maybe an artifact of something Scott did?
+		//return new FindBoxTest();
 	} else{
 	    return this;
 	}
