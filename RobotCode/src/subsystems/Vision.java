@@ -25,6 +25,11 @@ public class Vision{
 	return visionThread.getHeadingToNearestBlock();
     }
 
+	public double getAngle() {
+		double xFraction = visionThread.getHeadingToNearestBlock();
+		return 0.5*RobotMap.CAMERA_ANGLE*xFraction;
+	}
+
     public void doNothing(){
 	//Empty function body
     }

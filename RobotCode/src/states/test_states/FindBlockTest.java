@@ -2,71 +2,75 @@ package states.test_states;
 import states.*;
 import robot.*;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.IOException;
-
 import static robot.Enums.*;
 
 public class FindBlockTest extends StateBase{
-	private BufferedReader bufferedReader;
-	private long lastUpdateTime; //millis since state started
-	private long cycleStartTime; //millis since state started
-	private static final long WAIT_TIMEOUT = 500;
-	private static final long DRIVE_TIMEOUT = 1000;
+	public enum FindBlockState { WAIT, UPDATE, DRIVE }
 
-	private double angle;
+	public static long WAIT_TIME = 1500;
+	public static long DRIVE_TIME = 1000;
+
+	private long cycleStartTime; //millis since state started
+	private FindBlockState findBlockState;
+	private boolean exitState;
+
 
     public FindBlockTest(){
 		super();
-		InputStreamReader fileInputStream=new InputStreamReader(System.in);
-		bufferedReader=new BufferedReader(fileInputStream);
-		lastUpdateTime = -1;
 		cycleStartTime = 0;
-    }
+		findBlockState = FindBlockState.WAIT;
+		exitState = false;
+		System.out.println("Constructing FindBlockTest()");
+	}
 
     public OutputStateVariables run(InputStateVariables input) {
 		OutputStateVariables output = getDefaultOutput();
 		long elapsedTime = getElapsedTime();
 		long cycleTime = elapsedTime - cycleStartTime;
-		System.out.println("Cycle time = " + cycleTime);
-		if (cycleTime < WAIT_TIMEOUT) {
-			output.driveTrainMethod = DriveTrainMethod.STOP;
-			output.zeroGyro = true;
-			System.out.println("Chillin");
-		} else if (cycleTime < lastUpdateTime + DRIVE_TIMEOUT) {  //Drive!
-			if (lastUpdateTime < cycleStartTime) { //Need to do an update in this cycle
-				resetAngle();
-				lastUpdateTime = getElapsedTime();
-				System.out.println("Reset angle!");
+
+		switch (findBlockState) {
+			case WAIT:
+				if (cycleTime > WAIT_TIME) {
+					findBlockState = FindBlockState.UPDATE;
+					System.out.println("Transitioning to Update");
+				}
 				output.driveTrainMethod = DriveTrainMethod.STOP;
-			} else {  //We have an update, drive!!
-				output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
-				output.driveTrainSpeed = 0.2;
-				output.driveTrainPidAngle = angle;
-				System.out.println("I am driving");
-			}
-		} else { //Reset cycle
-			cycleStartTime = getElapsedTime();
-			System.out.println("Reset cycle!");
+				output.zeroGyro = true;
+				break;
+			case UPDATE:
+				if (input.seesTarget) {
+					double angle = input.targetAngle;
+					double driveSpeed = 0.2; //Math.max(0.2, 0.1 + 0.2*input.boxDistance);
+					output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
+					output.driveTrainSpeed = driveSpeed;
+					output.driveTrainPidAngle = angle;
+					findBlockState = FindBlockState.DRIVE;
+					System.out.println("Driving...speed:  " + output.driveTrainSpeed + ", angle: " + output.driveTrainPidAngle);
+				} else {
+					exitState = true;
+					System.out.println("Going to exit FindBlockTest");
+					output.driveTrainMethod = DriveTrainMethod.STOP;
+				}
+				break;
+			case DRIVE:
+				if (cycleTime > WAIT_TIME + DRIVE_TIME) { //New cycle begins
+					System.out.println("Finished a FindBlock cycle");
+					cycleStartTime = elapsedTime;
+					output.driveTrainMethod = DriveTrainMethod.STOP;
+					findBlockState = FindBlockState.WAIT;
+				} else {
+					//Keep driving, do nothing
+				}
+				break;
 		}
 		return output;
 	}
 
     public StateBase getNext(InputStateVariables input){
-		return this;
-    }
-
-	private void resetAngle() {
-		String line = "Unknown input";
-		try {
-			while(!bufferedReader.ready()); //Spin until ready
-			line = bufferedReader.readLine();
-			angle = Double.valueOf(line);
-		} catch (Exception e) {
-			System.out.println("Bad user input: " + line);
-			e.printStackTrace();
+		if (exitState) {
+			return new FindWall();
+		} else {
+			return this;
 		}
-	}
-
+    }
 }
