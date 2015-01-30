@@ -114,4 +114,12 @@ public class InstantiatedSystems{
     public int readRightFrontIRDist(){
 	return RobotMap.RIGHT_FRONT_IR_TRANS+(int)(shield.analogRead(RobotMap.RIGHT_FRONT_IR_INPUT)*RobotMap.RIGHT_FRONT_IR_SCALE);
     }
+
+	public int[] getLineReadings() {
+		int[] result = new int[3];
+		result[0] = shield.analogRead(RobotMap.FRONT_LINE_TRACKER);
+		result[1] = shield.analogRead(RobotMap.MID_LINE_TRACKER);
+		result[2] = shield.analogRead(RobotMap.BACK_LINE_TRACKER);
+		return result;
+	}
 }

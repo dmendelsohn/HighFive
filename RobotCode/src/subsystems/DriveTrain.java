@@ -107,11 +107,20 @@ public class DriveTrain{
 
     }
 
+	public double getSafeSpeed(double speed) {
+		if (speed > 0)
+			return Math.min(speed, RobotMap.MAX_MOTOR_SPEED);
+		else
+			return Math.max(speed, RobotMap.MIN_MOTOR_SPEED);
+	}
+
     public void setLeftSpeed(double speed){
-	leftMotor.setSpeed(speed);
+		speed = getSafeSpeed(speed);
+		leftMotor.setSpeed(speed);
     }
 
     public void setRightSpeed(double speed){
+		speed = getSafeSpeed(speed);
         rightMotor.setSpeed(speed);
     }
 
