@@ -21,6 +21,7 @@ public class Enums {
 	public enum DriveTrainMethod {
 		PID_DRIVE,
 		PID_DRIVE_TWO_INPUTS,
+		VISION_TURN,
 		MOVE_STRAIGHT_ROUGH,
 		SET_TURN_ROUGH,
 		SET_LEFT_SPEED,
@@ -32,6 +33,7 @@ public class Enums {
 
 	public enum SorterMethod {
 		SET_SORTER_POSITION,
+		SET_SORTER_POSITION_REFINED,
 		DO_NOTHING
 	}
 

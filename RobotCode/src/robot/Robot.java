@@ -7,20 +7,33 @@ import jmraa.Utils;
 import static robot.Enums.*;
 
 public class Robot{
+
     static{System.loadLibrary("jmraa");}
 
     public StateBase state;
     public static long runTime;
     public InstantiatedSystems systems;
     public RobotLogger logger;
-	public HomeBaseTracker homeBaseTracker;
+    public HomeBaseTracker homeBaseTracker;
 
+    public boolean inEnemyZone;
+    public boolean colorReadingFlag;    
     public boolean isInHomeBase;
 
+
+    public Robot(){
+	runTime = System.currentTimeMillis();
+	state = new SorterColorTest();
+	systems = new InstantiatedSystems();
+	logger = new RobotLogger();
+	inEnemyZone = false;
+	colorReadingFlag = false;
+    }
+    /*
     public Robot(){
 		this(new ManualTest());
     }
-
+    */
     public Robot(StateBase startingState) {
 		runTime = System.currentTimeMillis();
 		state = startingState;
@@ -28,6 +41,7 @@ public class Robot{
 		logger = new RobotLogger();
 		isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
 		homeBaseTracker = new HomeBaseTracker(isInHomeBase);
+		inEnemyZone = false;
     }
 
     public static void main(String[] args){
@@ -116,6 +130,9 @@ public class Robot{
 	case PID_DRIVE_TWO_INPUTS:
 	    systems.driveTrain.pidDriveTwoInputs(500, output.driveTrainSpeed, input.rightBackIRDist, input.rightFrontIRDist, RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
 	    break;
+	case VISION_TURN:
+	    systems.driveTrain.pidDrive(input.howCentered*30, output.driveTrainSpeed, input.gyroAngle, RobotMap.KP_PID_TURN, RobotMap.KI_PID_TURN, RobotMap.KD_PID_TURN);
+	    break;
 	case MOVE_STRAIGHT_ROUGH:
 	    systems.driveTrain.moveStraightRough(output.driveTrainSpeed);	
 	    break;
@@ -161,6 +178,9 @@ public class Robot{
 		System.out.println("Setting sorter position to: " + output.sorterPosition.name());
 	    systems.sorter.setSorterPosition(output.sorterPosition);
 	    break;
+	    /*case SET_SORTER_POSITION_REFINED:
+	      systems.sorter.setSorterPositionRefined(output.sorterPosition);
+	      break;*/
 	case DO_NOTHING:
 	    systems.sorter.doNothing();
 	    break;
@@ -179,10 +199,46 @@ public class Robot{
 	}
     }
 
-	private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
-		//Sorting
+    private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
+	if(RobotMap.AUTO_SORT){
+	    //System.out.println("colorFlag:"+colorReadingFlag);
+	    //System.out.println("irReadings:" + systems.sorter.irReadings);
+	    //System.out.println("colorReadings:" + systems.sorter.colorReadings);
+	    boolean irReading = input.blockIRBoolean;
+	    System.out.println("irReading:"+irReading);
+	    /*
+	    if (!colorReadingFlag) {
+		
+		systems.sorter.addIRDataPoint(irReading);
+		if(systems.sorter.hasIRStreak()){
+		    colorReadingFlag = true;
+		    //empty ir array and color array
+		    systems.sorter.clearColorReadings();
+		    systems.sorter.clearIRReadings();
+		}else{
+		    //this sets back to center position if less than TOTAL_SORT_TIME
+		    output.sorterPosition = SorterPosition.MIDDLE;
+		}
+	    	
+	    }
+	    else{
+	    
 		double analogReading = input.photoReading;
-		systems.sorter.addDataPoint(analogReading);
+		systems.sorter.addColorDataPoint(analogReading);
+		if (systems.sorter.hasColorStreak()) {
+		    output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+		    BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
+		    output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
+		    colorReadingFlag = false;
+		    //clear readings
+		    systems.sorter.clearColorReadings();
+		    systems.sorter.clearIRReadings();
+		} else {
+		    output.sorterMethod = SorterMethod.DO_NOTHING;
+		}
+
+		}*/
+	    //systems.sorter.addDataPoint(analogReading);
 		if (RobotMap.AUTO_SORT) {
 			if (systems.sorter.hasColorStreak()) {
 					output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
@@ -197,5 +253,9 @@ public class Robot{
 		HomeBaseTracker homeBaseTracker = getHomeBaseTracker();
 		homeBaseTracker.update(lineReadings);
 		isInHomeBase = homeBaseTracker.isInHomeBase();
+
 	}
+
+	//TODO: Line Following
+    }
 }

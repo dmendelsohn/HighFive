@@ -1,0 +1,37 @@
+<project name="VisionTest" basedir="." default="run">
+
+    <property name="src.dir"     value="src"/>
+
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir"     value="${build.dir}/jar"/>
+    <property name="vision.dir"   value="../vision/build/jar/"/>
+
+    <property name="main-class"  value="Main.java"/>
+
+
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpath="${vision.dir}/Vision.jar"/> 
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/VisionTest.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+                <attribute name="Class-Path" value="../vision-system/build/jar/Vision.jar"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${jar.dir}/VisionTest.jar" fork="true">
+           <sysproperty key="java.library.path" path="../"/>
+	</java>
+    </target>

@@ -48,7 +48,7 @@ public class DriveTrain{
 	leftSpeed = speed;
 	rightSpeed = speed;
 
-	error = currentPosition;
+	error = currentPosition-setPoint;
 	long dt = System.currentTimeMillis() - lastTime;
 
 	integral = integral + error*dt;
@@ -57,6 +57,15 @@ public class DriveTrain{
 	//System.out.println("deriv:"+derivative);
 	
 	output = kp*error+ki*integral+kd*derivative;
+	System.out.println("current Pos: " + currentPosition + " setPt: " + setPoint);
+	System.out.println("output: " + output);
+	if(output > 0.3){
+	    output = 0.3;
+	}
+	if(output < -0.3){
+	    output = -0.3;
+	}
+
 	outputLeftSpeed=leftSpeed+output;
 	outputRightSpeed=rightSpeed-output;
 
