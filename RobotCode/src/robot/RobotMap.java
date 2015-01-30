@@ -38,6 +38,7 @@ public class RobotMap{
     //Digital
     public static final int BLOCK_IR_INPUT = 1; 
     public static final int FRONT_SHORT_IR_INPUT = 2;
+    public static final int ARDUINO_PORT = 9;
 
     public static final int FRONT_LINE_TRACKER = 6;
     public static final int MID_LINE_TRACKER = 5;
@@ -104,12 +105,13 @@ public class RobotMap{
     public static final double KD_PID_TURN = 0;
 
     //Color thresholding constants
-    public static final double NOTHING_GREEN_COLOR_BOUNDARY = 610.0;
-    public static final double GREEN_RED_COLOR_BOUNDARY = 487.0;
+    public static final double NOTHING_GREEN_COLOR_BOUNDARY = 740.0;
+    public static final double GREEN_IGNORE_COLOR_BOUNDARY = 680.0;
+    public static final double IGNORE_RED_COLOR_BOUNDARY = 640.0;
 	public static final double LINE_IR_THRESHHOLD = 800.0;
 
 	public static final int IR_BLOCK_THRESHHOLD = 2;	//Two IR positive readings to determine if block is present
-	public static final int NUM_COLOR_READINGS_HELD = 25;
+	public static final int NUM_COLOR_READINGS_HELD = 10;
     public static final int NUM_IR_READINGS_HELD = 15;
 
 

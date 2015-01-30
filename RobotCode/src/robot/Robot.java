@@ -11,56 +11,55 @@ public class Robot{
     static{System.loadLibrary("jmraa");}
 
     public StateBase state;
-	public long startTime;
+    public long startTime;
     public InstantiatedSystems systems;
     public RobotLogger logger;
     public HomeBaseTracker homeBaseTracker;
 
     public boolean colorReadingFlag;    
-	public long escapeStartTime; //Since runTime
+    public long escapeStartTime; //Since runTime
 
-	//Overall game constants
-	public boolean isInHomeBase;
-	public Phase phase;
+    //Overall game constants
+    public boolean isInHomeBase;
+    public Phase phase;
 
     public Robot(){
-	runTime = System.currentTimeMillis();
+	startTime = System.currentTimeMillis();
 	state = new SorterColorTest();
 	systems = new InstantiatedSystems();
 	logger = new RobotLogger();
-	inEnemyZone = false;
 	colorReadingFlag = false;
 	isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
     }
     /*
-    public Robot(){
-		this(new ManualTest());
-    }
+      public Robot(){
+      this(new ManualTest());
+      }
     */
     public Robot(StateBase startingState) {
-		state = startingState;
-		systems = new InstantiatedSystems();
-		logger = new RobotLogger();
-		isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
-		homeBaseTracker = new HomeBaseTracker(isInHomeBase);
-		startTime = System.currentTimeMillis();
-		escapeStartTime = System.currentTimeMillis();
+	state = startingState;
+	systems = new InstantiatedSystems();
+	logger = new RobotLogger();
+	isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
+	homeBaseTracker = new HomeBaseTracker(isInHomeBase);
+	startTime = System.currentTimeMillis();
+	escapeStartTime = System.currentTimeMillis();
     }
 
-	public long getRunTime() {
-		return System.currentTimeMillis() - startTime;
-	}
+    public long getRunTime() {
+	return System.currentTimeMillis() - startTime;
+    }
 
-	public long getEscapeTime() {
-		return System.currentTimeMillis() - escapeStartTime;
-	}
+    public long getEscapeTime() {
+	return System.currentTimeMillis() - escapeStartTime;
+    }
 
     public static void main(String[] args){
 	Robot robot;
 	if (args.length == 0) {
 	    System.out.println("No arguments given to main method");
-		System.exit(0);
-		robot = new Robot(new WallFollow()); //This will never happen, it's just to appease the compiler
+	    System.exit(0);
+	    robot = new Robot(new WallFollow()); //This will never happen, it's just to appease the compiler
 	} else {
 	    //Use first argument to determine test type
 	    StateBase startState = new ManualTest(); //This is to get Java to compile, it will be overwritten...
@@ -81,7 +80,7 @@ public class Robot{
 		
 	while(robot.getRunTime() < RobotMap.MAX_RUN_TIME) {
 	    input = robot.generateInputStateVariables();
-		robot.updateRobotVariables(input); //This might switch the state if we need to escape from something
+	    robot.updateRobotVariables(input); //This might switch the state if we need to escape from something
 	    robot.setState(input);
 	    output = robot.readState(input);
 	    robot.addPassiveOutputs(output, input);
@@ -104,9 +103,9 @@ public class Robot{
 	return logger;
     }
 
-	public HomeBaseTracker getHomeBaseTracker() {
-	    return homeBaseTracker;
-	}
+    public HomeBaseTracker getHomeBaseTracker() {
+	return homeBaseTracker;
+    }
 
     public void addShutdown(){
 	Runtime.getRuntime().addShutdownHook(
@@ -145,7 +144,7 @@ public class Robot{
 	    systems.driveTrain.pidDriveTwoInputs(500, output.driveTrainSpeed, input.rightBackIRDist, input.rightFrontIRDist, RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
 	    break;
 	case VISION_TURN:
-	    systems.driveTrain.pidDrive(input.howCentered*30, output.driveTrainSpeed, input.gyroAngle, RobotMap.KP_PID_TURN, RobotMap.KI_PID_TURN, RobotMap.KD_PID_TURN);
+	    systems.driveTrain.pidDrive(input.howCentered*30-15, output.driveTrainSpeed, input.gyroAngle, RobotMap.KP_PID_TURN, RobotMap.KI_PID_TURN, RobotMap.KD_PID_TURN);
 	    break;
 	case MOVE_STRAIGHT_ROUGH:
 	    systems.driveTrain.moveStraightRough(output.driveTrainSpeed);	
@@ -206,71 +205,94 @@ public class Robot{
 	}
     }
 
-	private void updateRobotVariables(InputStateVariables input) {
-		//Home base tracking
-		int[] lineReadings = input.lineReadings;
-		HomeBaseTracker homeBaseTracker = getHomeBaseTracker();
-		homeBaseTracker.update(lineReadings);
-		this.isInHomeBase = homeBaseTracker.isInHomeBase();
+    private void updateRobotVariables(InputStateVariables input) {
+	//Home base tracking
+	int[] lineReadings = input.lineReadings;
+	HomeBaseTracker homeBaseTracker = getHomeBaseTracker();
+	homeBaseTracker.update(lineReadings);
+	this.isInHomeBase = homeBaseTracker.isInHomeBase();
+	input.isInHomeBase = homeBaseTracker.isInHomeBase();
 
-		if (getEscapeTime() > RobotMap.ESCAPE_TIMEOUT && input.rightFrontContact) {
-			System.out.println("Detected bumper contact");
-			escapeStartTime = System.currentTimeMillis();
-			StateBase returnState = state;
-			this.state = new Escape(returnState); //will return to current state after turning away from wall
-		}
+	input.runTime = getRunTime();
+
+	if (getEscapeTime() > RobotMap.ESCAPE_TIMEOUT && input.rightFrontContact) {
+	    System.out.println("Detected bumper contact");
+	    escapeStartTime = System.currentTimeMillis();
+	    StateBase returnState = state;
+	    this.state = new Escape(returnState); //will return to current state after turning away from wall
 	}
+    }
 
     private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
 	output.conveyorMethod = ConveyorMethod.MOVE_BELT;
 	output.conveyorSpeed = 0.2;
 
 	if(RobotMap.AUTO_SORT){
-	    //boolean irReading = input.blockIRBoolean;
+	    boolean irReading = input.blockIRBoolean;
 
-		if (System.currentTimeMillis() - systems.sorter.getLastMovementTime() > RobotMap.THERE_SORT_TIME) {
-			output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
-			output.sorterPosition = SorterPosition.MIDDLE;
-		}
-		if(System.currentTimeMillis() - systems.sorter.getLastMovementTime() > RobotMap.TOTAL_SORT_TIME){
-			output.conveyorMethod = ConveyorMethod.MOVE_BELT;
-			output.conveyorSpeed = .12;
-		}else{
-		    output.conveyorMethod = ConveyorMethod.STOP_BELT;
-		}
+	    if (System.currentTimeMillis() - systems.sorter.getLastMovementTime() > RobotMap.THERE_SORT_TIME) {
+		output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+		output.sorterPosition = SorterPosition.MIDDLE;
+	    }
+	    if(System.currentTimeMillis() - systems.sorter.getLastMovementTime() > RobotMap.TOTAL_SORT_TIME){
+		output.conveyorMethod = ConveyorMethod.MOVE_BELT;
+		output.conveyorSpeed = .2;
+	    }else{
+		output.conveyorMethod = ConveyorMethod.STOP_BELT;
+	    }
+
+	    double analogReading = input.photoReading;
+	    systems.sorter.addColorDataPoint(analogReading);
+	    System.out.println("Color analog reading: " + analogReading);
+	    if(systems.sorter.hasAnyColor()){
+		output.conveyorMethod = ConveyorMethod.STOP_BELT;
+	    }
+	    if (systems.sorter.hasColorStreak()) {
+		output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+		BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
+		System.out.println("Color streak of color: " + color.name());
+		output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
+		//colorReadingFlag = false;
+		//clear readings
+		//systems.sorter.clearColorReadings();
+		//systems.sorter.clearIRReadings();
+	    } else {
+		output.sorterMethod = SorterMethod.DO_NOTHING;
+	    }
+
+
+	    /*	    if (!colorReadingFlag) {
+		    systems.sorter.addIRDataPoint(irReading);
+		    if(systems.sorter.hasIRStreak()){
+		    colorReadingFlag = true;
+		    //empty ir array and color array
+		    systems.sorter.clearColorReadings();
+		    systems.sorter.clearIRReadings();
+		    }
 		
-
-		/*if (!colorReadingFlag) {
-			systems.sorter.addIRDataPoint(irReading);
-			if(systems.sorter.hasIRStreak()){
-			    colorReadingFlag = true;
-				//empty ir array and color array
-		    	systems.sorter.clearColorReadings();
-		   		systems.sorter.clearIRReadings();
-			}
-			} else { //We've got a block, got to determine color*/
+		    if(systems.sorter.hasAnyIR()){
+		    output.conveyorMethod = ConveyorMethod.STOP_BELT;
+		    }
+		    } else { //We've got a block, got to determine color
 	    
-			double analogReading = input.photoReading;
-			systems.sorter.addColorDataPoint(analogReading);
-			System.out.println("Color analog reading: " + analogReading);
-			if(systems.sorter.hasAnyColor()){
-			    output.conveyorMethod = ConveyorMethod.STOP_BELT;
-			}
-			if (systems.sorter.hasColorStreak()) {
-				output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
-				BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
-				System.out.println("Color streak of color: " + color.name());
-				output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
-				//colorReadingFlag = false;
-				//clear readings
-				//systems.sorter.clearColorReadings();
-				//systems.sorter.clearIRReadings();
-			} else {
-				output.sorterMethod = SorterMethod.DO_NOTHING;
-			}
+		    boolean isRed = input.isRed;
+		    systems.sorter.addColorDataPoint(isRed);
+		    System.out.println("is red?: " + isRed);
+		    if (systems.sorter.hasColorStreak()) {
+		    output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+		    BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
+		    System.out.println("Color streak of color: " + color.name());
+		    output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
+		    colorReadingFlag = false;
+		    //clear readings
+		    systems.sorter.clearColorReadings();
+		    systems.sorter.clearIRReadings();
+		    } else {
+		    output.sorterMethod = SorterMethod.DO_NOTHING;
+		    }
 
-			//}
+		    }*/
 	}
 
-	}
+    }
 }

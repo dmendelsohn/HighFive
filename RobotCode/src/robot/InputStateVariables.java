@@ -12,6 +12,10 @@ public class InputStateVariables{
     public int rightFrontIRDist;
     public int frontShortIRVal;
 
+    public boolean blockIRBoolean;
+    public boolean isRed;
+    public long runTime;
+
     public boolean seesTarget; //vision
     public double howCentered; //vision
     public double boxDistance; //vision
@@ -23,6 +27,8 @@ public class InputStateVariables{
 	public boolean rightFrontContact;
 	public boolean rightBackContact;
 
+    public boolean isInHomeBase;
+
     public InputStateVariables(InstantiatedSystems systems){
 		gyroAngle = systems.readGyroAngle();
 
@@ -30,6 +36,9 @@ public class InputStateVariables{
 		rightBackIRDist = systems.readRightBackIRDist();
 		rightFrontIRDist = systems.readRightFrontIRDist();
 		frontShortIRVal = systems.readFrontShortIRVal();
+
+		blockIRBoolean = systems.readBlockIRBoolean();
+		isRed = systems.readBlockColor();
 	
 		photoReading = systems.readPhotoVal();
 
@@ -42,6 +51,9 @@ public class InputStateVariables{
 
 		rightFrontContact = systems.getRightFrontContact();
 		rightBackContact = systems.getRightBackContact();
+
+		isInHomeBase = false; //Dummy, set in robot loop
+		runTime = 0; //Dummy, set in robot loop
 	}
 
 }

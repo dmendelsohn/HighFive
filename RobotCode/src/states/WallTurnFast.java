@@ -4,7 +4,7 @@ import robot.*;
 
 import static robot.Enums.*;
 
-public class WallTurnTest extends StateBase{
+public class WallTurnFast extends StateBase{
     @Override
     public OutputStateVariables getDefaultOutput() {
 	OutputStateVariables output = super.getDefaultOutput();
@@ -19,8 +19,8 @@ public class WallTurnTest extends StateBase{
     }
 
     public StateBase getNext(InputStateVariables input){
-	if(input.frontShortIRVal == 0 || input.frontIRDist < RobotMap.FRONT_IR_LOWER_THRESHOLD){
-	    return new WallFollowTest();
+	if(input.frontShortIRVal == 1 && input.frontIRDist < RobotMap.FRONT_IR_LOWER_THRESHOLD){
+	    return new WallFollowFast();
 	} else{
 	    return this;
 	}

@@ -58,14 +58,25 @@ public class Sorter{
 		return lastMovement;
 	}
     
+    /*    public void addColorDataPoint(boolean isRed){
+	BlockColor color = getBlockColor(isRed);
+	if (colorReadings.size()==RobotMap.NUM_COLOR_READINGS_HELD){
+	    colorReadings.remove(0);
+	}
+	colorReadings.add(color);
+	}*/
+
     public void addColorDataPoint(double analogReading){
+	if(analogReading < RobotMap.GREEN_IGNORE_COLOR_BOUNDARY && analogReading > RobotMap.IGNORE_RED_COLOR_BOUNDARY){
+	    return;
+	}
 	BlockColor color = getBlockColor(analogReading);
+	
 	if (colorReadings.size()==RobotMap.NUM_COLOR_READINGS_HELD){
 	    colorReadings.remove(0);
 	}
 	colorReadings.add(color);
     }
-
         
     public void addIRDataPoint(boolean irReading){
 
@@ -75,8 +86,16 @@ public class Sorter{
 		irReadings.add(irReading);
     }
 
+    /*private BlockColor getBlockColor(boolean isRed){
+		if(isRed){
+		    return BlockColor.RED;
+		} else{
+		    return BlockColor.GREEN;
+		}
+    }*/
+
     private BlockColor getBlockColor(double photoReading){
-		if(photoReading<RobotMap.GREEN_RED_COLOR_BOUNDARY){
+	if(photoReading<RobotMap.IGNORE_RED_COLOR_BOUNDARY){
 		    return BlockColor.RED;
 		} else if(photoReading < RobotMap.NOTHING_GREEN_COLOR_BOUNDARY){
 		    return BlockColor.GREEN;
@@ -84,10 +103,11 @@ public class Sorter{
 		    return BlockColor.NONE;
 		}
     }
-
   
 
     public boolean hasColorStreak() {
+	if(colorReadings.size() < RobotMap.NUM_COLOR_READINGS_HELD)
+	    return false;
 		BlockColor color = colorReadings.get(0);
 		for (BlockColor bc : colorReadings) {
 		    if (bc != color) {
@@ -96,10 +116,19 @@ public class Sorter{
 		}
 		return ((System.currentTimeMillis() - lastMovement) > RobotMap.TOTAL_SORT_TIME); //1 second between consecutive movements
     }
-
+    
     public boolean hasAnyColor() {
 	for(BlockColor bc : colorReadings){
 	    if(bc != BlockColor.NONE){
+		return true;
+	    }
+	}
+	return false;
+    }
+
+    public boolean hasAnyIR() {
+	for(boolean r : irReadings){
+	    if(r){
 		return true;
 	    }
 	}

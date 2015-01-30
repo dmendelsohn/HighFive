@@ -84,6 +84,10 @@ public class InstantiatedSystems{
 		return (shield.digitalRead(RobotMap.BLOCK_IR_INPUT)!=1);
     }
 
+    public boolean readBlockColor(){
+	return shield.digitalRead(RobotMap.ARDUINO_PORT)==1;
+    }
+
 	public int[] getLineReadings() {
 		int[] result = new int[3];
 		result[0] = shield.analogRead(RobotMap.FRONT_LINE_TRACKER);
