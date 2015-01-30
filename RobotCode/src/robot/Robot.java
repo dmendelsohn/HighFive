@@ -14,6 +14,7 @@ public class Robot{
     public static long runTime;
     public InstantiatedSystems systems;
     public RobotLogger logger;
+    public HomeBaseTracker homeBaseTracker;
 
     public boolean inEnemyZone;
     public boolean colorReadingFlag;
@@ -33,6 +34,20 @@ public class Robot{
 	systems = new InstantiatedSystems();
 	logger = new RobotLogger();
 	inEnemyZone = false;
+
+    public boolean isInHomeBase;
+
+    public Robot(){
+		this(new ManualTest());
+    }
+
+    public Robot(StateBase startingState) {
+		runTime = System.currentTimeMillis();
+		state = startingState;
+		systems = new InstantiatedSystems();
+		logger = new RobotLogger();
+		isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
+		homeBaseTracker = new HomeBaseTracker(isInHomeBase);
     }
 
     public static void main(String[] args){
@@ -80,6 +95,10 @@ public class Robot{
     public RobotLogger getLogger() {
 	return logger;
     }
+
+	public HomeBaseTracker getHomeBaseTracker() {
+	return homeBaseTracker;
+	}
 
     public void addShutdown(){
 	Runtime.getRuntime().addShutdownHook(
@@ -139,13 +158,16 @@ public class Robot{
 		
 	switch(output.hopperMethod) {
 	case MOVE_BOTH:
+		System.out.println("Move both hoppers, (left right) = " + output.hopperLeftOpen + " " + output.hopperRightOpen);
 	    systems.hopper.setBoth(output.hopperLeftOpen, output.hopperRightOpen);
 	    break;
 	case MOVE_LEFT:
+		System.out.println("Move left hopper, open = " + output.hopperLeftOpen);
 	    systems.hopper.setLeft(output.hopperLeftOpen);
 	    //true opens hatch
 	    break;
 	case MOVE_RIGHT:
+		System.out.println("Move right hopper, open = " + output.hopperRightOpen);
 	    systems.hopper.setRight(output.hopperRightOpen);
 	    //true opens hatch				
 	    break;
@@ -156,6 +178,7 @@ public class Robot{
 
 	switch(output.sorterMethod){
 	case SET_SORTER_POSITION:
+		System.out.println("Setting sorter position to: " + output.sorterPosition.name());
 	    systems.sorter.setSorterPosition(output.sorterPosition);
 	    break;
 	    /*case SET_SORTER_POSITION_REFINED:
@@ -218,6 +241,22 @@ public class Robot{
 		}
 
 		}*/
+		systems.sorter.addDataPoint(analogReading);
+		if (RobotMap.AUTO_SORT) {
+			if (systems.sorter.hasColorStreak()) {
+					output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+				BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
+				output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
+			} else {
+				output.sorterMethod = SorterMethod.DO_NOTHING;
+			}
+		}
+
+		int[] lineReadings = input.lineReadings;
+		HomeBaseTracker homeBaseTracker = getHomeBaseTracker();
+		homeBaseTracker.update(lineReadings);
+		isInHomeBase = homeBaseTracker.isInHomeBase();
+
 	}
 
 	//TODO: Line Following

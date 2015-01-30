@@ -79,4 +79,11 @@ public class InstantiatedSystems{
 	    return true;
 	}
     }
+	public int[] getLineReadings() {
+		int[] result = new int[3];
+		result[0] = shield.analogRead(RobotMap.FRONT_LINE_TRACKER);
+		result[1] = shield.analogRead(RobotMap.MID_LINE_TRACKER);
+		result[2] = shield.analogRead(RobotMap.BACK_LINE_TRACKER);
+		return result;
+	}
 }

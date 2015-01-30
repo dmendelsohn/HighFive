@@ -19,6 +19,8 @@ public class InputStateVariables{
 
     public double photoReading;
 
+	public int[] lineReadings;  //Length 3 array of analog readings
+
     public InputStateVariables(InstantiatedSystems systems){
 	//give values to different values using systems
 
@@ -40,6 +42,9 @@ public class InputStateVariables{
 //	System.out.println("rightFront: " + rightFrontIRDist);
 	
 	photoReading = systems.colorSensor.read();
+
+
+	lineReadings = systems.getLineReadings();
     }
 
 }

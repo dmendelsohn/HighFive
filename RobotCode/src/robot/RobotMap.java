@@ -6,7 +6,11 @@ public class RobotMap{
 	//Game Constants
 	public static final BlockColor MY_COLOR = BlockColor.RED;
 	public static final HopperSide MY_HOPPER = HopperSide.LEFT;
+
 	public static final boolean AUTO_SORT = true;
+
+	public static final boolean STARTS_IN_HOME_BASE = false;
+
 
     //PWM slots
     public static final int LEFT_MOTOR_PWM = 1;
@@ -31,7 +35,11 @@ public class RobotMap{
     //Digital
     public static final int BLOCK_IR_INPUT = 0; 
 
-    //IR calibration values
+	public static final int FRONT_LINE_TRACKER = 6;
+	public static final int MID_LINE_TRACKER = 5;
+	public static final int BACK_LINE_TRACKER = 4;
+
+	//IR calibration values
     public static final int FRONT_IR_TRANS = 120;
     public static final int RIGHT_BACK_IR_TRANS = 0;
     public static final int RIGHT_FRONT_IR_TRANS = 0;
@@ -59,14 +67,17 @@ public class RobotMap{
     public static final int I2C_PORT = 6;
 
     //Bounding Constants
-    public static final double SORTER_LOWER_BOUND = 0.032;
-    public static final double SORTER_UPPER_BOUND = 0.0917;
+    public static final double SORTER_LOWER_BOUND = 0.031;
+    public static final double SORTER_UPPER_BOUND = 0.0932;
 
     public static final double LEFT_RELEASE_LOWER_BOUND = 0.033;
     public static final double LEFT_RELEASE_UPPER_BOUND = 0.08;
 
     public static final double RIGHT_RELEASE_LOWER_BOUND = 0.04;
     public static final double RIGHT_RELEASE_UPPER_BOUND = 0.085;
+
+	public static final double MAX_MOTOR_SPEED = 0.5;
+	public static final double MIN_MOTOR_SPEED = -0.5;
 
     //PID constants
     public static final double KP_PID_DRIVE = -.1/45.0;
@@ -82,6 +93,7 @@ public class RobotMap{
     //Color thresholding constants
     public static final double NOTHING_GREEN_COLOR_BOUNDARY = 210.0;
     public static final double GREEN_RED_COLOR_BOUNDARY = 380.0;
+	public static final double LINE_IR_THRESHHOLD = 800.0;
 
     //Time Constants
     public static final long TOTAL_SORT_TIME = 1500;

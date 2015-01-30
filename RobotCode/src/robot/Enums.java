@@ -49,4 +49,11 @@ public class Enums {
 		DO_NOTHING
 	}
 
+	public enum LineState {
+		FRONT_OVER,
+		BACK_OVER,
+		ALL_OVER,
+		NOT_OVER
+	}
+
 }

@@ -41,14 +41,17 @@ public class ManualTest extends StateBase{
 						output.driveTrainSpeed = 0.2;
 						break;
 					case '1': //Sort into left hopper
+						System.out.println("Sort left requested!");
 						output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
 						output.sorterPosition = SorterPosition.LEFT;
 						break;
 					case '2': //Center the sorter
+						System.out.println("Sort middle requested!");
 						output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
 						output.sorterPosition = SorterPosition.MIDDLE;
 						break;
 					case '3': //Sort into right hopper
+						System.out.println("Sort right requested!");
 						output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
 						output.sorterPosition = SorterPosition.RIGHT;
 						break;
@@ -66,7 +69,7 @@ public class ManualTest extends StateBase{
 						break;
 					case '7': //Close right hopper
 						output.hopperMethod = HopperMethod.MOVE_RIGHT;
-						output.hopperRightOpen = true;
+						output.hopperRightOpen = false;
 						break;
 					case 'z': //Zero the gyro
 						output.zeroGyro = true;
