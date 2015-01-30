@@ -126,7 +126,7 @@ public class Robot{
 	}
 	switch(output.driveTrainMethod){
 	case PID_DRIVE:
-	    systems.driveTrain.pidDrive(0, output.driveTrainSpeed, input.gyroAngle, RobotMap.KP_PID_DRIVE, RobotMap.KI_PID_DRIVE, RobotMap.KD_PID_DRIVE);
+	    systems.driveTrain.pidDrive(output.driveTrainPidAngle, output.driveTrainSpeed, input.gyroAngle, RobotMap.KP_PID_DRIVE, RobotMap.KI_PID_DRIVE, RobotMap.KD_PID_DRIVE);
 	    break;
 	case PID_DRIVE_TWO_INPUTS:
 	    systems.driveTrain.pidDriveTwoInputs(500, output.driveTrainSpeed, input.rightBackIRDist, input.rightFrontIRDist, RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
@@ -194,6 +194,9 @@ public class Robot{
     }
 
     private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
+	output.conveyorMethod = ConveyorMethod.MOVE_BELT;
+	output.conveyorSpeed = 0.2;
+
 	if(RobotMap.AUTO_SORT){
 	    //boolean irReading = input.blockIRBoolean;
 
