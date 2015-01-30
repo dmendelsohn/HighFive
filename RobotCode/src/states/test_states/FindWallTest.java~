@@ -1,33 +1,29 @@
-package states.test_states;
+package states;
 import states.*;
-import states.test_states.*;
 import robot.*;
 
 import static robot.Enums.*;
 
-public class BoxSearchTest extends StateBase{
+public class FindWallTest extends StateBase{
     @Override
     public OutputStateVariables getDefaultOutput() {
 	OutputStateVariables output = super.getDefaultOutput();
-	//output.zeroGyro = true;
 	output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
-	output.driveTrainSpeed = 0.0;
-	output.driveTrainPidAngle = -360.0;
+	output.driveTrainPidAngle = 0.0;
+	output.driveTrainSpeed = 0.2;
 	return output;
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	OutputStateVariables output = getDefaultOutput();
+	OutputStateVariables output = getDefaultOutput();	
 	return output;
     }
 
     public StateBase getNext(InputStateVariables input){
-	if(input.seesTarget){
-	    return new VisionTest();
-	}else if(input.gyroAngle>360.){
-	    return new FindWallTest();
-	}else if(super.getElapsedTime()>2500){
-	    return new FindBoxTest();
+	if(input.frontShortIRVal == 0 || input.frontIRDist > RobotMap.FRONT_IR_UPPER_THRESHOLD){
+	    return new WallTurnTest();
+	} else if(input.rightFrontIRDist > RobotMap.RIGHT_FRONT_IR_THRESHOLD){
+	    return new WallFollowTest();
 	} else{
 	    return this;
 	}
