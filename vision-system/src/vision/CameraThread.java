@@ -11,7 +11,7 @@ public class CameraThread extends Thread{
     boolean isRunning;
     int index;
     int count;
-    PixelBuffer currentIm;
+    Mat currentIm;
 
     static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
 
@@ -19,10 +19,11 @@ public class CameraThread extends Thread{
 	isRunning = false;
 	index = in;
 	count = 0;
-	currentIm = null;
+	currentIm = new Mat();
+	setPriority(Thread.MAX_PRIORITY);
     }
     
-    public PixelBuffer getCurrentIm(){
+    public Mat getCurrentIm(){
 	return currentIm;
     }
 
@@ -32,18 +33,20 @@ public class CameraThread extends Thread{
 	VideoCapture camera = new VideoCapture();
 	camera.open(index);
 
-	Mat rawImage = new Mat();
-	
 	while(isRunning){
-	    while(!camera.read(rawImage)) {
+	    long start = System.currentTimeMillis();
+	    int numWaits = 0;
+	    while(!camera.read(currentIm)) {
+		numWaits++;
 		try{
 		    Thread.sleep(1);
 		} catch(InterruptedException e){
 		    e.printStackTrace();
 		}
 	    }
+	    System.out.println("time for camera to provide image: " + (System.currentTimeMillis()-start) + "  numWaits: " + numWaits);
 			
-	    currentIm = Utils.getPixelBufferFromMat(rawImage);
+	    //currentIm = Utils.getPixelBufferFromMat(rawImage);
 	    /*try{
 		Utils.savePixelBufferToFilename("rawImage" + count + ".jpg", currentIm);
 	    } catch(IOException e){

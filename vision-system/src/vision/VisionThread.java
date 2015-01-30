@@ -7,7 +7,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+
 public class VisionThread extends Thread{
+
+    static{System.loadLibrary(Core.NATIVE_LIBRARY_NAME);}
 
     boolean isRunning;
     BlobInfo[] blobs;
@@ -25,6 +30,7 @@ public class VisionThread extends Thread{
 	debug = false;
 	count = 0;
 	index = in;
+	setPriority(MAX_PRIORITY);
     }
 
     private boolean isBlock(BlobInfo b) {
@@ -63,6 +69,8 @@ public class VisionThread extends Thread{
 
     public double getHeadingToBlock(BlobInfo blob) {
 	BoundingRect rect = blob.getBoundingRect();
+	if(rect == null)
+	    System.out.println("suck my dick");
 	int blobMidX = (rect.getXMin() + rect.getXMax()) / 2;
 	int imageMidX = width/2;
 	int blobXFromCenter = blobMidX - imageMidX;
@@ -118,7 +126,7 @@ public class VisionThread extends Thread{
 
 	CameraThread cam = new CameraThread(index);
 	cam.start();
-	while(cam.getCurrentIm()==null){
+	while(cam.getCurrentIm().rows()==0){
 	    System.out.println("cam still initializing;");
 	    try{
 		Thread.sleep(10);
@@ -131,7 +139,9 @@ public class VisionThread extends Thread{
 	    long total_start = System.currentTimeMillis();
 	    start = System.currentTimeMillis();
 
-	    PixelBuffer pixelBuffer = cam.getCurrentIm();
+	    Mat currentIm = cam.getCurrentIm();
+
+	    PixelBuffer pixelBuffer = Utils.getPixelBufferFromMat(currentIm);
 	    height = pixelBuffer.getHeight();
 	    width = pixelBuffer.getWidth();
 	    end = System.currentTimeMillis();
