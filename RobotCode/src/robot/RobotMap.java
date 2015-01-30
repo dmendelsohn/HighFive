@@ -75,9 +75,9 @@ public class RobotMap{
     public static final int I2C_PORT = 6;
 
     //Bounding Constants
-    public static final double SORTER_LOWER_BOUND = 0.031;
-    public static final double SORTER_MIDDLE_FRACTION = -0.1;
-    public static final double SORTER_UPPER_BOUND = 0.095;
+    public static final double SORTER_LOWER_BOUND = 0.030;
+    public static final double SORTER_MIDDLE_FRACTION = -0.04;
+    public static final double SORTER_UPPER_BOUND = 0.092;
 
     public static final double LEFT_RELEASE_LOWER_BOUND = 0.033;
     public static final double LEFT_RELEASE_UPPER_BOUND = 0.08;
@@ -105,8 +105,8 @@ public class RobotMap{
 
     //Color thresholding constants
     public static final double NOTHING_GREEN_COLOR_BOUNDARY = 720.0;
-    public static final double GREEN_IGNORE_COLOR_BOUNDARY = 685.0;
-    public static final double IGNORE_RED_COLOR_BOUNDARY = 680.0;
+    public static final double GREEN_IGNORE_COLOR_BOUNDARY = 635.0;
+    public static final double IGNORE_RED_COLOR_BOUNDARY = 610.0;
 	public static final double LINE_IR_THRESHHOLD = 800.0;
 
 	public static final int IR_BLOCK_THRESHHOLD = 2;	//Two IR positive readings to determine if block is present
