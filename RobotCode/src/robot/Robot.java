@@ -91,56 +91,51 @@ public class Robot{
 
 
     public void setState(InputStateVariables input){
-		state = state.getNext(input);
+	state = state.getNext(input);
     }
 
     public OutputStateVariables readState(InputStateVariables input){
-		//use state to determine output state variables
-		return state.run(input); 
+	//use state to determine output state variables
+	return state.run(input); 
     }
 
     public InputStateVariables generateInputStateVariables(){
-		return new InputStateVariables(systems);
+	return new InputStateVariables(systems);
     }
 
     public void processOutput (OutputStateVariables output, InputStateVariables input){
-		if(output.zeroGyro){
-			systems.zeroGyro();
-		}
-		switch(output.drivetrainMethod){
-			case "pidDrive":
-				systems.drivetrain.pidDrive(0, output.drivetrainSpeed, input.gyroAngle, RobotMap.KP_PID_DRIVE, RobotMap.KI_PID_DRIVE, RobotMap.KD_PID_DRIVE);
-				break;
-			case "pidDriveTwoInputs":
-				if (input.closerSide.equals("left")){
-					systems.drivetrain.pidDriveTwoInputs("left", 0.5,
-						     output.drivetrainSpeed, input.leftBackUltraDist, input.leftFrontUltraDist,
-						     RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
-				}else{
-					systems.drivetrain.pidDriveTwoInputs("right", 0.5, 
-						     output.drivetrainSpeed, input.rightBackUltraDist, input.rightFrontUltraDist, 
-						     RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
-				}
-				break;
-			case "moveStraightRough":
-				systems.drivetrain.moveStraightRough(output.drivetrainSpeed);	
-				break;
-			case "setTurnRough":
-				systems.drivetrain.setTurnRough(output.drivetrainSpeed);
-				break;
-			case "setLeftSpeed":
-				systems.drivetrain.setLeftSpeed(output.drivetrainSpeed);
-				break;
-			case "setRightSpeed":
-				systems.drivetrain.setRightSpeed(output.drivetrainSpeed);
-				break;
-			case "stop":
-				systems.drivetrain.stop();
-				break;
-			case "doNothing":
-				systems.drivetrain.doNothing();
-				break;
-		}
+	if(output.zeroGyro){
+	    systems.zeroGyro();
+	}
+	switch(output.driveTrainMethod){
+	case PID_DRIVE:
+	    systems.driveTrain.pidDrive(0, output.driveTrainSpeed, input.gyroAngle, RobotMap.KP_PID_DRIVE, RobotMap.KI_PID_DRIVE, RobotMap.KD_PID_DRIVE);
+	    break;
+	case PID_DRIVE_TWO_INPUTS:
+	    systems.driveTrain.pidDriveTwoInputs(500, output.driveTrainSpeed, input.rightBackIRDist, input.rightFrontIRDist, RobotMap.KP_DOUBLE_PID_DRIVE, RobotMap.KI_DOUBLE_PID_DRIVE, RobotMap.KD_DOUBLE_PID_DRIVE);
+	    break;
+	case VISION_TURN:
+	    systems.driveTrain.pidDrive(input.howCentered*30, output.driveTrainSpeed, input.gyroAngle, RobotMap.KP_PID_TURN, RobotMap.KI_PID_TURN, RobotMap.KD_PID_TURN);
+	    break;
+	case MOVE_STRAIGHT_ROUGH:
+	    systems.driveTrain.moveStraightRough(output.driveTrainSpeed);	
+	    break;
+	case SET_TURN_ROUGH:
+	    systems.driveTrain.setTurnRough(output.driveTrainSpeed);
+	    break;
+	case SET_LEFT_SPEED:
+	    systems.driveTrain.setLeftSpeed(output.driveTrainSpeed);
+	    break;
+	case SET_RIGHT_SPEED:
+	    systems.driveTrain.setRightSpeed(output.driveTrainSpeed);
+	    break;
+	case STOP:
+	    systems.driveTrain.stop();
+	    break;
+	case DO_NOTHING:
+	    systems.driveTrain.doNothing();
+	    break;
+	}
 		
 	switch(output.hopperMethod) {
 	case MOVE_BOTH:

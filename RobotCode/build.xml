@@ -10,6 +10,12 @@
   <property name="vision-system.dir" 	value="../vision-system/"/>
 
   <property name="main-class"  value="robot/Robot"/>
+  
+  <path id="classpath">
+    <fileset dir="${vision-lib.dir}" includes="**/*.jar"/>
+    <fileset dir="${jmraa.dir}" includes="**/*.jar"/>
+    <fileset dir="${vision-system.dir}/build/jar/" includes="**/*.jar"/>
+  </path>
 
   <target name="clean">
 	  <delete dir="${build.dir}"/>
@@ -18,7 +24,7 @@
   <target name="compile">
 	 <mkdir dir="${classes.dir}"/>
 	 <mkdir dir="${log.dir}"/>
-	 <javac srcdir="${src.dir}" destdir="${classes.dir}" classpath="${jmraa.dir}/jmraa.jar"/> 
+	 <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/><!--"${jmraa.dir}/jmraa.jar"/> -->
   </target>
 
   <target name="jar" depends="compile">

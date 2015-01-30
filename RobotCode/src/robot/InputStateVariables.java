@@ -36,6 +36,10 @@ public class InputStateVariables{
 	//	System.out.println("rightFront: " + rightFrontIRDist);
 	
 		photoReading = systems.colorSensor.read();
+
+		seesTarget = systems.vision.senseTarget();
+		howCentered = systems.vision.howCentered();
+		boxDistance = systems.vision.getDistance();
     }
 
 }

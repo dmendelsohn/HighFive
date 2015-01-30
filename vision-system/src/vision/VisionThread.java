@@ -22,13 +22,13 @@ public class VisionThread extends Thread{
 	blobs = new BlobInfo[0];
 	height = 0;
 	width = 0;
-	debug = true;
+	debug = false;
 	count = 0;
 	index = in;
     }
 
     private boolean isBlock(BlobInfo b) {
-	return (b.getGameColor() == Utils.GameColor.RED || b.getGameColor() == Utils.GameColor.GREEN);
+	return (b.getGameColor() == Utils.GameColor.BLUE || b.getGameColor() == Utils.GameColor.GREEN);
     }
 
     public boolean isBlockSeen() {
@@ -156,24 +156,29 @@ public class VisionThread extends Thread{
 	    int numBlobsRemoved = BlobAnalysis.removeSmallBlobs(blobLabelData);
 	    end = System.currentTimeMillis();
 	    if (debug) System.out.println("[Timing] Small blob removal milli bench: " + (end-start));
-	    System.out.println("Removed " + numBlobsRemoved + " blobs.");
+	    System.out.println("Removed " + numBlobsRemoved + " blobs");
 				
 	    // Calculate bounding boxes for all blobs
 	    start = System.currentTimeMillis();
 	    blobs = BlobAnalysis.getAllBlobInfo(blobLabelData);
+	    //System.out.println("blobs remaining: " + blobs.length);
+	    /*for(BlobInfo b : blobs){
+		System.out.println("color: " + b.getGameColor().name());
+		}*/
 	    end = System.currentTimeMillis();
 	    if (debug) System.out.println("[Timing] getAllBlobInfo() milli bench: " + (end-start));
 	    
 	    /*
 	    //Save Nice image
 	    byte[] img_data = Utils.makeImageArrayFromLabelData(blobLabelData);
+	    BlobAnalysis.drawAllBoundingRects(img_data, height, width, blobs);
 	    PixelBuffer pixelBufferOut = new PixelBuffer(img_data, height, width);
 	    try{
 	    Utils.savePixelBufferToFilename("processedImage" + count + ".jpg", pixelBufferOut);
 	    } catch(IOException e){
 	    e.printStackTrace();
 	    }*/
-
+	    System.out.println("count: " + count);
 	    count++;
 			
 	    long total_end = System.currentTimeMillis();

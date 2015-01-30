@@ -2,55 +2,34 @@ package states.test_states;
 import states.*;
 import robot.*;
 
+import static robot.Enums.*;
 
 public class VisionTest extends StateBase{
 
-    public OutputStateVariables output;
-    public InputStateVariables input;
-    private long lastUpdate;
+    double howCentered = 0, boxDistance = -1;
+    long lastCenter = 0;
 
-    public VisionTest(){
-
-	super();
-
-	output = new OutputStateVariables();
-
-	output.drivetrainMethod = "doNothing";
-	output.conveyorMethod = "doNothing";
-	output.sorterMethod = "doNothing";
-	output.hopperMethod = "doNothing";
-	output.visionMethod = "doNothing";
-	lastUpdate = System.currentTimeMillis();
-
-	stateStartTime = System.currentTimeMillis();
-		
+    public OutputStateVariables getDefaultOutput() {
+	OutputStateVariables output = super.getDefaultOutput();
+	output.driveTrainSpeed = 0;
+	return output;
     }
 
     public OutputStateVariables run(InputStateVariables input){
-		
-	System.out.println("VisionTest");
-	long elapsedTime = System.currentTimeMillis()-stateStartTime;
-
-	System.out.println("sees target: " + input.seesTarget + "  howCentered: " + input.howCentered + "  distance: " + input.boxDistance);
-
-	if(input.boxDistance<0){
-	    output.drivetrainMethod = "stop";
-	}else{
-	    output.drivetrainMethod = "visionTurn";
-	    output.drivetrainSpeed = 0;//input.boxDistance/2;
+	OutputStateVariables output = getDefaultOutput();
+	if(Math.abs(howCentered-input.howCentered) > 0.1 || Math.abs(boxDistance - input.boxDistance) > 0.01){
+	    howCentered = input.howCentered;
+	    boxDistance = input.boxDistance;
+	    System.out.println("sees target: " + input.seesTarget + "  howCentered: " + input.howCentered + "  distance: " + input.boxDistance);
 	}
-	
-	/*if (elapsedTime<4000){	
-	    output.visionMethod = "senseTarget";
-	}else if (elapsedTime<8000){
-	    output.visionMethod = "getDistance";
-	}else if (elapsedTime<12000){
-	    output.visionMethod = "howCentered";
+	if(!input.seesTarget){
+	    output.driveTrainMethod = DriveTrainMethod.STOP;
 	}else{
-	    output.visionMethod = "doNothing";
-	}*/
-		
-	System.out.println(output.visionMethod);
+	    output.driveTrainMethod = DriveTrainMethod.VISION_TURN;
+	    if(System.currentTimeMillis()-lastCenter > 2000){
+		lastCenter = System.currentTimeMillis();
+	    }
+	}
 	return output;
     }
 

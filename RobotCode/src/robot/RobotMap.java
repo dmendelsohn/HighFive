@@ -76,6 +76,10 @@ public class RobotMap{
     public static final double DIFF_WEIGHT_DOUBLE_PID_DRIVE = 1.0;
     public static final double DIST_WEIGHT_DOUBLE_PID_DRIVE = 0.5;
 
+    public static final double KP_PID_TURN = -.2/10.0;
+    public static final double KI_PID_TURN = 0;
+    public static final double KD_PID_TURN = 0;
+
     //Color thresholding constants
     public static final double NOTHING_GREEN_COLOR_BOUNDARY = 210.0;
     public static final double GREEN_RED_COLOR_BOUNDARY = 380.0;

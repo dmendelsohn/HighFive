@@ -35,7 +35,6 @@ public class CameraThread extends Thread{
 	Mat rawImage = new Mat();
 	
 	while(isRunning){
-	    System.out.println("count: " + count);
 	    while(!camera.read(rawImage)) {
 		try{
 		    Thread.sleep(1);
