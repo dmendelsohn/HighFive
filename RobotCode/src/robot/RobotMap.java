@@ -62,7 +62,8 @@ public class RobotMap{
 
     //Bounding Constants
     public static final double SORTER_LOWER_BOUND = 0.031;
-    public static final double SORTER_UPPER_BOUND = 0.0932;
+	public static final double SORTER_MIDDLE_FRACTION = -0.04;
+    public static final double SORTER_UPPER_BOUND = 0.0934;
 
     public static final double LEFT_RELEASE_LOWER_BOUND = 0.033;
     public static final double LEFT_RELEASE_UPPER_BOUND = 0.08;

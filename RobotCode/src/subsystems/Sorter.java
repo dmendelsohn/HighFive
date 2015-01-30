@@ -8,7 +8,7 @@ import static robot.Enums.*;
 public class Sorter{
 	public static final double LEFT_VAL = -1.0;	//Gets reduced in Servo.java
 	public static final double RIGHT_VAL = 1.0;	//Gets reduced in Servo.java
-	public static final double MIDDLE_VAL = -0.06; //Calibrated middle position
+	public static final double MIDDLE_VAL = RobotMap.SORTER_MIDDLE_FRACTION; //Calibrated middle position
 
 	public static final int NUM_READINGS_HELD = 10;
 
