@@ -32,7 +32,7 @@ public class ForwardTest extends StateBase{
 
     public StateBase getNext(InputStateVariables input){
         if(super.getElapsedTime()>followTime){
-	    return new WallFollowTest();
+	    return new FindWall();
 	} else{
 	    return this;
 	}

@@ -11,7 +11,7 @@ public class BoxSearchTest extends StateBase{
 	OutputStateVariables output = super.getDefaultOutput();
 	output.zeroGyro = true;
 	output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
-	output.driveTrainSpeed = 0.2;
+	output.driveTrainSpeed = 0.0;
 	output.driveTrainPidAngle = 360.0;
 	return output;
     }
@@ -24,7 +24,7 @@ public class BoxSearchTest extends StateBase{
     public StateBase getNext(InputStateVariables input){
 	if(input.seesTarget){
 	    return new VisionTest();
-	}else if(super.getElapsedTime()>3000.){
+	}else if(super.getElapsedTime()>10000.){
 	    return new FindWallTest();
 	} else{
 	    return this;

@@ -12,7 +12,7 @@ public class VisionTest extends StateBase{
 
     public OutputStateVariables getDefaultOutput() {
 	OutputStateVariables output = super.getDefaultOutput();
-	output.driveTrainSpeed = 0;
+	output.driveTrainSpeed = 0.15;
 	return output;
     }
 
@@ -36,7 +36,7 @@ public class VisionTest extends StateBase{
 
     public StateBase getNext(InputStateVariables input){
 	if(super.getElapsedTime()>3000){
-	    return new ForwardTest(4000);
+	    return new FindWall();
 	}else{
 	    return this;
 	}

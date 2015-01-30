@@ -1,31 +1,26 @@
-package states;
+package states.test_states;
 import states.*;
 import robot.*;
 
 import static robot.Enums.*;
 
-public class BoxSearch extends StateBase{
+public class WallTurnTest extends StateBase{
     @Override
     public OutputStateVariables getDefaultOutput() {
 	OutputStateVariables output = super.getDefaultOutput();
-	output.zeroGyro = true;
-	output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
-	output.driveTrainSpeed = 0.0;
-	output.driveTrainPidAngle = 360.0;
+	output.driveTrainMethod = DriveTrainMethod.SET_TURN_ROUGH;
+	output.driveTrainSpeed = -0.25;
 	return output;
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	OutputStateVariables output = getDefaultOutput();
+	OutputStateVariables output = getDefaultOutput();	
 	return output;
     }
 
     public StateBase getNext(InputStateVariables input){
-	//if(input.seesTarget){
-	    //return new BoxFollow();
-	//}else if{
-	if(super.getElapsedTime()>3000.){
-	    return new FindWall();
+	if(input.frontShortIRVal == 1 && input.frontIRDist < RobotMap.FRONT_IR_LOWER_THRESHOLD){
+	    return new WallFollowTest();
 	} else{
 	    return this;
 	}
