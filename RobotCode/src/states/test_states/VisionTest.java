@@ -23,17 +23,17 @@ public class VisionTest extends StateBase{
 	    boxDistance = input.boxDistance;
 	    System.out.println("sees target: " + input.seesTarget + "  howCentered: " + input.howCentered + "  distance: " + input.boxDistance);
 	    //}
-	if(!input.seesTarget){
+	    //if(!input.seesTarget){
 	    output.driveTrainMethod = DriveTrainMethod.STOP;
-	}else{
+	    /*}else{
 	    output.driveTrainMethod = DriveTrainMethod.VISION_TURN;
 	    if(System.currentTimeMillis()-lastCenter > 2000){
 		lastCenter = System.currentTimeMillis();
 		output.zeroGyro = true;
 	    }else{
 		output.zeroGyro = false;
-	    }
-	}
+		}
+		}*/
 	return output;
     }
 
