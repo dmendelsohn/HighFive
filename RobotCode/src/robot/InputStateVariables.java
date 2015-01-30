@@ -49,8 +49,10 @@ public class InputStateVariables{
 	
 	photoReading = systems.colorSensor.read();
 
-
 	lineReadings = systems.getLineReadings();
+	
+	//seesTarget = system.vision.senseTarget();
+	
     }
 
 }

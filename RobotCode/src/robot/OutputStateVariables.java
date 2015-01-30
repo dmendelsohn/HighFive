@@ -5,6 +5,7 @@ import static robot.Enums.*;
 public class OutputStateVariables{
     public DriveTrainMethod driveTrainMethod;
     public double driveTrainSpeed;
+    public double driveTrainPidAngle;
 
     public SorterMethod sorterMethod;
     public SorterPosition sorterPosition;
