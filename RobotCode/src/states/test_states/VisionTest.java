@@ -1,5 +1,6 @@
 package states.test_states;
 import states.*;
+import states.test_states.*;
 import robot.*;
 
 import static robot.Enums.*;
@@ -34,6 +35,10 @@ public class VisionTest extends StateBase{
     }
 
     public StateBase getNext(InputStateVariables input){
-	return this;
+	if(super.getElapsedTime()>3000){
+	    return new ForwardTest(4000);
+	}else{
+	    return this;
+	}
     }
 }
