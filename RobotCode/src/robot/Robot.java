@@ -220,9 +220,11 @@ public class Robot{
 	    
 			double analogReading = input.photoReading;
 			systems.sorter.addColorDataPoint(analogReading);
+			System.out.println("Color analog reading: " + analogReading);
 			if (systems.sorter.hasColorStreak()) {
 				output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
 				BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
+				System.out.println("Color streak of color: " + color.name());
 				output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
 				colorReadingFlag = false;
 				//clear readings

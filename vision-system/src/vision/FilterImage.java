@@ -45,7 +45,6 @@ public class FilterImage {
 		int height = pixelBuffer.getHeight();
 		int width = pixelBuffer.getWidth();
 		byte[] data = pixelBuffer.getData(); //BGR format
-		System.out.println("Image dimensions: " + height + " by " + width);
 
 		byte[] raw_data = new byte[width*height];
 		
@@ -93,29 +92,24 @@ public class FilterImage {
 			start = System.currentTimeMillis();
 			PixelBuffer pixelBuffer = Utils.getPixelBufferFromFilename(inputFilename);
 			end = System.currentTimeMillis();
-			System.out.println("getPixelBufferFromFilename() milli bench: " + (end-start));
 
 			// Filter into GameColors
 			start = System.currentTimeMillis();
 			byte[] raw_data = filter(pixelBuffer);
 			end = System.currentTimeMillis();
-			System.out.println("filter milli bench: " + (end-start));
 
 			start = System.currentTimeMillis();
 			Utils.savePixelBufferToFilename(outImgFilename, pixelBuffer);
 			end = System.currentTimeMillis();
-			System.out.println("savePixelBufferToFilename() milli bench: " + (end-start));
 	
 			start = System.currentTimeMillis();
 			Utils.saveByteArrayToFilename(outRawFilename, raw_data);
 			end = System.currentTimeMillis();
-			System.out.println("saveByteArrayToFilename() milli bench: " + (end-start));
 
 			start = System.currentTimeMillis();
 			String infoOut = Utils.getFilterOutput(pixelBuffer.getHeight(), pixelBuffer.getWidth());
 			Utils.saveStringToFilename(outInfoFilename, infoOut);
 			end = System.currentTimeMillis();
-			System.out.println("filter output routine milli bench: " + (end-start));
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
