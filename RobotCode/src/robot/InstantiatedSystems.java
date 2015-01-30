@@ -72,6 +72,10 @@ public class InstantiatedSystems{
 	return RobotMap.RIGHT_FRONT_IR_TRANS+(int)(shield.analogRead(RobotMap.RIGHT_FRONT_IR_INPUT)*RobotMap.RIGHT_FRONT_IR_SCALE);
     }
 
+    public int readFrontShortIRVal(){
+	return shield.digitalRead(RobotMap.FRONT_SHORT_IR_INPUT);
+    }
+
     public boolean readBlockIRBoolean(){
 	if (shield.digitalRead(RobotMap.BLOCK_IR_INPUT)==1){
 	    return false;

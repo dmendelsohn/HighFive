@@ -33,11 +33,12 @@ public class RobotMap{
     public static final int RIGHT_BACK_IR_INPUT = 0;
     public static final int RIGHT_FRONT_IR_INPUT = 1;
     //Digital
-    public static final int BLOCK_IR_INPUT = 0; 
+    public static final int BLOCK_IR_INPUT = 1; 
+    public static final int FRONT_SHORT_IR_INPUT = 2;
 
-	public static final int FRONT_LINE_TRACKER = 6;
-	public static final int MID_LINE_TRACKER = 5;
-	public static final int BACK_LINE_TRACKER = 4;
+    public static final int FRONT_LINE_TRACKER = 6;
+    public static final int MID_LINE_TRACKER = 5;
+    public static final int BACK_LINE_TRACKER = 4;
 
 	//IR calibration values
     public static final int FRONT_IR_TRANS = 120;
@@ -50,6 +51,7 @@ public class RobotMap{
 
     public static final int FRONT_IR_UPPER_THRESHOLD = 250;
     public static final int FRONT_IR_LOWER_THRESHOLD = 175;
+    public static final int RIGHT_FRONT_IR_THRESHOLD = 400;
 
     //Analogs
     public static final int SORTER_INPUT_AI = 0;

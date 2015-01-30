@@ -10,6 +10,7 @@ public class InputStateVariables{
     public int frontIRDist;
     public int rightBackIRDist;
     public int rightFrontIRDist;
+    public int frontShortIRVal;
 
     public boolean blockIRBoolean; //IR
 
@@ -34,6 +35,7 @@ public class InputStateVariables{
 	frontIRDist = systems.readFrontIRDist();
 	rightBackIRDist = systems.readRightBackIRDist();
 	rightFrontIRDist = systems.readRightFrontIRDist();
+	frontShortIRVal = systems.readFrontShortIRVal();
 	
 	blockIRBoolean = systems.readBlockIRBoolean();
 	
