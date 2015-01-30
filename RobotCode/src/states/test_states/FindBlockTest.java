@@ -43,7 +43,7 @@ public class FindBlockTest extends StateBase{
 			} else {  //We have an update, drive!!
 				output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
 				output.driveTrainSpeed = 0.2;
-				output.driveTrainAngle = angle;
+				output.driveTrainPidAngle = angle;
 				System.out.println("I am driving");
 			}
 		} else { //Reset cycle
