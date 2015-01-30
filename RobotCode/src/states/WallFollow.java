@@ -9,7 +9,7 @@ public class WallFollow extends StateBase{
     public OutputStateVariables getDefaultOutput() {
 	OutputStateVariables output = super.getDefaultOutput();
 	output.driveTrainMethod = DriveTrainMethod.PID_DRIVE_TWO_INPUTS;
-	output.driveTrainSpeed = 0.2;
+	output.driveTrainSpeed = 0.3;
 	return output;
     }
 

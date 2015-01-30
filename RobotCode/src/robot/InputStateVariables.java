@@ -52,7 +52,9 @@ public class InputStateVariables{
 
 	lineReadings = systems.getLineReadings();
 	
-	//seesTarget = system.vision.senseTarget();
+	seesTarget = systems.vision.senseTarget();
+	howCentered = systems.vision.howCentered();
+	boxDistance = systems.vision.getDistance();
 	
     }
 

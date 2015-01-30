@@ -18,27 +18,30 @@ public class VisionTest extends StateBase{
 
     public OutputStateVariables run(InputStateVariables input){
 	OutputStateVariables output = getDefaultOutput();
-	if(Math.abs(howCentered-input.howCentered) > 0.1 || Math.abs(boxDistance - input.boxDistance) > 0.01){
+	//if(Math.abs(howCentered-input.howCentered) > 0.01 || Math.abs(boxDistance - input.boxDistance) > 0.01){
 	    howCentered = input.howCentered;
 	    boxDistance = input.boxDistance;
 	    System.out.println("sees target: " + input.seesTarget + "  howCentered: " + input.howCentered + "  distance: " + input.boxDistance);
-	}
+	    //}
 	if(!input.seesTarget){
 	    output.driveTrainMethod = DriveTrainMethod.STOP;
 	}else{
 	    output.driveTrainMethod = DriveTrainMethod.VISION_TURN;
 	    if(System.currentTimeMillis()-lastCenter > 2000){
 		lastCenter = System.currentTimeMillis();
+		output.zeroGyro = true;
+	    }else{
+		output.zeroGyro = false;
 	    }
 	}
 	return output;
     }
 
     public StateBase getNext(InputStateVariables input){
-	if(super.getElapsedTime()>3000){
-	    return new FindWall();
-	}else{
+	//if(super.getElapsedTime()>3000){
+	//   return new FindWall();
+	//}else{
 	    return this;
-	}
+	    //}
     }
 }
