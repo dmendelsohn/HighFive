@@ -17,7 +17,9 @@ public class Robot{
     public HomeBaseTracker homeBaseTracker;
 
     public boolean inEnemyZone;
-    public boolean colorReadingFlag;
+    public boolean colorReadingFlag;    
+    public boolean isInHomeBase;
+
 
     public Robot(){
 	runTime = System.currentTimeMillis();
@@ -27,20 +29,11 @@ public class Robot{
 	inEnemyZone = false;
 	colorReadingFlag = false;
     }
-
-    public Robot(StateBase startingState) {
-	runTime = System.currentTimeMillis();
-	state = startingState;
-	systems = new InstantiatedSystems();
-	logger = new RobotLogger();
-	inEnemyZone = false;
-
-    public boolean isInHomeBase;
-
+    /*
     public Robot(){
 		this(new ManualTest());
     }
-
+    */
     public Robot(StateBase startingState) {
 		runTime = System.currentTimeMillis();
 		state = startingState;
@@ -48,6 +41,7 @@ public class Robot{
 		logger = new RobotLogger();
 		isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
 		homeBaseTracker = new HomeBaseTracker(isInHomeBase);
+		inEnemyZone = false;
     }
 
     public static void main(String[] args){
@@ -244,7 +238,7 @@ public class Robot{
 		}
 
 		}*/
-		systems.sorter.addDataPoint(analogReading);
+	    //systems.sorter.addDataPoint(analogReading);
 		if (RobotMap.AUTO_SORT) {
 			if (systems.sorter.hasColorStreak()) {
 					output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
