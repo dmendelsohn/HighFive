@@ -77,12 +77,9 @@ public class InstantiatedSystems{
     }
 
     public boolean readBlockIRBoolean(){
-	if (shield.digitalRead(RobotMap.BLOCK_IR_INPUT)==1){
-	    return false;
-	}else{
-	    return true;
-	}
+		return (shield.digitalRead(RobotMap.BLOCK_IR_INPUT)!=1);
     }
+
 	public int[] getLineReadings() {
 		int[] result = new int[3];
 		result[0] = shield.analogRead(RobotMap.FRONT_LINE_TRACKER);

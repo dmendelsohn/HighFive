@@ -70,7 +70,8 @@ public class RobotMap{
 
     //Bounding Constants
     public static final double SORTER_LOWER_BOUND = 0.031;
-    public static final double SORTER_UPPER_BOUND = 0.0932;
+	public static final double SORTER_MIDDLE_FRACTION = -0.04;
+    public static final double SORTER_UPPER_BOUND = 0.0934;
 
     public static final double LEFT_RELEASE_LOWER_BOUND = 0.033;
     public static final double LEFT_RELEASE_UPPER_BOUND = 0.08;
@@ -100,6 +101,12 @@ public class RobotMap{
     public static final double NOTHING_GREEN_COLOR_BOUNDARY = 210.0;
     public static final double GREEN_RED_COLOR_BOUNDARY = 380.0;
 	public static final double LINE_IR_THRESHHOLD = 800.0;
+
+	public static final int IR_BLOCK_THRESHHOLD = 2;	//Two IR positive readings to determine if block is present
+	public static final int NUM_COLOR_READINGS_HELD = 10;
+    public static final int NUM_IR_READINGS_HELD = 15;
+
+
 
     //Time Constants
     public static final long TOTAL_SORT_TIME = 1500;

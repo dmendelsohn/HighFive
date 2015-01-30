@@ -6,72 +6,62 @@ import jmraa.*;
 import static robot.Enums.*;
 
 public class Sorter{
-    public static final double LEFT_VAL = -1.0;	//Gets reduced in Servo.java
-    public static final double RIGHT_VAL = 1.0;	//Gets reduced in Servo.java
-    public static final double MIDDLE_VAL = -0.06; //Calibrated middle position
+	public static final double LEFT_VAL = -1.0;	//Gets reduced in Servo.java
+	public static final double RIGHT_VAL = 1.0;	//Gets reduced in Servo.java
+	public static final double MIDDLE_VAL = RobotMap.SORTER_MIDDLE_FRACTION; //Calibrated middle position
 
-    public static final int NUM_COLOR_READINGS_HELD = 10;
-    public static final int NUM_IR_READINGS_HELD = 10;
+    private Servo sorterServo;
 
-    public Servo sorterServo;
+    private long startTime;
+    private long lastMovement;
+	private SorterPosition currentPosition;
 
-    public long startTime;
-    public long lastMovement;
-    
-    public ArrayList<BlockColor> colorReadings;
-    public ArrayList<Boolean> irReadings;
-    public Sorter(I2c i2c){
-	colorReadings = new ArrayList<BlockColor>();
-	irReadings = new ArrayList<Boolean>();
 
-	Pwm.initPwm(i2c);
+    private ArrayList<BlockColor> colorReadings;
+    private ArrayList<Boolean> irReadings;
 
-	//Servo(I2c i2c, int pin, double bot, double top)
-	sorterServo = new Servo(i2c,RobotMap.SORTER_SERVO_PWM, RobotMap.SORTER_LOWER_BOUND, RobotMap.SORTER_UPPER_BOUND);
+	public Sorter(I2c i2c){
+		colorReadings = new ArrayList<BlockColor>();
+		irReadings = new ArrayList<Boolean>();
+
+		Pwm.initPwm(i2c);
+
+		//Servo(I2c i2c, int pin, double bot, double top)
+		sorterServo = new Servo(i2c,RobotMap.SORTER_SERVO_PWM, RobotMap.SORTER_LOWER_BOUND, RobotMap.SORTER_UPPER_BOUND);
 	
-	lastMovement = System.currentTimeMillis();
-    }
-
-    public void setSorterPositionRefined(SorterPosition position, long sortTime){
-	switch (position) {
-	case LEFT:
-	    sorterServo.setPosition(LEFT_VAL);
-	    break;
-	case RIGHT:
-	    sorterServo.setPosition(RIGHT_VAL);
-	    break;
-	case MIDDLE:
-	    sorterServo.setPosition(MIDDLE_VAL);
-	    break;
-	}
-	lastMovement = System.currentTimeMillis();
+		lastMovement = System.currentTimeMillis();
     }
 
     public void setSorterPosition(SorterPosition position){
-	switch (position) {
-	case LEFT:
-	    sorterServo.setPosition(LEFT_VAL);
-	    lastMovement = System.currentTimeMillis();
-	    break;
-	case RIGHT:
-	    sorterServo.setPosition(RIGHT_VAL);
-	    lastMovement = System.currentTimeMillis();
-	    break;
-	case MIDDLE:
-	    sorterServo.setPosition(MIDDLE_VAL);
-	    break;
+		if (position != currentPosition) {
+			switch (position) {
+				case LEFT:
+					sorterServo.setPosition(LEFT_VAL);
+					lastMovement = System.currentTimeMillis();
+					break;
+				case RIGHT:
+					sorterServo.setPosition(RIGHT_VAL);
+					lastMovement = System.currentTimeMillis();
+					break;
+				case MIDDLE:
+					sorterServo.setPosition(MIDDLE_VAL);
+					break;
+			}
+		}
 	}
-	
-    }
 
     public void kill() {
 	setSorterPosition(SorterPosition.MIDDLE);
     }
+
+	public long getLastMovementTime() {
+		return lastMovement;
+	}
     
     public void addColorDataPoint(double analogReading){
 	BlockColor color = getBlockColor(analogReading);
-	if (colorReadings.size()==NUM_COLOR_READINGS_HELD){
-	    colorReadings.remove(NUM_COLOR_READINGS_HELD-1);
+	if (colorReadings.size()==RobotMap.NUM_COLOR_READINGS_HELD){
+	    colorReadings.remove(0);
 	}
 	colorReadings.add(color);
     }
@@ -79,54 +69,44 @@ public class Sorter{
         
     public void addIRDataPoint(boolean irReading){
 
-	if (irReadings.size()==NUM_IR_READINGS_HELD){
-	    irReadings.remove(NUM_IR_READINGS_HELD-1);
-	}
-	irReadings.add(irReading);
+		if (irReadings.size()==RobotMap.NUM_IR_READINGS_HELD){
+		    irReadings.remove(0);
+		}
+		irReadings.add(irReading);
     }
-    /*
-    private BlockColor getBlockColor(double photoReading) {
-	if (photoReading < RobotMap.GREEN_RED_COLOR_BOUNDARY && photoReading >  RobotMap.NOTHING_GREEN_COLOR_BOUNDARY){
-	    return BlockColor.GREEN;
-	}else if (photoReading > RobotMap.GREEN_RED_COLOR_BOUNDARY){
-	    return BlockColor.RED;
-	}else{
-	    return BlockColor.NONE;
-	}	
-	}*/
 
     private BlockColor getBlockColor(double photoReading){
-	if(photoReading<RobotMap.GREEN_RED_COLOR_BOUNDARY){
-	    return BlockColor.GREEN;
-	}else{
-	    return BlockColor.RED;
-	}
+		if(photoReading<RobotMap.GREEN_RED_COLOR_BOUNDARY){
+		    return BlockColor.GREEN;
+		} else {
+		    return BlockColor.RED;
+		}
     }
 
   
 
     public boolean hasColorStreak() {
-	BlockColor color = colorReadings.get(0);
-	for (BlockColor bc : colorReadings) {
-	    if (bc != color) {
-		return false;
-	    }
-	}
-	return ((System.currentTimeMillis() - lastMovement) > RobotMap.TOTAL_SORT_TIME); //1 second between consecutive movements
+		BlockColor color = colorReadings.get(0);
+		for (BlockColor bc : colorReadings) {
+		    if (bc != color) {
+				return false;
+		    }
+		}
+		return ((System.currentTimeMillis() - lastMovement) > RobotMap.TOTAL_SORT_TIME); //1 second between consecutive movements
     }
 
     public void clearColorReadings(){
 	colorReadings.clear();
     }
+
     public boolean hasIRStreak(){
-	int readCount = 0;
-	for(boolean reading: irReadings){
-	    if(reading){
-		readCount += 1;
-	    }
-	}
-        int cutoff = (int)(NUM_IR_READINGS_HELD/2.0);
-	return ((readCount > cutoff)&&((System.currentTimeMillis() - lastMovement) > RobotMap.TOTAL_SORT_TIME));
+		int readCount = 0;
+		for(boolean reading: irReadings){
+		    if(reading){
+				readCount += 1;
+		    }
+		}
+		return ((readCount > RobotMap.IR_BLOCK_THRESHHOLD) && ((System.currentTimeMillis() - lastMovement) > RobotMap.TOTAL_SORT_TIME));
     }
     public void clearIRReadings(){
 	irReadings.clear();
