@@ -205,9 +205,9 @@ public class Robot{
 			output.sorterPosition = SorterPosition.MIDDLE;
 		}
 		if(System.currentTimeMillis() - systems.sorter.getLastMovementTime() > RobotMap.TOTAL_SORT_TIME){
-			output.conveyorMethod = ConveyorMethod.MOVE_BELT;
-			output.conveyorSpeed = .12;
-		}else{
+		    output.conveyorMethod = ConveyorMethod.MOVE_BELT;
+		    output.conveyorSpeed = .15;
+		} else{
 		    output.conveyorMethod = ConveyorMethod.STOP_BELT;
 		}
 		
@@ -224,11 +224,14 @@ public class Robot{
 	    
 			double analogReading = input.photoReading;
 			systems.sorter.addColorDataPoint(analogReading);
-			//System.out.println("Color analog reading: " + analogReading);
+			System.out.println("Color analog reading: " + analogReading);
+			if(systems.sorter.hasAnyColor()){
+			    output.conveyorMethod = ConveyorMethod.STOP_BELT;
+			}
 			if (systems.sorter.hasColorStreak()) {
 				output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
 				BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
-				//System.out.println("Color streak of color: " + color.name());
+				System.out.println("Color streak of color: " + color.name());
 				output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
 				//colorReadingFlag = false;
 				//clear readings

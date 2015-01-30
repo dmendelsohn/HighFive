@@ -101,12 +101,12 @@ public class RobotMap{
     public static final double KD_PID_TURN = 0;
 
     //Color thresholding constants
-    public static final double NOTHING_GREEN_COLOR_BOUNDARY = 630.0;
-    public static final double GREEN_RED_COLOR_BOUNDARY = 480.0;
+    public static final double NOTHING_GREEN_COLOR_BOUNDARY = 610.0;
+    public static final double GREEN_RED_COLOR_BOUNDARY = 487.0;
 	public static final double LINE_IR_THRESHHOLD = 800.0;
 
 	public static final int IR_BLOCK_THRESHHOLD = 2;	//Two IR positive readings to determine if block is present
-	public static final int NUM_COLOR_READINGS_HELD = 10;
+	public static final int NUM_COLOR_READINGS_HELD = 25;
     public static final int NUM_IR_READINGS_HELD = 15;
 
 

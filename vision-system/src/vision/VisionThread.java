@@ -126,7 +126,16 @@ public class VisionThread extends Thread{
 
 	CameraThread cam = new CameraThread(index);
 	cam.start();
-	while(cam.getCurrentIm().rows()==0){
+	/*while(cam.getCurrentIm().rows()==0){
+	    //System.out.println("cam still initializing;");
+	    try{
+		Thread.sleep(10);
+	    }catch(InterruptedException e){
+		e.printStackTrace();
+	    }
+	    }*/
+
+	while(!cam.camera.grab()){
 	    System.out.println("cam still initializing;");
 	    try{
 		Thread.sleep(10);
@@ -139,7 +148,8 @@ public class VisionThread extends Thread{
 	    long total_start = System.currentTimeMillis();
 	    start = System.currentTimeMillis();
 
-	    Mat currentIm = cam.getCurrentIm();
+	    Mat currentIm = new Mat();
+	    cam.camera.retrieve(currentIm);
 
 	    PixelBuffer pixelBuffer = Utils.getPixelBufferFromMat(currentIm);
 	    height = pixelBuffer.getHeight();

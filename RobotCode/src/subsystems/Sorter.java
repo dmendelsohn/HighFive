@@ -97,6 +97,15 @@ public class Sorter{
 		return ((System.currentTimeMillis() - lastMovement) > RobotMap.TOTAL_SORT_TIME); //1 second between consecutive movements
     }
 
+    public boolean hasAnyColor() {
+	for(BlockColor bc : colorReadings){
+	    if(bc != BlockColor.NONE){
+		return true;
+	    }
+	}
+	return false;
+    }
+
     public void clearColorReadings(){
 	colorReadings.clear();
     }
