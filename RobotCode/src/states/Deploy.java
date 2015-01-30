@@ -22,13 +22,13 @@ public class Deploy extends StateBase{
 	    output.driveTrainMethod = DriveTrainMethod.STOP;
 	    output.hopperMethod = HopperMethod.MOVE_RIGHT;
 	    output.hopperRightOpen = true;
-	} else if(elapsed < 3000){
+	} else if(elapsed < 8000 || !input.isInHomeBase){
 	    output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
-	} else if(elapsed < 5000){
+	} else if(elapsed < 9000){
 	    output.driveTrainMethod = DriveTrainMethod.STOP;
 	    output.hopperMethod = HopperMethod.MOVE_LEFT;
 	    output.hopperLeftOpen = true;
-	} else if(elapsed < 8000){
+	} else if(elapsed < 10000){
 	    output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
 	} else{
 	    output.driveTrainMethod = DriveTrainMethod.STOP;
