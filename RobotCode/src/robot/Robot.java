@@ -28,6 +28,7 @@ public class Robot{
 	logger = new RobotLogger();
 	inEnemyZone = false;
 	colorReadingFlag = false;
+	isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
     }
     /*
     public Robot(){
@@ -199,7 +200,10 @@ public class Robot{
 		if (System.currentTimeMillis() - systems.sorter.getLastMovementTime() > 0.5*RobotMap.TOTAL_SORT_TIME) {
 			output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
 			output.sorterPosition = SorterPosition.MIDDLE;		
+		}else{
+		    output.conveyorMethod = ConveyorMethod.STOP_BELT;
 		}
+		
 
 	    if (!colorReadingFlag) {
 			systems.sorter.addIRDataPoint(irReading);

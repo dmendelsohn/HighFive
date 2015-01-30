@@ -4,7 +4,8 @@ import jmraa.*;
 
 public class ConveyorBelt{
 
-    public MotorController conveyorMotor;	
+    public MotorController conveyorMotor;
+    private double currentConveyorSpeed;
 
     public ConveyorBelt(I2c i2c){
 		
@@ -18,10 +19,13 @@ public class ConveyorBelt{
     }
 
     public void moveBelt(double speed){
-	conveyorMotor.setSpeed(speed);
+	if(speed!=currentConveyorSpeed){
+	    conveyorMotor.setSpeed(speed);
+	    currentConveyorSpeed = speed;
+	}
     }
     public void stopBelt(){
-	conveyorMotor.setSpeed(0);
+	moveBelt(0);
     }
     public void doNothing(){
     }
