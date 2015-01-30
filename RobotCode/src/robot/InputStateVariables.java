@@ -52,7 +52,7 @@ public class InputStateVariables{
 
 	lineReadings = systems.getLineReadings();
 	
-	//seesTarget = system.vision.senseTarget();
+	seesTarget = system.vision.senseTarget();
 	
     }
 
