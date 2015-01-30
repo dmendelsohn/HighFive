@@ -57,7 +57,7 @@ public class RobotMap{
     public static final double RIGHT_FRONT_IR_SCALE = 1;
 
     public static final int FRONT_IR_UPPER_THRESHOLD = 250;
-    public static final int FRONT_IR_LOWER_THRESHOLD = 175;
+    public static final int FRONT_IR_LOWER_THRESHOLD = 210;
     public static final int RIGHT_FRONT_IR_THRESHOLD = 400;
 
     //Analogs
@@ -77,8 +77,8 @@ public class RobotMap{
 
     //Bounding Constants
     public static final double SORTER_LOWER_BOUND = 0.031;
-	public static final double SORTER_MIDDLE_FRACTION = -0.04;
-    public static final double SORTER_UPPER_BOUND = 0.0934;
+    public static final double SORTER_MIDDLE_FRACTION = -0.1;
+    public static final double SORTER_UPPER_BOUND = 0.095;
 
     public static final double LEFT_RELEASE_LOWER_BOUND = 0.033;
     public static final double LEFT_RELEASE_UPPER_BOUND = 0.08;
@@ -105,9 +105,9 @@ public class RobotMap{
     public static final double KD_PID_TURN = 0;
 
     //Color thresholding constants
-    public static final double NOTHING_GREEN_COLOR_BOUNDARY = 740.0;
-    public static final double GREEN_IGNORE_COLOR_BOUNDARY = 680.0;
-    public static final double IGNORE_RED_COLOR_BOUNDARY = 640.0;
+    public static final double NOTHING_GREEN_COLOR_BOUNDARY = 720.0;
+    public static final double GREEN_IGNORE_COLOR_BOUNDARY = 685.0;
+    public static final double IGNORE_RED_COLOR_BOUNDARY = 680.0;
 	public static final double LINE_IR_THRESHHOLD = 800.0;
 
 	public static final int IR_BLOCK_THRESHHOLD = 2;	//Two IR positive readings to determine if block is present
@@ -122,6 +122,7 @@ public class RobotMap{
 	public static final long ESCAPE_TURN_TIMEOUT = 800;
 	public static final long ESCAPE_FORWARD_TIMEOUT = 400;
 	public static final long ESCAPE_TIMEOUT = ESCAPE_TURN_TIMEOUT + ESCAPE_FORWARD_TIMEOUT + 100;
-	public static final long MAX_RUN_TIME = 300000;
+	public static final long MAX_RUN_TIME = 180000;
+    public static final long FIND_HOME_TIME = 150000;
 }
 

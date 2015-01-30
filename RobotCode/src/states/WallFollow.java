@@ -22,7 +22,10 @@ public class WallFollow extends StateBase{
     public StateBase getNext(InputStateVariables input){
 	if(input.frontIRDist > RobotMap.FRONT_IR_UPPER_THRESHOLD){
 	    return new WallTurn();
-	} else if (input.seesTarget) {
+	} else if(input.runTime > RobotMap.FIND_HOME_TIME) {
+	    return new WallFollowFast();
+	}
+	else if (input.seesTarget) {
 		return new FindBlockTest();
 	} else {
 	    return this;

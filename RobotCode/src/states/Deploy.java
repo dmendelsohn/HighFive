@@ -18,17 +18,17 @@ public class Deploy extends StateBase{
     public OutputStateVariables run(InputStateVariables input){
 	OutputStateVariables output = getDefaultOutput();
 	long elapsed = getElapsedTime();
-	if(elapsed < 500){
+	if(elapsed < 2000){
 	    output.driveTrainMethod = DriveTrainMethod.STOP;
 	    output.hopperMethod = HopperMethod.MOVE_RIGHT;
 	    output.hopperRightOpen = true;
-	} else if(elapsed < 1500){
+	} else if(elapsed < 3000){
 	    output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
-	} else if(elapsed < 2000){
+	} else if(elapsed < 5000){
 	    output.driveTrainMethod = DriveTrainMethod.STOP;
 	    output.hopperMethod = HopperMethod.MOVE_LEFT;
 	    output.hopperLeftOpen = true;
-	} else if(elapsed < 4000){
+	} else if(elapsed < 8000){
 	    output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
 	} else{
 	    output.driveTrainMethod = DriveTrainMethod.STOP;

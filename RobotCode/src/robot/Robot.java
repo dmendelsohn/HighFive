@@ -27,7 +27,7 @@ public class Robot{
 	startTime = System.currentTimeMillis();
 	state = new SorterColorTest();
 	systems = new InstantiatedSystems();
-	logger = new RobotLogger();
+	//logger = new RobotLogger();
 	colorReadingFlag = false;
 	isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
     }
@@ -87,9 +87,10 @@ public class Robot{
 	    robot.processOutput(output, input);
 
 	    //Logging
-	    robot.getLogger().logInputs(input);
-	    robot.getLogger().logState(robot.getState());
-	    robot.getLogger().logOutputs(output);
+	    //robot.getLogger().logInputs(input);
+	    //robot.getLogger().logState(robot.getState());
+	    //robot.getLogger().logOutputs(output);
+	    //robot.getLogger().setUseParentHandlers(false);
 			
 	    Utils.msleep(10);
 	}

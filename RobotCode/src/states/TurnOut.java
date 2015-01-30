@@ -10,16 +10,17 @@ public class TurnOut extends StateBase{
 	OutputStateVariables output = super.getDefaultOutput();
 	output.driveTrainMethod = DriveTrainMethod.SET_TURN_ROUGH;
 	output.driveTrainSpeed = -0.25;
+	output.zeroGyro = true;
 	return output;
     }
 
     public OutputStateVariables run(InputStateVariables input){
-	OutputStateVariables output = getDefaultOutput();	
+	OutputStateVariables output = getDefaultOutput();
 	return output;
     }
 
     public StateBase getNext(InputStateVariables input){
-	if(getElapsedTime() > 1000){
+	if(getElapsedTime() > 700){
 	    return new Deploy();
 	} else{
 	    return this;
