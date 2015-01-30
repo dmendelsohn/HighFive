@@ -1,4 +1,4 @@
-package states.test_states;
+package states;
 import states.*;
 import robot.*;
 
@@ -19,11 +19,9 @@ public class WallTurnTest extends StateBase{
     }
 
     public StateBase getNext(InputStateVariables input){
-	if(input.frontShortIRVal == 1 && input.frontIRDist < RobotMap.FRONT_IR_LOWER_THRESHOLD){
+	if(input.frontShortIRVal == 0 || input.frontIRDist < RobotMap.FRONT_IR_LOWER_THRESHOLD){
 	    return new WallFollowTest();
-	} else if(super.getElapsedTime()>2000){
-	    return new WallFollowTest();
-	}else{
+	} else{
 	    return this;
 	}
     }
