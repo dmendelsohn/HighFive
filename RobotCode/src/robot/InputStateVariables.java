@@ -17,6 +17,7 @@ public class InputStateVariables{
     public boolean seesTarget; //vision
     public double howCentered; //vision
     public double boxDistance; //vision
+	public double targetAngle;
 
     public double photoReading;
 
@@ -55,7 +56,7 @@ public class InputStateVariables{
 	seesTarget = systems.vision.senseTarget();
 	howCentered = systems.vision.howCentered();
 	boxDistance = systems.vision.getDistance();
-	
+	targetAngle = systems.vision.getAngle();
     }
 
 }

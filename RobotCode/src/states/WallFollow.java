@@ -1,5 +1,6 @@
 package states;
 import states.*;
+import states.test_states.*;
 import robot.*;
 
 import static robot.Enums.*;
@@ -21,7 +22,9 @@ public class WallFollow extends StateBase{
     public StateBase getNext(InputStateVariables input){
 	if(input.frontIRDist > RobotMap.FRONT_IR_UPPER_THRESHOLD){
 	    return new WallTurn();
-	} else{
+	} else if (input.seesTarget) {
+		return new FindBlockTest();
+	} else {
 	    return this;
 	}
     }

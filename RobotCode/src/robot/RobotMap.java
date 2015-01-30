@@ -11,6 +11,8 @@ public class RobotMap{
 
 	public static final boolean STARTS_IN_HOME_BASE = false;
 
+	public static final double CAMERA_ANGLE = 68.0;
+
 
     //PWM slots
     public static final int LEFT_MOTOR_PWM = 1;
