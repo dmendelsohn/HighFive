@@ -24,11 +24,10 @@ public class Robot{
 	public Phase phase;
 
     public Robot(){
-	runTime = System.currentTimeMillis();
+	startTime = System.currentTimeMillis();
 	state = new SorterColorTest();
 	systems = new InstantiatedSystems();
 	logger = new RobotLogger();
-	inEnemyZone = false;
 	colorReadingFlag = false;
 	isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
     }
