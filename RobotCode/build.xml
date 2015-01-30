@@ -41,13 +41,20 @@
       <echo message="${start}"/>
         <java jar="${jar.dir}/RobotCode.jar" fork="true">
 			<sysproperty key="java.library.path" path="${jmraa.dir}/jni/:${vision-lib.dir}/"/>
-			<arg value="${start}" unless:blank="${start}"/>
+			<arg value="${start}"/>
+			<arg value="${color}"/> 
 		</java>
 	</target>
 
+	<target name="run-fast">
+		<java jar="${jar.dir}/RobotCode.jar" fork="true">
+			<sysproperty key="java.library.path" path="${jmraa.dir}/jni/:${vision-lib.dir}/"/>
+			<arg value="${start}"/>
+			<arg value="${color}"/>
+		</java>
+	</target>
 
   <target name="clean-build" depends="clean,jar"/>
-
   <target name="main" depends="clean,run"/>
 
 </project>

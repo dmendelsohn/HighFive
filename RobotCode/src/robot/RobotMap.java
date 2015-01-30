@@ -4,7 +4,6 @@ import static robot.Enums.*;
 
 public class RobotMap{
 	//Game Constants
-	public static final BlockColor MY_COLOR = BlockColor.RED;
 	public static final HopperSide MY_HOPPER = HopperSide.LEFT;
 
 	public static final boolean AUTO_SORT = true;

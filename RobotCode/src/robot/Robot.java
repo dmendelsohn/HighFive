@@ -22,28 +22,17 @@ public class Robot{
     //Overall game constants
     public boolean isInHomeBase;
     public Phase phase;
+	public BlockColor myColor;
 
-    public Robot(){
-	startTime = System.currentTimeMillis();
-	state = new SorterColorTest();
-	systems = new InstantiatedSystems();
-	//logger = new RobotLogger();
-	colorReadingFlag = false;
-	isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
-    }
-    /*
-      public Robot(){
-      this(new ManualTest());
-      }
-    */
-    public Robot(StateBase startingState) {
+    public Robot(StateBase startingState, BlockColor myColor) {
 	state = startingState;
-	systems = new InstantiatedSystems();
+	systems = new InstantiatedSystems(myColor);
 	logger = new RobotLogger();
 	isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
 	homeBaseTracker = new HomeBaseTracker(isInHomeBase);
 	startTime = System.currentTimeMillis();
 	escapeStartTime = System.currentTimeMillis();
+	this.myColor = myColor;
     }
 
     public long getRunTime() {
@@ -56,10 +45,10 @@ public class Robot{
 
     public static void main(String[] args){
 	Robot robot;
-	if (args.length == 0) {
-	    System.out.println("No arguments given to main method");
+	if (args.length < 2) {
+	    System.out.println("Not enough arguments given to main method");
 	    System.exit(0);
-	    robot = new Robot(new WallFollow()); //This will never happen, it's just to appease the compiler
+	    robot = new Robot(new WallFollow(), BlockColor.RED); //This will never happen, it's just to appease the compiler
 	} else {
 	    //Use first argument to determine test type
 	    StateBase startState = new ManualTest(); //This is to get Java to compile, it will be overwritten...
@@ -70,7 +59,10 @@ public class Robot{
 		System.out.println("Invalid Start State: " + args[0]);
 		System.exit(0);
 	    }
-	    robot = new Robot(startState);
+
+		//my color
+		BlockColor inputColor = BlockColor.valueOf(args[1]);
+	    robot = new Robot(startState, inputColor);
 	}
 	robot.addShutdown();
 		
@@ -87,10 +79,9 @@ public class Robot{
 	    robot.processOutput(output, input);
 
 	    //Logging
-	    //robot.getLogger().logInputs(input);
-	    //robot.getLogger().logState(robot.getState());
-	    //robot.getLogger().logOutputs(output);
-	    //robot.getLogger().setUseParentHandlers(false);
+	    robot.getLogger().logInputs(input);
+	    robot.getLogger().logState(robot.getState());
+	    robot.getLogger().logOutputs(output);
 			
 	    Utils.msleep(10);
 	}
