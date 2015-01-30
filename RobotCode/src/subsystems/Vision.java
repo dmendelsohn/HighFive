@@ -27,7 +27,7 @@ public class Vision{
 
 	public double getAngle() {
 		double xFraction = visionThread.getHeadingToNearestBlock();
-		return 0.5*RobotMap.CAMERA_ANGLE*xFraction;
+		return 0.5*RobotMap.CAMERA_ANGLE*xFraction - 15.0;
 	}
 
     public void doNothing(){
