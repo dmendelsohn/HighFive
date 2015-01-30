@@ -156,7 +156,7 @@ public class VisionThread extends Thread{
 	    int numBlobsRemoved = BlobAnalysis.removeSmallBlobs(blobLabelData);
 	    end = System.currentTimeMillis();
 	    if (debug) System.out.println("[Timing] Small blob removal milli bench: " + (end-start));
-	    System.out.println("Removed " + numBlobsRemoved + " blobs");
+	    //System.out.println("Removed " + numBlobsRemoved + " blobs");
 				
 	    // Calculate bounding boxes for all blobs
 	    start = System.currentTimeMillis();
@@ -178,7 +178,7 @@ public class VisionThread extends Thread{
 	    } catch(IOException e){
 	    e.printStackTrace();
 	    }*/
-	    System.out.println("count: " + count);
+	    //System.out.println("count: " + count);
 	    count++;
 			
 	    long total_end = System.currentTimeMillis();

@@ -97,7 +97,7 @@ public class RobotMap{
 
     //Color thresholding constants
     public static final double NOTHING_GREEN_COLOR_BOUNDARY = 210.0;
-    public static final double GREEN_RED_COLOR_BOUNDARY = 380.0;
+    public static final double GREEN_RED_COLOR_BOUNDARY = 99.0;
 	public static final double LINE_IR_THRESHHOLD = 800.0;
 
 	public static final int IR_BLOCK_THRESHHOLD = 2;	//Two IR positive readings to determine if block is present
