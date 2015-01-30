@@ -118,10 +118,12 @@ public class RobotMap{
     //Time Constants
     public static final long THERE_SORT_TIME = 600;
     public static final long TOTAL_SORT_TIME = 1300;
+	public static final long ESCAPE_BACK_TIMEOUT = 400;
 	public static final long ESCAPE_TURN_TIMEOUT = 800;
-	public static final long ESCAPE_FORWARD_TIMEOUT = 400;
-	public static final long ESCAPE_TIMEOUT = ESCAPE_TURN_TIMEOUT + ESCAPE_FORWARD_TIMEOUT + 100;
+	public static final long ESCAPE_TIMEOUT = ESCAPE_TURN_TIMEOUT + ESCAPE_BACK_TIMEOUT + 100;
 	public static final long MAX_RUN_TIME = 180000;
     public static final long FIND_HOME_TIME = 150000;
+
+	public static final long BLOCK_LAST_SEEN_TIMEOUT = 20000; //20s
 }
 

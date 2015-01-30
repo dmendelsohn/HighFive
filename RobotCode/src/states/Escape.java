@@ -15,12 +15,12 @@ public class Escape extends StateBase {
 	@Override
 	public OutputStateVariables run(InputStateVariables input) {
 		OutputStateVariables output = getDefaultOutput();
-		if (getElapsedTime() < RobotMap.ESCAPE_TURN_TIMEOUT) {
-			output.driveTrainMethod = DriveTrainMethod.SET_TURN_ROUGH;
-			output.driveTrainSpeed = -0.2; //Turn left at 0.2
-		} else if (getElapsedTime() < RobotMap.ESCAPE_TURN_TIMEOUT + RobotMap.ESCAPE_FORWARD_TIMEOUT) {
+		if (getElapsedTime() < RobotMap.ESCAPE_BACK_TIMEOUT) {
 			output.driveTrainMethod = DriveTrainMethod.MOVE_STRAIGHT_ROUGH;
-			output.driveTrainSpeed = 0.2;
+			output.driveTrainSpeed = -0.2; //Turn left at 0.2
+		} else if (getElapsedTime() < RobotMap.ESCAPE_TURN_TIMEOUT + RobotMap.ESCAPE_BACK_TIMEOUT) {
+			output.driveTrainMethod = DriveTrainMethod.SET_TURN_ROUGH;
+			output.driveTrainSpeed = -0.2;
 		} else {
 			output.driveTrainMethod = DriveTrainMethod.STOP;
 		}

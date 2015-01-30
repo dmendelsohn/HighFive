@@ -99,6 +99,7 @@ public class InstantiatedSystems{
 	}
 
 	public boolean getRightFrontContact() {
+		System.out.println(shield.digitalRead(RobotMap.RIGHT_FRONT_CONTACT_INPUT));
 		return (shield.digitalRead(RobotMap.RIGHT_FRONT_CONTACT_INPUT) == 1);
 	}
 

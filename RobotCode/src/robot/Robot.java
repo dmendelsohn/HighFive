@@ -18,6 +18,7 @@ public class Robot{
 
     public boolean colorReadingFlag;    
     public long escapeStartTime; //Since runTime
+	public long blockLastSeenTime; //in terms of millis since 1/1/1970
 
     //Overall game constants
     public boolean isInHomeBase;
@@ -32,6 +33,7 @@ public class Robot{
 	homeBaseTracker = new HomeBaseTracker(isInHomeBase);
 	startTime = System.currentTimeMillis();
 	escapeStartTime = System.currentTimeMillis();
+	blockLastSeenTime = System.currentTimeMillis();
 	this.myColor = myColor;
     }
 
@@ -46,7 +48,7 @@ public class Robot{
     public static void main(String[] args){
 	Robot robot;
 	if (args.length < 2) {
-	    System.out.println("Not enough arguments given to main method");
+		System.out.println("Not enough arguments given to main method");
 	    System.exit(0);
 	    robot = new Robot(new WallFollow(), BlockColor.RED); //This will never happen, it's just to appease the compiler
 	} else {
@@ -206,14 +208,28 @@ public class Robot{
 	input.isInHomeBase = homeBaseTracker.isInHomeBase();
 
 	input.runTime = getRunTime();
-
 	if (getEscapeTime() > RobotMap.ESCAPE_TIMEOUT && input.rightFrontContact) {
 	    System.out.println("Detected bumper contact");
 	    escapeStartTime = System.currentTimeMillis();
 	    StateBase returnState = state;
 	    this.state = new Escape(returnState); //will return to current state after turning away from wall
+	} else if (input.rightFrontContact) {
+		escapeStartTime = System.currentTimeMillis();
+		System.out.println("escapeStarTime: " + escapeStartTime);
 	}
+
+	System.out.println("lastSeen: " + (System.currentTimeMillis() - this.blockLastSeenTime));
+
+	if (input.seesTarget) {
+		this.blockLastSeenTime = System.currentTimeMillis();
     }
+
+	if (System.currentTimeMillis() - this.blockLastSeenTime > RobotMap.BLOCK_LAST_SEEN_TIMEOUT) {
+		if (!(state instanceof Escape)) { //Don't escape from escape
+			state = new Escape(this.state); //Escape!!
+		}
+	}
+	}
 
     private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
 	output.conveyorMethod = ConveyorMethod.MOVE_BELT;
