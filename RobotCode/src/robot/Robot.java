@@ -201,61 +201,45 @@ public class Robot{
 
     private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
 	if(RobotMap.AUTO_SORT){
-	    //System.out.println("colorFlag:"+colorReadingFlag);
-	    //System.out.println("irReadings:" + systems.sorter.irReadings);
-	    //System.out.println("colorReadings:" + systems.sorter.colorReadings);
 	    boolean irReading = input.blockIRBoolean;
-	    System.out.println("irReading:"+irReading);
-	    /*
-	    if (!colorReadingFlag) {
-		
-		systems.sorter.addIRDataPoint(irReading);
-		if(systems.sorter.hasIRStreak()){
-		    colorReadingFlag = true;
-		    //empty ir array and color array
-		    systems.sorter.clearColorReadings();
-		    systems.sorter.clearIRReadings();
-		}else{
-		    //this sets back to center position if less than TOTAL_SORT_TIME
-		    output.sorterPosition = SorterPosition.MIDDLE;
-		}
-	    	
-	    }
-	    else{
-	    
-		double analogReading = input.photoReading;
-		systems.sorter.addColorDataPoint(analogReading);
-		if (systems.sorter.hasColorStreak()) {
-		    output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
-		    BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
-		    output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
-		    colorReadingFlag = false;
-		    //clear readings
-		    systems.sorter.clearColorReadings();
-		    systems.sorter.clearIRReadings();
-		} else {
-		    output.sorterMethod = SorterMethod.DO_NOTHING;
+
+		if (System.currentTimeMillis() - systems.sorter.getLastMovementTime() > 0.5*RobotMap.TOTAL_SORT_TIME) {
+			output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+			output.sorterPosition = SorterPosition.MIDDLE;		
 		}
 
-		}*/
-	    //systems.sorter.addDataPoint(analogReading);
-		if (RobotMap.AUTO_SORT) {
+	    if (!colorReadingFlag) {
+			systems.sorter.addIRDataPoint(irReading);
+			if(systems.sorter.hasIRStreak()){
+			    colorReadingFlag = true;
+				//empty ir array and color array
+		    	systems.sorter.clearColorReadings();
+		   		systems.sorter.clearIRReadings();
+			}
+		} else { //We've got a block, got to determine color
+	    
+			double analogReading = input.photoReading;
+			systems.sorter.addColorDataPoint(analogReading);
 			if (systems.sorter.hasColorStreak()) {
-					output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+				output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
 				BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
 				output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
+				colorReadingFlag = false;
+				//clear readings
+				systems.sorter.clearColorReadings();
+				systems.sorter.clearIRReadings();
 			} else {
 				output.sorterMethod = SorterMethod.DO_NOTHING;
 			}
+
 		}
-
-		int[] lineReadings = input.lineReadings;
-		HomeBaseTracker homeBaseTracker = getHomeBaseTracker();
-		homeBaseTracker.update(lineReadings);
-		isInHomeBase = homeBaseTracker.isInHomeBase();
-
 	}
 
-	//TODO: Line Following
-    }
+
+	//Home base tracking
+	int[] lineReadings = input.lineReadings;
+	HomeBaseTracker homeBaseTracker = getHomeBaseTracker();
+	homeBaseTracker.update(lineReadings);
+	isInHomeBase = homeBaseTracker.isInHomeBase();
+	}
 }
