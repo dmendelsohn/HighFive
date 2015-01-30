@@ -12,21 +12,11 @@ public class InstantiatedSystems{
 
     public MuxShield shield;
 
-    //public Encoder rightMotorEncoder;
-    //public Encoder conveyorMotorEncoder;
-    /*
-    // public Ultrasonic frontUltrasonic;
-    // public Ultrasonic leftBackUltrasonic;
-    // public Ultrasonic leftFrontUltrasonic;
-    // public Ultrasonic rightBackUltrasonic;
-    // public Ultrasonic rightFrontUltrasonic;
-    */
     public Aio colorSensor;
-
+    
     public Gyro gyro;
     public I2c i2c;
         
-
     public InstantiatedSystems(){
 	i2c = new I2c(6);
 	Pwm.initPwm(i2c);
@@ -37,31 +27,12 @@ public class InstantiatedSystems{
 	vision = new Vision();
 	shield = new MuxShield(0,1,2,3,4,5,6,1);
 
-
-	/*
-	//Encoder(int pinA, int pinB, boolean invertIn)
-	leftMotorEncoder = new Encoder(,,true);
-	rightMotorEncoder = new Encoder(,,false);
-	conveyorMotorEncoder = new Encoder(,,true);
-	*/
-	/*
-	//Ultrasonic(MuxShield muxIn, int trigPin, int echoPin)
-	frontUltrasonic = new Ultrasonic(shield,RobotMap.FRONT_ULTRASONIC_OUTPUT, RobotMap.FRONT_ULTRASONIC_INPUT);
-	leftBackUltrasonic = new Ultrasonic(shield,RobotMap.LEFT_BACK_ULTRASONIC_OUTPUT, RobotMap.LEFT_BACK_ULTRASONIC_INPUT);
-	leftFrontUltrasonic = new Ultrasonic(shield,RobotMap.LEFT_FRONT_ULTRASONIC_OUTPUT, RobotMap.LEFT_FRONT_ULTRASONIC_INPUT);
-	rightBackUltrasonic = new Ultrasonic(shield,RobotMap.RIGHT_BACK_ULTRASONIC_OUTPUT, RobotMap.RIGHT_BACK_ULTRASONIC_INPUT);
-	rightFrontUltrasonic = new Ultrasonic(shield,RobotMap.RIGHT_FRONT_ULTRASONIC_OUTPUT, RobotMap.RIGHT_FRONT_ULTRASONIC_INPUT);
-	*/			
-	
-			
 	//Gyro(SPI, CS DIO)
 	gyro = new Gyro(0, 10);
 			
-	colorSensor = new Aio(0);
+	colorSensor = new Aio(0);	
 	
 	startupGyro();
-	startupDriveEncoders();
-	startupConveyorEncoder();
     }
 
     public void kill(){
@@ -85,19 +56,6 @@ public class InstantiatedSystems{
 	gyro.delete();
     }
 
-    public void startupDriveEncoders(){
-	//leftMotorEncoder.start();
-	//rightMotorEncoder.start();
-    }
-
-    public void startupConveyorEncoder(){
-	//conveyorMotorEncoder.start();
-    }
-
-    public void stopConveyorEncoder(){
-	//conveyorMotorEncoder.delete();
-    }
-
     public double readGyroAngle(){
 	return gyro.getDegrees();	
     }
@@ -112,5 +70,13 @@ public class InstantiatedSystems{
 
     public int readRightFrontIRDist(){
 	return RobotMap.RIGHT_FRONT_IR_TRANS+(int)(shield.analogRead(RobotMap.RIGHT_FRONT_IR_INPUT)*RobotMap.RIGHT_FRONT_IR_SCALE);
+    }
+
+    public boolean readBlockIRBoolean(){
+	if (shield.digitalRead(RobotMap.BLOCK_IR_INPUT)==1){
+	    return false;
+	}else{
+	    return true;
+	}
     }
 }

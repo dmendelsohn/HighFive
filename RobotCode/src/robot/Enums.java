@@ -32,6 +32,7 @@ public class Enums {
 
 	public enum SorterMethod {
 		SET_SORTER_POSITION,
+		SET_SORTER_POSITION_REFINED,
 		DO_NOTHING
 	}
 

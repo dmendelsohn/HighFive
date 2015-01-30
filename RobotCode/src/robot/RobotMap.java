@@ -6,7 +6,7 @@ public class RobotMap{
 	//Game Constants
 	public static final BlockColor MY_COLOR = BlockColor.RED;
 	public static final HopperSide MY_HOPPER = HopperSide.LEFT;
-	public static final boolean AUTO_SORT = false;
+	public static final boolean AUTO_SORT = true;
 
     //PWM slots
     public static final int LEFT_MOTOR_PWM = 1;
@@ -23,10 +23,13 @@ public class RobotMap{
     public static final int CONVEYOR_MOTOR_DIO = 14;
 
     //MUX Shield slots
-    //Inputs
+    //Input
+    //Analog
     public static final int FRONT_IR_INPUT = 2;
     public static final int RIGHT_BACK_IR_INPUT = 0;
     public static final int RIGHT_FRONT_IR_INPUT = 1;
+    //Digital
+    public static final int BLOCK_IR_INPUT = 0; 
 
     //IR calibration values
     public static final int FRONT_IR_TRANS = 120;
@@ -82,5 +85,6 @@ public class RobotMap{
 
     //Time Constants
     public static final long TOTAL_SORT_TIME = 1500;
+
 }
 

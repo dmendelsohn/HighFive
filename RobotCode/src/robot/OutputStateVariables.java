@@ -8,6 +8,7 @@ public class OutputStateVariables{
 
     public SorterMethod sorterMethod;
     public SorterPosition sorterPosition;
+    //public long sorterTime;
 
     public HopperMethod hopperMethod;
     public boolean hopperLeftOpen = false;

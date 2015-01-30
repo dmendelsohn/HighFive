@@ -11,6 +11,8 @@ public class InputStateVariables{
     public int rightBackIRDist;
     public int rightFrontIRDist;
 
+    public boolean blockIRBoolean; //IR
+
     public boolean seesTarget; //vision
     public double howCentered; //vision
     public double boxDistance; //vision
@@ -30,7 +32,9 @@ public class InputStateVariables{
 	frontIRDist = systems.readFrontIRDist();
 	rightBackIRDist = systems.readRightBackIRDist();
 	rightFrontIRDist = systems.readRightFrontIRDist();
-
+	
+	blockIRBoolean = systems.readBlockIRBoolean();
+	
 //	System.out.println("front: " + frontIRDist);
 //	System.out.println("rightBack: " + rightBackIRDist);
 //	System.out.println("rightFront: " + rightFrontIRDist);

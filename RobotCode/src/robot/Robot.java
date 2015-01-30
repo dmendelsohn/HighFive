@@ -7,6 +7,7 @@ import jmraa.Utils;
 import static robot.Enums.*;
 
 public class Robot{
+
     static{System.loadLibrary("jmraa");}
 
     public StateBase state;
@@ -15,21 +16,23 @@ public class Robot{
     public RobotLogger logger;
 
     public boolean inEnemyZone;
+    public boolean colorReadingFlag;
 
     public Robot(){
-		runTime = System.currentTimeMillis();
-		state = new SorterColorTest();
-		systems = new InstantiatedSystems();
-		logger = new RobotLogger();
-		inEnemyZone = false;
+	runTime = System.currentTimeMillis();
+	state = new SorterColorTest();
+	systems = new InstantiatedSystems();
+	logger = new RobotLogger();
+	inEnemyZone = false;
+	colorReadingFlag = false;
     }
 
     public Robot(StateBase startingState) {
-		runTime = System.currentTimeMillis();
-		state = startingState;
-		systems = new InstantiatedSystems();
-		logger = new RobotLogger();
-		inEnemyZone = false;
+	runTime = System.currentTimeMillis();
+	state = startingState;
+	systems = new InstantiatedSystems();
+	logger = new RobotLogger();
+	inEnemyZone = false;
     }
 
     public static void main(String[] args){
@@ -155,6 +158,9 @@ public class Robot{
 	case SET_SORTER_POSITION:
 	    systems.sorter.setSorterPosition(output.sorterPosition);
 	    break;
+	    /*case SET_SORTER_POSITION_REFINED:
+	      systems.sorter.setSorterPositionRefined(output.sorterPosition);
+	      break;*/
 	case DO_NOTHING:
 	    systems.sorter.doNothing();
 	    break;
@@ -173,18 +179,47 @@ public class Robot{
 	}
     }
 
-	private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
-		//Sorting
+    private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
+	if(RobotMap.AUTO_SORT){
+	    //System.out.println("colorFlag:"+colorReadingFlag);
+	    //System.out.println("irReadings:" + systems.sorter.irReadings);
+	    //System.out.println("colorReadings:" + systems.sorter.colorReadings);
+	    boolean irReading = input.blockIRBoolean;
+	    System.out.println("irReading:"+irReading);
+	    /*
+	    if (!colorReadingFlag) {
+		
+		systems.sorter.addIRDataPoint(irReading);
+		if(systems.sorter.hasIRStreak()){
+		    colorReadingFlag = true;
+		    //empty ir array and color array
+		    systems.sorter.clearColorReadings();
+		    systems.sorter.clearIRReadings();
+		}else{
+		    //this sets back to center position if less than TOTAL_SORT_TIME
+		    output.sorterPosition = SorterPosition.MIDDLE;
+		}
+	    	
+	    }
+	    else{
+	    
 		double analogReading = input.photoReading;
-		systems.sorter.addDataPoint(analogReading);
-		if (RobotMap.AUTO_SORT && systems.sorter.hasColorStreak()) {
-			output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
-			BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
-			output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
+		systems.sorter.addColorDataPoint(analogReading);
+		if (systems.sorter.hasColorStreak()) {
+		    output.sorterMethod = SorterMethod.SET_SORTER_POSITION;
+		    BlockColor color = systems.sorter.getLastColor(); //Color of block to be sorted, can be NONE
+		    output.sorterPosition = systems.sorter.getSorterPositionForColor(color);  //Which side the sorter should move to (or middle)
+		    colorReadingFlag = false;
+		    //clear readings
+		    systems.sorter.clearColorReadings();
+		    systems.sorter.clearIRReadings();
 		} else {
-			output.sorterMethod = SorterMethod.DO_NOTHING;
+		    output.sorterMethod = SorterMethod.DO_NOTHING;
 		}
 
-		//TODO: Line Following
+		}*/
 	}
+
+	//TODO: Line Following
+    }
 }
