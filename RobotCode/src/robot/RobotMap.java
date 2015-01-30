@@ -43,6 +43,9 @@ public class RobotMap{
     public static final int MID_LINE_TRACKER = 5;
     public static final int BACK_LINE_TRACKER = 4;
 
+
+	public static final int RIGHT_FRONT_CONTACT_INPUT = 8;
+	public static final int RIGHT_BACK_CONTACT_INPUT = 7;
 	//IR calibration values
     public static final int FRONT_IR_TRANS = 120;
     public static final int RIGHT_BACK_IR_TRANS = 0;
@@ -114,6 +117,9 @@ public class RobotMap{
     //Time Constants
     public static final long THERE_SORT_TIME = 600;
     public static final long TOTAL_SORT_TIME = 1300;
-
+	public static final long ESCAPE_TURN_TIMEOUT = 800;
+	public static final long ESCAPE_FORWARD_TIMEOUT = 400;
+	public static final long ESCAPE_TIMEOUT = ESCAPE_TURN_TIMEOUT + ESCAPE_FORWARD_TIMEOUT + 100;
+	public static final long MAX_RUN_TIME = 300000;
 }
 

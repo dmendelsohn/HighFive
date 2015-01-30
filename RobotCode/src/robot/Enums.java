@@ -1,6 +1,13 @@
 package robot;
 
 public class Enums {
+	public enum Phase {
+		START,
+		COLLECTION,
+		DEPOSIT,
+		END
+	}
+
 	public enum BlockColor {
 		RED,
 		GREEN,

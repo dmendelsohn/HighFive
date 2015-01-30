@@ -11,15 +11,17 @@ public class Robot{
     static{System.loadLibrary("jmraa");}
 
     public StateBase state;
-    public static long runTime;
+	public long startTime;
     public InstantiatedSystems systems;
     public RobotLogger logger;
     public HomeBaseTracker homeBaseTracker;
 
-    public boolean inEnemyZone;
     public boolean colorReadingFlag;    
-    public boolean isInHomeBase;
+	public long escapeStartTime; //Since runTime
 
+	//Overall game constants
+	public boolean isInHomeBase;
+	public Phase phase;
 
     public Robot(){
 	runTime = System.currentTimeMillis();
@@ -36,19 +38,29 @@ public class Robot{
     }
     */
     public Robot(StateBase startingState) {
-		runTime = System.currentTimeMillis();
 		state = startingState;
 		systems = new InstantiatedSystems();
 		logger = new RobotLogger();
 		isInHomeBase = RobotMap.STARTS_IN_HOME_BASE;
 		homeBaseTracker = new HomeBaseTracker(isInHomeBase);
-		inEnemyZone = false;
+		startTime = System.currentTimeMillis();
+		escapeStartTime = System.currentTimeMillis();
     }
+
+	public long getRunTime() {
+		return System.currentTimeMillis() - startTime;
+	}
+
+	public long getEscapeTime() {
+		return System.currentTimeMillis() - escapeStartTime;
+	}
 
     public static void main(String[] args){
 	Robot robot;
 	if (args.length == 0) {
-	    robot = new Robot();
+	    System.out.println("No arguments given to main method");
+		System.exit(0);
+		robot = new Robot(new WallFollow()); //This will never happen, it's just to appease the compiler
 	} else {
 	    //Use first argument to determine test type
 	    StateBase startState = new ManualTest(); //This is to get Java to compile, it will be overwritten...
@@ -67,8 +79,9 @@ public class Robot{
 	InputStateVariables input;
 	OutputStateVariables output;
 		
-	while(System.currentTimeMillis()-runTime<3000000.){
+	while(robot.getRunTime() < RobotMap.MAX_RUN_TIME) {
 	    input = robot.generateInputStateVariables();
+		robot.updateRobotVariables(input); //This might switch the state if we need to escape from something
 	    robot.setState(input);
 	    output = robot.readState(input);
 	    robot.addPassiveOutputs(output, input);
@@ -193,6 +206,21 @@ public class Robot{
 	}
     }
 
+	private void updateRobotVariables(InputStateVariables input) {
+		//Home base tracking
+		int[] lineReadings = input.lineReadings;
+		HomeBaseTracker homeBaseTracker = getHomeBaseTracker();
+		homeBaseTracker.update(lineReadings);
+		this.isInHomeBase = homeBaseTracker.isInHomeBase();
+
+		if (getEscapeTime() > RobotMap.ESCAPE_TIMEOUT && input.rightFrontContact) {
+			System.out.println("Detected bumper contact");
+			escapeStartTime = System.currentTimeMillis();
+			StateBase returnState = state;
+			this.state = new Escape(returnState); //will return to current state after turning away from wall
+		}
+	}
+
     private void addPassiveOutputs(OutputStateVariables output, InputStateVariables input) {
 	output.conveyorMethod = ConveyorMethod.MOVE_BELT;
 	output.conveyorSpeed = 0.2;
@@ -205,9 +233,9 @@ public class Robot{
 			output.sorterPosition = SorterPosition.MIDDLE;
 		}
 		if(System.currentTimeMillis() - systems.sorter.getLastMovementTime() > RobotMap.TOTAL_SORT_TIME){
-		    output.conveyorMethod = ConveyorMethod.MOVE_BELT;
-		    output.conveyorSpeed = .15;
-		} else{
+			output.conveyorMethod = ConveyorMethod.MOVE_BELT;
+			output.conveyorSpeed = .12;
+		}else{
 		    output.conveyorMethod = ConveyorMethod.STOP_BELT;
 		}
 		
@@ -244,11 +272,5 @@ public class Robot{
 			//}
 	}
 
-
-	//Home base tracking
-	int[] lineReadings = input.lineReadings;
-	HomeBaseTracker homeBaseTracker = getHomeBaseTracker();
-	homeBaseTracker.update(lineReadings);
-	isInHomeBase = homeBaseTracker.isInHomeBase();
 	}
 }
