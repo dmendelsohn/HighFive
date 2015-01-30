@@ -23,7 +23,7 @@ public abstract class StateBase{
 		output.driveTrainMethod = DriveTrainMethod.DO_NOTHING;
 		output.conveyorMethod = ConveyorMethod.DO_NOTHING;
 		output.sorterMethod = SorterMethod.DO_NOTHING;
-		output.hopperMethod = HopperMethod.MOVE_BOTH;
+		output.hopperMethod = HopperMethod.DO_NOTHING;
 		output.zeroGyro = false;
 		return output;
 	}

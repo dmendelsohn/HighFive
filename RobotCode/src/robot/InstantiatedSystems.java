@@ -91,4 +91,12 @@ public class InstantiatedSystems{
 		result[2] = shield.analogRead(RobotMap.BACK_LINE_TRACKER);
 		return result;
 	}
+
+	public boolean getRightFrontContact() {
+		return (shield.digitalRead(RobotMap.RIGHT_FRONT_CONTACT_INPUT) == 1);
+	}
+
+	public boolean getRightBackContact() {
+		return (shield.digitalRead(RobotMap.RIGHT_BACK_CONTACT_INPUT) == 1 );
+	}
 }
