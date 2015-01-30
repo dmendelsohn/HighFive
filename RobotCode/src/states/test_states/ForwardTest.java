@@ -5,27 +5,36 @@ import robot.*;
 
 import static robot.Enums.*;
 
-public class WallFollowTest extends StateBase{
+public class ForwardTest extends StateBase{
+    private long followTime;
+
+    public ForwardTest(){
+	followTime = 3000;
+    }
+
+    public ForwardTest(long inputTime){
+	followTime = inputTime;
+    }
     @Override
     public OutputStateVariables getDefaultOutput() {
 	OutputStateVariables output = super.getDefaultOutput();
-	output.driveTrainMethod = DriveTrainMethod.PID_DRIVE_TWO_INPUTS;
-	output.driveTrainPidAngle = 0.0;
+	output.zeroGyro = true;
+	output.driveTrainMethod = DriveTrainMethod.PID_DRIVE;
 	output.driveTrainSpeed = 0.2;
+	output.driveTrainPidAngle = 0.0;
 	return output;
     }
 
     public OutputStateVariables run(InputStateVariables input){
 	OutputStateVariables output = getDefaultOutput();
-	
 	return output;
     }
 
     public StateBase getNext(InputStateVariables input){
-	if (getElapsedTime() > 60000){
-	    return new BoxSearchTest();
-	}else{	
-	return this;
+        if(super.getElapsedTime()>followTime){
+	    return new WallFollowTest();
+	} else{
+	    return this;
 	}
     }
 }

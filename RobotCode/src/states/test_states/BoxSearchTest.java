@@ -1,4 +1,4 @@
-package states;
+package states.test_states;
 import states.*;
 import states.test_states.*;
 import robot.*;
@@ -25,7 +25,7 @@ public class BoxSearchTest extends StateBase{
 	if(input.seesTarget){
 	    return new VisionTest();
 	}else if(super.getElapsedTime()>3000.){
-	    return new WallFollowTest();
+	    return new FindWallTest();
 	} else{
 	    return this;
 	}
