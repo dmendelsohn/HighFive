@@ -16,14 +16,16 @@ public class Sorter{
     private long lastMovement;
 	private SorterPosition currentPosition;
 
+	private BlockColor myColor;
+
 
     private ArrayList<BlockColor> colorReadings;
     private ArrayList<Boolean> irReadings;
 
-	public Sorter(I2c i2c){
+	public Sorter(I2c i2c, BlockColor myColor){
 		colorReadings = new ArrayList<BlockColor>();
 		irReadings = new ArrayList<Boolean>();
-
+		this.myColor = myColor;
 		Pwm.initPwm(i2c);
 
 		//Servo(I2c i2c, int pin, double bot, double top)
@@ -158,7 +160,7 @@ public class Sorter{
 
     public SorterPosition getSorterPositionForColor (BlockColor color) {
 	if (color != BlockColor.NONE) {
-	    if (RobotMap.MY_COLOR == color) {  //Friendly side
+	    if (myColor == color) {  //Friendly side
 		if (RobotMap.MY_HOPPER == HopperSide.LEFT) {
 		    return SorterPosition.LEFT;
 		} else {

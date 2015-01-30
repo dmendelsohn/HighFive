@@ -2,6 +2,8 @@ package robot;
 import subsystems.*;
 import jmraa.*;
 
+import static robot.Enums.*;
+
 public class InstantiatedSystems{
 
     public DriveTrain driveTrain;
@@ -17,11 +19,11 @@ public class InstantiatedSystems{
     public Gyro gyro;
     public I2c i2c;
         
-    public InstantiatedSystems(){
+    public InstantiatedSystems(BlockColor myColor){
 	i2c = new I2c(6);
 	Pwm.initPwm(i2c);
 	driveTrain = new DriveTrain(i2c);
-	sorter = new Sorter(i2c);
+	sorter = new Sorter(i2c, myColor);
 	hopper = new Hoppers(i2c);
 	conveyor = new ConveyorBelt(i2c);
 	vision = new Vision();
